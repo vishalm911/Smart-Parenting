@@ -1,0 +1,54 @@
+.scoreBar{display:flex;gap:0;background:var(--color-bg-card);border:2px solid var(--color-border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}
+.scoreItem{flex:1;text-align:center;padding:14px 8px;border-right:2px solid var(--color-border)}
+.scoreItem:last-child{border-right:none}
+.scoreNum{font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--color-secondary);display:block}
+.scoreLabel{font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.tabs{display:flex;border-bottom:2px solid var(--color-border);margin-bottom:24px;overflow-x:auto}
+.tab{padding:12px 20px;border:none;background:none;font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--color-text-secondary);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .18s}
+.tab:hover{color:var(--color-primary)}
+.tabActive{color:var(--color-secondary-dark)!important;border-bottom-color:var(--color-secondary)!important}
+.gameBox{background:var(--color-bg-elevated);border:2px solid var(--color-border);border-radius:var(--radius);padding:28px;margin-bottom:24px}
+.gameTitle{font-family:var(--font-heading);font-size:20px;font-weight:800;color:var(--color-text);margin-bottom:8px}
+/* Picture Match */
+.targetWord{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:24px;background:var(--color-bg-card);border-radius:var(--radius-sm);padding:16px;border:2px solid var(--color-border)}
+.targetText{font-family:var(--font-heading);font-size:32px;font-weight:800;color:var(--color-primary-dark)}
+.speakBtn{padding:8px 16px;border-radius:var(--radius-sm);border:2px solid var(--color-secondary);background:none;font-size:13px;font-weight:700;color:var(--color-secondary-dark);cursor:pointer;transition:all .18s}
+.speakBtn:hover{background:var(--color-secondary);color:#fff}
+.pictureGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:420px;margin:0 auto}
+.pictureCard{background:var(--color-bg-card);border:3px solid var(--color-border);border-radius:var(--radius);padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.pictureCard:hover{transform:scale(1.04);border-color:var(--color-accent-purple)}
+.picEmoji{font-size:48px}
+.picLabel{font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--color-text)}
+.picCorrect{border-color:var(--color-success)!important;background:#E8F5E9!important;animation:pop .3s}
+.picWrong{border-color:var(--color-error)!important;background:#FFEBEE!important;animation:shake .35s}
+.picDim{opacity:.5;pointer-events:none}
+[data-theme="dark"] .picCorrect{background:#1B3A1C!important}
+[data-theme="dark"] .picWrong{background:#3A1212!important}
+@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.gameFb{text-align:center;margin-top:16px;font-family:var(--font-heading);font-size:18px;font-weight:700}
+.fbOk{color:var(--color-success)}.fbErr{color:var(--color-error)}.fbWarn{color:var(--color-warning)}
+/* Word Builder */
+.wbTarget{text-align:center;margin-bottom:20px}
+.wbEmoji{font-size:56px;display:block;margin-bottom:8px}
+.wbHint{font-size:14px;color:var(--color-text-secondary);font-weight:600;margin-bottom:10px}
+.wbSlots{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.wbSlot{width:50px;height:58px;border-radius:var(--radius-sm);border:3px dashed var(--color-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:24px;font-weight:800;color:var(--color-text);background:var(--color-bg-card);cursor:pointer;transition:all .2s}
+.slotFilled{border-style:solid;border-color:var(--color-secondary);background:var(--color-secondary-light)}
+.slotCorrect{border-color:var(--color-success)!important;background:#E8F5E9!important}
+[data-theme="dark"] .slotCorrect{background:#1B3A1C!important}
+.wbLetters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.wbLetter{width:46px;height:50px;border-radius:var(--radius-sm);border:3px solid var(--color-border);background:var(--color-bg-card);font-family:var(--font-heading);font-size:20px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text);transition:all .18s}
+.wbLetter:hover{border-color:var(--color-primary);transform:translateY(-2px)}
+.letterUsed{opacity:.3;pointer-events:none}
+/* Flashcards */
+.flashGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.flashCard{background:var(--color-bg-card);border:2px solid var(--color-border);border-radius:var(--radius);padding:18px 12px;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.flashCard:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--color-accent-purple)}
+.flipped{background:var(--gradient-cosmic);border-color:var(--color-accent-purple)}
+.flipped .flashWord,.flipped .flashMeaning{color:#fff}
+.flashEmoji{font-size:44px;display:block;margin-bottom:8px}
+.flashWord{font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--color-text)}
+.flashMeaning{font-size:12px;color:var(--color-text-secondary);font-weight:600;line-height:1.4}
+.flashSpeak{position:absolute;top:8px;right:8px;background:var(--color-bg-elevated);border:none;border-radius:50%;width:26px;height:26px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.flashSpeak:hover{background:var(--color-secondary-light)}
