@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- House outline -->
+  <path d="M50 10 L85 42 L80 42 L80 85 L20 85 L20 42 L15 42 Z" fill="none" stroke="#111111" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Tree trunk -->
+  <line x1="28" y1="85" x2="28" y2="60" stroke="#111111" stroke-width="4" stroke-linecap="round"/>
+  <!-- Tree canopy -->
+  <circle cx="28" cy="52" r="14" fill="#F5A623"/>
+  <!-- Adult figure (black) -->
+  <circle cx="62" cy="44" r="6" fill="#111111"/>
+  <path d="M62 50 Q62 70 62 75" stroke="#111111" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M62 60 Q52 67 48 72" stroke="#111111" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Child figure (golden) -->
+  <circle cx="46" cy="62" r="5" fill="#F5A623"/>
+  <path d="M46 67 Q46 77 46 80" stroke="#F5A623" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Ground curve -->
+  <path d="M10 85 Q50 78 90 85" fill="none" stroke="#111111" stroke-width="3"/>
+</svg>
