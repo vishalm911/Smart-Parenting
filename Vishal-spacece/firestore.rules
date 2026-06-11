@@ -3,39 +3,135 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Authentication
     function isAuthenticated() {
       return request.auth != null;
     }
 
+    // Roles
+    function isChild() {
+      return isAuthenticated() &&
+             request.auth.token.role == "child";
+    }
+
+    function isParent() {
+      return isAuthenticated() &&
+             request.auth.token.role == "parent";
+    }
+
+    function isTeacher() {
+      return isAuthenticated() &&
+             request.auth.token.role == "teacher";
+    }
+
     function isAdmin() {
-      return isAuthenticated()
-        && request.auth.token.role == "admin";
+      return isAuthenticated() &&
+             request.auth.token.role == "admin";
     }
 
+    // Child Profiles
     match /child_profiles/{childId} {
-      allow read, write: if isAuthenticated();
+      allow read: if isAuthenticated();
+      allow create, update: if isParent() || isAdmin();
+      allow delete: if isAdmin();
     }
 
+    // Assessments
     match /assessments/{assessmentId} {
+      allow read: if isAuthenticated();
+
       allow create: if isAuthenticated()
         && request.resource.data.score >= 0
         && request.resource.data.score <= 100;
 
-      allow read: if isAuthenticated();
+      allow update: if isTeacher() || isAdmin();
+      allow delete: if isAdmin();
     }
 
-    match /recommendations/{id} {
+    // Progress Tracking
+    match /progress_tracking/{id} {
       allow read: if isAuthenticated();
-      allow write: if isAdmin();
+      allow create, update: if isTeacher() || isAdmin();
+      allow delete: if isAdmin();
     }
 
-    match /notifications/{id} {
-      allow read, write: if isAuthenticated();
+    // Reports
+    match /reports/{reportId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isTeacher() || isAdmin();
+      allow delete: if isAdmin();
     }
 
-    match /reports/{id} {
+    // Recommendations
+    match /recommendations/{recommendationId} {
       allow read: if isAuthenticated();
-      allow write: if isAdmin();
+      allow create, update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // AI Analysis
+    match /ai_analysis/{analysisId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read, create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Achievements
+    match /achievements/{achievementId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isTeacher() || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Avatars
+    match /avatars/{avatarId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Stories
+    match /stories/{storyId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isTeacher() || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // User Accounts
+    match /user_accounts/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    // Sessions
+    match /sessions/{sessionId} {
+      allow read, create: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // Audit Logs
+    match /audit_logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    // App Config
+    match /app_config/{configId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

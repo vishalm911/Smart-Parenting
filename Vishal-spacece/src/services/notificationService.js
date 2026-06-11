@@ -1,29 +1,41 @@
-import {
-  collection,
-  addDoc,
-  getDocs
-} from "firebase/firestore";
+export const createNotification = (
+  childId,
+  parentId,
+  message,
+  type
+) => {
 
-import { getDb } from "../firebase/firebase";
-
-export const createNotification = async (notificationData) => {
-  const db = getDb();
-
-  return await addDoc(
-    collection(db, "notifications"),
-    notificationData
-  );
+  return {
+    childId,
+    parentId,
+    message,
+    type,
+    createdAt: new Date(),
+    readStatus: false
+  };
 };
 
-export const getNotifications = async () => {
-  const db = getDb();
+export const getNotifications = (
+  parentId
+) => {
 
-  const snapshot = await getDocs(
-    collection(db, "notifications")
-  );
+  return [];
+};
 
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
+export const markAsRead = (
+  notificationId
+) => {
+
+  return {
+    success: true
+  };
+};
+
+export const deleteNotification = (
+  notificationId
+) => {
+
+  return {
+    success: true
+  };
 };

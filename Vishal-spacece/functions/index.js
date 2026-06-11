@@ -4,46 +4,87 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
+/**
+ * createChildProfile
+ */
 export const createChildProfile = async (data) => {
-  const docRef = await db.collection("child_profiles").add({
+  const childProfile = {
     ...data,
     created_at: new Date(),
-    updated_at: new Date()
-  });
+    updated_at: new Date(),
+    coins: 0,
+    stars: 0
+  };
 
-  return docRef.id;
+  const docRef = await db
+    .collection("child_profiles")
+    .add(childProfile);
+
+  return {
+    success: true,
+    id: docRef.id
+  };
 };
 
+/**
+ * updateActivityScore
+ */
 export const updateActivityScore = async (
   childId,
-  score
+  activityId,
+  score,
+  domain
 ) => {
 
-  await db.collection("assessments").add({
-    childId,
+  const batch = db.batch();
+
+  const assessmentRef = db
+    .collection("assessments")
+    .doc();
+
+  batch.set(assessmentRef, {
+    child_id: childId,
+    activity_id: activityId,
     score,
+    domain,
     created_at: new Date()
   });
 
-  await db
+  const progressRef = db
     .collection("progress_tracking")
-    .doc(childId)
-    .set(
-      {
-        latestScore: score,
-        updated_at: new Date()
-      },
-      { merge: true }
-    );
+    .doc(childId);
+
+  batch.set(
+    progressRef,
+    {
+      latest_score: score,
+      domain,
+      updated_at: new Date()
+    },
+    { merge: true }
+  );
+
+  await batch.commit();
+
+  return {
+    success: true
+  };
 };
 
+/**
+ * getRecommendations
+ */
 export const getRecommendations = async (
   childId
 ) => {
 
   const snapshot = await db
     .collection("recommendations")
-    .where("childId", "==", childId)
+    .where(
+      "child_id",
+      "==",
+      childId
+    )
     .limit(3)
     .get();
 
@@ -52,28 +93,42 @@ export const getRecommendations = async (
   );
 };
 
+/**
+ * generateWeeklyReport
+ */
 export const generateWeeklyReport = async (
   childId
 ) => {
 
   const report = {
-    childId,
-    generatedAt: new Date(),
-    status: "generated"
+    child_id: childId,
+    generated_at: new Date(),
+    status: "completed"
   };
 
-  await db.collection("reports").add(report);
+  await db
+    .collection("reports")
+    .add(report);
 
   return report;
 };
 
+/**
+ * flagLearningDelay
+ */
 export const flagLearningDelay = async (
   childId
 ) => {
 
-  await db.collection("ai_analysis").add({
-    childId,
-    learning_delay_flag: true,
-    created_at: new Date()
-  });
+  await db
+    .collection("ai_analysis")
+    .add({
+      child_id: childId,
+      learning_delay_flag: true,
+      created_at: new Date()
+    });
+
+  return {
+    success: true
+  };
 };

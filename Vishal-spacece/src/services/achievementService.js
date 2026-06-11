@@ -1,11 +1,12 @@
 export const unlockAchievement = (
-  score
+  score,
+  domain
 ) => {
 
   if (score >= 90) {
     return {
       unlocked: true,
-      badge: "Top Performer"
+      badge: `${domain} Champion`
     };
   }
 
