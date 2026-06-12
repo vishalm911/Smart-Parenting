@@ -41,7 +41,7 @@ export function UserProvider({ children }) {
   useEffect(() => {
     if (activeChild) {
       const syncProfile = async () => {
-        setUser({ uid: activeChild.id, isAnonymous: false });
+        setUser({ uid: activeChild.id, isAnonymous: false, displayName: activeChild.name });
         const prof = await getUserProfile(activeChild.id);
         setProfile(prof);
         setLoading(false);
@@ -56,8 +56,8 @@ export function UserProvider({ children }) {
       const childId = localStorage.getItem('spaceece_child_id');
       const role = localStorage.getItem('spaceece_role');
       if (role === 'child' && childId) {
-        setUser({ uid: childId, isAnonymous: false });
         const prof = await getUserProfile(childId);
+        setUser({ uid: childId, isAnonymous: false, displayName: prof?.name || 'Child' });
         setProfile(prof);
         setLoading(false);
         return;

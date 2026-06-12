@@ -1,7 +1,7 @@
 // src/components/StoryReader.jsx
 // Full-screen reader: TTS narration, highlighting, multiple quiz support, completion screen
 import { useState, useEffect, useRef } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useUser } from "../../../context/UserContext";
 import { saveLanguageScore, getStories } from "../firebase/firestoreService";
 import { storiesData as defaultStories } from "../data/storiesData";
 import s from "./StoryReader.module.css";
@@ -20,7 +20,7 @@ const speak = (text, onEnd) => {
 const stopSpeak = () => window.speechSynthesis?.cancel();
 
 export default function StoryReader({ story, startPage = 0, onPageChange, onComplete, onClose }) {
-  const { user }     = useAuth();
+  const { user }     = useUser();
   const [page, setPage]         = useState(startPage);
   const [speaking, setSpeaking] = useState(false);
   const [quizIndex, setQuizIndex] = useState(0);       // which quiz question we're on

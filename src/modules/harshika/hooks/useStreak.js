@@ -1,6 +1,6 @@
 // src/hooks/useStreak.js
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useUser } from "../../../context/UserContext";
 import { getStreak, markTodayActive } from "../firebase/firestoreService";
 
 /**
@@ -10,7 +10,7 @@ import { getStreak, markTodayActive } from "../firebase/firestoreService";
  *  loading     – fetching from Firestore
  */
 export function useStreak() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const [streakDays,  setStreakDays]  = useState(Array(7).fill(false));
   const [streakCount, setStreakCount] = useState(0);
   const [loading,     setLoading]     = useState(true);
