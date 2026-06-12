@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import BottomNav from './BottomNav';
 import Mascot from './Mascot';
 import { useUser } from '../../context/UserContext';
 
@@ -19,6 +20,9 @@ export default function Layout() {
     <>
       {/* Sidebar / Navbar */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
+      {/* Mobile Bottom Navigation */}
+      <BottomNav />
 
       {/* Main content area */}
       <div className={`main-content ${showNavbar ? 'has-navbar' : ''}`}>

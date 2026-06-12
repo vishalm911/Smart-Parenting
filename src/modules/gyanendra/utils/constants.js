@@ -70,6 +70,8 @@ export const NAV_MENUS = {
     { label: 'Dashboard', path: ROUTES.PARENT_DASHBOARD, icon: 'Dashboard' },
     { label: 'Children', path: ROUTES.PARENT_CHILDREN, icon: 'ChildCare' },
     { label: 'Switch Child', path: ROUTES.PARENT_SWITCH_CHILD, icon: 'SwapHoriz' },
+    { label: 'Analytics', path: '/parent/analytics', icon: 'Dashboard' },
+    { label: 'Reports', path: '/parent/reports', icon: 'Dashboard' },
     { label: 'Settings', path: ROUTES.PARENT_SETTINGS, icon: 'Settings' },
   ],
   [ROLES.TEACHER]: [

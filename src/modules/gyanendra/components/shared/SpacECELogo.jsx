@@ -26,7 +26,7 @@
  *   alt        string
  */
 
-import logoSrc from '../../assets/spaceece-logo.png';
+import logoSrc from '../../../../assets/spaceece-logo.png';
 
 /* ── Glassmorphism card decoration data ─────────────────────────────────── */
 

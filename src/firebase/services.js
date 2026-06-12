@@ -39,6 +39,7 @@ import {
   limit,
   serverTimestamp,
   increment,
+  arrayUnion,
 } from 'firebase/firestore';
 import {
   signInWithEmailAndPassword,
@@ -104,34 +105,69 @@ export async function logout() {
    USER PROFILE  →  collection: users
 ══════════════════════════════════════════ */
 
+function getUserCollection() {
+  const role = localStorage.getItem('spaceece_role');
+  const childId = localStorage.getItem('spaceece_child_id');
+  if (role === 'child' || childId) {
+    return 'child_profiles';
+  }
+  return 'users';
+}
+
 /**
  * Create a default user profile document if it doesn't exist.
  */
 export async function initUserProfile(uid, name = 'Ayush') {
-  const ref = doc(db, 'users', uid);
+  const collName = getUserCollection();
+  const ref = doc(db, collName, uid);
   const snap = await getDoc(ref);
   if (!snap.exists()) {
-    await setDoc(ref, {
-      name,
-      avatar: 'Alex',
-      coins: 50,
-      xp: 0,
-      stars: 0,
-      badges: 0,
-      dayStreak: 0,
-      level: 1,
-      lastLogin: serverTimestamp(),
-      progress: {
-        mathWorld: 0,
-        puzzleWorld: 0,
-        numberAdventure: 0,
-        logicIsland: 0,
-      },
-      createdAt: serverTimestamp(),
-      updated_at: serverTimestamp(),
-    });
+    if (collName === 'child_profiles') {
+      await setDoc(ref, {
+        name,
+        avatar: 'Alex',
+        coin_count: 50,
+        xp: 0,
+        stars: 0,
+        badges: [],
+        dayStreak: 0,
+        level: 1,
+        progress: {
+          mathWorld: 0,
+          puzzleWorld: 0,
+          numberAdventure: 0,
+          logicIsland: 0,
+        },
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
+      });
+    } else {
+      await setDoc(ref, {
+        name,
+        avatar: 'Alex',
+        coins: 50,
+        xp: 0,
+        stars: 0,
+        badges: 0,
+        dayStreak: 0,
+        level: 1,
+        lastLogin: serverTimestamp(),
+        progress: {
+          mathWorld: 0,
+          puzzleWorld: 0,
+          numberAdventure: 0,
+          logicIsland: 0,
+        },
+        createdAt: serverTimestamp(),
+        updated_at: serverTimestamp(),
+      });
+    }
   } else {
-    await updateDoc(ref, { lastLogin: serverTimestamp(), updated_at: serverTimestamp() });
+    if (collName === 'child_profiles') {
+      await updateDoc(ref, { updated_at: serverTimestamp() });
+    } else {
+      await updateDoc(ref, { lastLogin: serverTimestamp(), updated_at: serverTimestamp() });
+    }
   }
 }
 
@@ -140,8 +176,32 @@ export async function getUserProfile(uid) {
     return { id: uid, ...mockProfile };
   }
   try {
-    const snap = await getDoc(doc(db, 'users', uid));
-    if (snap.exists()) return { id: snap.id, ...snap.data() };
+    const collName = getUserCollection();
+    const snap = await getDoc(doc(db, collName, uid));
+    if (snap.exists()) {
+      const data = snap.data();
+      if (collName === 'child_profiles') {
+        return {
+          id: snap.id,
+          name: data.name || 'Child',
+          avatar: data.avatar || 'Alex',
+          coins: data.coin_count ?? 50,
+          xp: data.xp ?? 0,
+          stars: data.stars ?? 0,
+          dayStreak: data.dayStreak ?? 0,
+          badges: Array.isArray(data.badges) ? data.badges.length : (data.badges ?? 0),
+          level: data.level ?? 1,
+          progress: data.progress || {
+            mathWorld: 0,
+            puzzleWorld: 0,
+            numberAdventure: 0,
+            logicIsland: 0,
+          },
+          ...data
+        };
+      }
+      return { id: snap.id, ...data };
+    }
     return null;
   } catch (e) {
     console.error('getUserProfile:', e);
@@ -155,7 +215,8 @@ export async function updateUserProfile(uid, data) {
     return true;
   }
   try {
-    await updateDoc(doc(db, 'users', uid), { ...data, updated_at: serverTimestamp() });
+    const collName = getUserCollection();
+    await updateDoc(doc(db, collName, uid), { ...data, updated_at: serverTimestamp() });
     return true;
   } catch (e) {
     console.error('updateUserProfile:', e);
@@ -180,16 +241,20 @@ export async function awardProgress(uid, { xp = 0, stars = 0, coins = 0, module 
     return true;
   }
   try {
+    const collName = getUserCollection();
     const updates = {
       xp: increment(xp),
       stars: increment(stars),
       coins: increment(coins),
       updated_at: serverTimestamp(),
     };
+    if (collName === 'child_profiles') {
+      updates.coin_count = increment(coins);
+    }
     if (module) {
       updates[`progress.${module}`] = increment(xp);
     }
-    await updateDoc(doc(db, 'users', uid), updates);
+    await updateDoc(doc(db, collName, uid), updates);
 
     // Also write to shared progress_tracking collection (Aditya reads this)
     if (module && xp > 0) {
@@ -235,7 +300,7 @@ export async function updateDayStreak(uid) {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
       });
-      await updateDoc(doc(db, 'users', uid), { dayStreak: 1 });
+      await updateDoc(doc(db, getUserCollection(), uid), { dayStreak: 1 });
       return 1;
     }
 
@@ -254,7 +319,7 @@ export async function updateDayStreak(uid) {
       last_active_date: today,
       updated_at: serverTimestamp(),
     });
-    await updateDoc(doc(db, 'users', uid), { dayStreak: newStreak, updated_at: serverTimestamp() });
+    await updateDoc(doc(db, getUserCollection(), uid), { dayStreak: newStreak, updated_at: serverTimestamp() });
     return newStreak;
   } catch (e) {
     console.error('updateDayStreak:', e);
@@ -349,10 +414,18 @@ export async function checkAndUnlockAchievements(uid, profile) {
           created_at: serverTimestamp(),
         });
         // Increment badge count on user profile
-        await updateDoc(doc(db, 'users', uid), {
-          badges: increment(1),
-          updated_at: serverTimestamp(),
-        });
+        const collName = getUserCollection();
+        if (collName === 'child_profiles') {
+          await updateDoc(doc(db, 'child_profiles', uid), {
+            badges: arrayUnion(milestone.id),
+            updated_at: serverTimestamp(),
+          });
+        } else {
+          await updateDoc(doc(db, 'users', uid), {
+            badges: increment(1),
+            updated_at: serverTimestamp(),
+          });
+        }
         // Send parent notification
         await addDoc(collection(db, 'notifications'), {
           child_id: uid,

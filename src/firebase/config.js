@@ -2,7 +2,7 @@
  * Firebase Configuration — SpacECE
  * Initializes: App, Firestore, Auth, Analytics
  */
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getAnalytics, isSupported } from 'firebase/analytics';
@@ -17,7 +17,7 @@ const firebaseConfig = {
   measurementId:     import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 export const db   = getFirestore(app);
 export const auth = getAuth(app);

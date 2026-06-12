@@ -3,11 +3,10 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
 const NAV_ITEMS = [
-  { path: '/', label: 'Home', emoji: '🏠' },
-  { path: '/math-world', label: 'Math', emoji: '🔢' },
-  { path: '/puzzle-world', label: 'Puzzle', emoji: '🧩' },
-  { path: '/number-adventure', label: 'Adventure', emoji: '🗺️' },
-  { path: '/logic-island', label: 'Logic', emoji: '🧠' },
+  { path: '/child/dashboard',     label: 'Home',     emoji: '🏠' },
+  { path: '/child/reading-world', label: 'Language', emoji: '📖' },
+  { path: '/child/explore',       label: 'Explore',  emoji: '🗺️' },
+  { path: '/child/awards',        label: 'Awards',   emoji: '🏆' },
 ];
 
 export default function BottomNav() {

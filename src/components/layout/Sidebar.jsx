@@ -4,11 +4,12 @@ import logoImg from '../../assets/logo.jpeg';
 import './Sidebar.css';
 
 const NAV_ITEMS = [
-  { path: '/',          label: 'Home',     icon: '🏠' },
-  { path: '/adventure', label: 'Explore',  icon: '🗺️' },
-  { path: '/awards',    label: 'Awards',   icon: '🏆' },
-  { path: '/avatar',    label: 'Avatar',   icon: '👤' },
-  { path: '/settings',  label: 'Settings', icon: '⚙️' },
+  { path: '/child/dashboard',     label: 'Home',     icon: '🏠' },
+  { path: '/child/explore',       label: 'Explore',  icon: '🗺️' },
+  { path: '/child/reading-world', label: 'Language', icon: '📖' },
+  { path: '/child/awards',        label: 'Awards',   icon: '🏆' },
+  { path: '/child/avatar',        label: 'Avatar',   icon: '👤' },
+  { path: '/child/settings',      label: 'Settings', icon: '⚙️' },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -23,7 +24,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
       <nav className={`navbar ${isOpen ? 'open' : ''}`} id="main-navbar">
         <div className="navbar-header">
-          <Link to="/" className="navbar-brand" onClick={onClose}>
+          <Link to="/child/dashboard" className="navbar-brand" onClick={onClose}>
             <div className="brand-logo">
               <img src={logoImg} alt="SpacECE" className="navbar-logo" />
             </div>
@@ -54,7 +55,7 @@ export default function Sidebar({ isOpen, onClose }) {
             <NavLink
               key={tab.path}
               to={tab.path}
-              end={tab.path === '/'}
+              end={tab.path === '/child/dashboard'}
               className={({ isActive }) => `navbar-tab ${isActive ? 'active' : ''}`}
               id={`nav-${tab.path.slice(1) || 'home'}`}
               onClick={onClose}

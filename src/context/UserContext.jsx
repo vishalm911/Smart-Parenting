@@ -8,6 +8,7 @@ import {
   endSession,
   checkAndUnlockAchievements,
 } from '../firebase/services';
+import { useChildProfile } from '../modules/gyanendra/context/ChildProfileContext';
 
 const UserContext = createContext();
 
@@ -32,8 +33,36 @@ export function UserProvider({ children }) {
   // Tracks active session doc ID so we can close it on logout
   const sessionId  = useRef(null);
 
+  // Read active child profile from Gyanendra's context
+  const childCtx = useChildProfile();
+  const activeChild = childCtx?.activeChild;
+
+  // Sync when activeChild changes (switching profiles in parent view)
+  useEffect(() => {
+    if (activeChild) {
+      const syncProfile = async () => {
+        setUser({ uid: activeChild.id, isAnonymous: false });
+        const prof = await getUserProfile(activeChild.id);
+        setProfile(prof);
+        setLoading(false);
+      };
+      syncProfile();
+    }
+  }, [activeChild]);
+
   useEffect(() => {
     const unsub = onAuthChange(async (firebaseUser) => {
+      // Check local storage for active child session first
+      const childId = localStorage.getItem('spaceece_child_id');
+      const role = localStorage.getItem('spaceece_role');
+      if (role === 'child' && childId) {
+        setUser({ uid: childId, isAnonymous: false });
+        const prof = await getUserProfile(childId);
+        setProfile(prof);
+        setLoading(false);
+        return;
+      }
+
       if (firebaseUser) {
         loggedOut.current = false;
         setUser(firebaseUser);
