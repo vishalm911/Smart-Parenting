@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   collection, getDocs, addDoc, updateDoc, deleteDoc,
@@ -59,9 +59,18 @@ export default function AdminPanel() {
   };
 
   useEffect(() => {
-    setLoading(true);
-    const loaders = { math: fetchMath, puzzle: fetchPuzzle, logic: fetchLogic, scores: fetchScores };
-    loaders[activeTab]?.().finally(() => setLoading(false));
+    let active = true;
+    const loadData = async () => {
+      await Promise.resolve();
+      if (!active) return;
+      setLoading(true);
+      const loaders = { math: fetchMath, puzzle: fetchPuzzle, logic: fetchLogic, scores: fetchScores };
+      await loaders[activeTab]?.();
+      if (!active) return;
+      setLoading(false);
+    };
+    loadData();
+    return () => { active = false; };
   }, [activeTab]);
 
   /* ── Generic CRUD ── */
@@ -98,7 +107,7 @@ export default function AdminPanel() {
       await deleteDoc(doc(db, colName, id));
       showToast('Deleted');
       await fetchFn();
-    } catch (e) {
+    } catch {
       showToast('Delete failed', 'error');
     }
   };
@@ -151,7 +160,7 @@ export default function AdminPanel() {
   /* ═══════════════════════════════
      MATH GAMES TAB
   ═══════════════════════════════ */
-  const MathTab = () => (
+  const renderMathTab = () => (
     <div className="space-y-6">
       {/* Form */}
       <div className="card p-6">
@@ -211,7 +220,7 @@ export default function AdminPanel() {
   /* ═══════════════════════════════
      PUZZLE GAMES TAB
   ═══════════════════════════════ */
-  const PuzzleTab = () => (
+  const renderPuzzleTab = () => (
     <div className="space-y-6">
       <div className="card p-6">
         <h3 className="font-bold text-base mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -262,7 +271,7 @@ export default function AdminPanel() {
   /* ═══════════════════════════════
      LOGIC GAMES TAB
   ═══════════════════════════════ */
-  const LogicTab = () => (
+  const renderLogicTab = () => (
     <div className="space-y-6">
       <div className="card p-6">
         <h3 className="font-bold text-base mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -325,7 +334,7 @@ export default function AdminPanel() {
   /* ═══════════════════════════════
      SCORES TAB
   ═══════════════════════════════ */
-  const ScoresTab = () => (
+  const renderScoresTab = () => (
     <div className="card p-6">
       <div className="flex items-center justify-between mb-5">
         <h3 className="font-bold text-base" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -368,7 +377,7 @@ export default function AdminPanel() {
     </div>
   );
 
-  const tabContent = { math: <MathTab />, puzzle: <PuzzleTab />, logic: <LogicTab />, scores: <ScoresTab /> };
+  const tabContent = { math: renderMathTab(), puzzle: renderPuzzleTab(), logic: renderLogicTab(), scores: renderScoresTab() };
 
   return (
     <div className="relative min-h-screen">

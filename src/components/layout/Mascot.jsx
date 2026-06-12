@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useUser } from '../../context/UserContext';
 
 const MASCOT_MESSAGES = [
   "I'm here if you need me! 🤗",

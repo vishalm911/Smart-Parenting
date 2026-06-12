@@ -50,6 +50,26 @@ import {
 } from 'firebase/auth';
 import { db, auth } from './config';
 
+// ─── Local Mock Profile Fallback (Offline / Restricted Environment Mode) ───
+let mockProfile = {
+  name: 'Ayush (Local Mode)',
+  avatar: 'Alex',
+  coins: 120,
+  xp: 350,
+  stars: 25,
+  badges: 3,
+  dayStreak: 5,
+  level: 3,
+  progress: {
+    mathWorld: 40,
+    puzzleWorld: 20,
+    numberAdventure: 10,
+    logicIsland: 5,
+  }
+};
+
+const mockUnlockedIds = new Set(['first-game', 'streak-3']);
+
 /* ══════════════════════════════════════════
    AUTH
 ══════════════════════════════════════════ */
@@ -116,6 +136,9 @@ export async function initUserProfile(uid, name = 'Ayush') {
 }
 
 export async function getUserProfile(uid) {
+  if (uid === 'mock-user-123') {
+    return { id: uid, ...mockProfile };
+  }
   try {
     const snap = await getDoc(doc(db, 'users', uid));
     if (snap.exists()) return { id: snap.id, ...snap.data() };
@@ -127,6 +150,10 @@ export async function getUserProfile(uid) {
 }
 
 export async function updateUserProfile(uid, data) {
+  if (uid === 'mock-user-123') {
+    mockProfile = { ...mockProfile, ...data };
+    return true;
+  }
   try {
     await updateDoc(doc(db, 'users', uid), { ...data, updated_at: serverTimestamp() });
     return true;
@@ -141,6 +168,17 @@ export async function updateUserProfile(uid, data) {
  * Also writes to progress_tracking collection.
  */
 export async function awardProgress(uid, { xp = 0, stars = 0, coins = 0, module = '' }) {
+  if (uid === 'mock-user-123') {
+    mockProfile.xp += xp;
+    mockProfile.stars += stars;
+    mockProfile.coins += coins;
+    mockProfile.level = Math.floor(mockProfile.xp / 100) + 1;
+    if (module) {
+      if (!mockProfile.progress) mockProfile.progress = {};
+      mockProfile.progress[module] = (mockProfile.progress[module] || 0) + xp;
+    }
+    return true;
+  }
   try {
     const updates = {
       xp: increment(xp),
@@ -179,7 +217,11 @@ export async function awardProgress(uid, { xp = 0, stars = 0, coins = 0, module 
 ══════════════════════════════════════════ */
 
 export async function updateDayStreak(uid) {
+  if (uid === 'mock-user-123') {
+    return mockProfile.dayStreak;
+  }
   try {
+    await initUserProfile(uid);
     const ref = doc(db, 'streaks', uid);
     const snap = await getDoc(ref);
     const today = new Date().toDateString();
@@ -226,6 +268,9 @@ export async function updateDayStreak(uid) {
 ══════════════════════════════════════════ */
 
 export async function startSession(uid) {
+  if (uid === 'mock-user-123') {
+    return 'mock-session-123';
+  }
   try {
     const ref = await addDoc(collection(db, 'sessions'), {
       uid,
@@ -242,7 +287,7 @@ export async function startSession(uid) {
 }
 
 export async function endSession(sessionId) {
-  if (!sessionId) return;
+  if (!sessionId || sessionId === 'mock-session-123') return;
   try {
     await updateDoc(doc(db, 'sessions', sessionId), {
       logout_time: serverTimestamp(),
@@ -274,6 +319,17 @@ const ACHIEVEMENT_MILESTONES = [
  */
 export async function checkAndUnlockAchievements(uid, profile) {
   if (!uid || !profile) return [];
+  if (uid === 'mock-user-123') {
+    const newUnlocks = [];
+    for (const milestone of ACHIEVEMENT_MILESTONES) {
+      if (!mockUnlockedIds.has(milestone.id) && milestone.condition(profile)) {
+        mockUnlockedIds.add(milestone.id);
+        mockProfile.badges += 1;
+        newUnlocks.push(milestone);
+      }
+    }
+    return newUnlocks;
+  }
   try {
     // Fetch already-unlocked achievements
     const existing = await getDocs(query(collection(db, 'achievements'), where('child_id', '==', uid)));
@@ -322,6 +378,9 @@ export async function checkAndUnlockAchievements(uid, profile) {
 ══════════════════════════════════════════ */
 
 export async function getMathGames(ageGroup) {
+  if (!auth.currentUser) {
+    return [];
+  }
   try {
     const ref = collection(db, 'math_games');
     const q = ageGroup ? query(ref, where('age_group', '==', ageGroup)) : query(ref);
@@ -334,6 +393,9 @@ export async function getMathGames(ageGroup) {
 }
 
 export async function getPuzzleGames(ageGroup) {
+  if (!auth.currentUser) {
+    return [];
+  }
   try {
     const ref = collection(db, 'puzzle_games');
     const q = ageGroup ? query(ref, where('age_group', '==', ageGroup)) : query(ref);
@@ -346,6 +408,9 @@ export async function getPuzzleGames(ageGroup) {
 }
 
 export async function getLogicGames(ageGroup) {
+  if (!auth.currentUser) {
+    return [];
+  }
   try {
     const ref = collection(db, 'logic_games');
     const q = ageGroup ? query(ref, where('age_group', '==', ageGroup)) : query(ref);
@@ -373,6 +438,9 @@ export async function getGameById(collectionName, gameId) {
 ══════════════════════════════════════════ */
 
 export async function saveNumeracyScore(scoreData) {
+  if (!auth.currentUser || scoreData.child_id === 'mock-user-123') {
+    return { success: true, id: 'mock-score-' + Date.now() };
+  }
   try {
     const ref = collection(db, 'numeracy_scores');
     const docRef = await addDoc(ref, {
@@ -388,6 +456,12 @@ export async function saveNumeracyScore(scoreData) {
 }
 
 export async function getChildScores(childId, limitCount = 20) {
+  if (!auth.currentUser || childId === 'mock-user-123') {
+    return [
+      { id: 'mock-score-1', game_id: 'counting-1-3', score: 45, level: 2, date: new Date().toISOString() },
+      { id: 'mock-score-2', game_id: 'number-match', score: 60, level: 3, date: new Date().toISOString() }
+    ];
+  }
   try {
     const ref = collection(db, 'numeracy_scores');
     const q = query(
@@ -410,6 +484,13 @@ export async function getChildScores(childId, limitCount = 20) {
 ══════════════════════════════════════════ */
 
 export async function getRewardsCatalog() {
+  if (!auth.currentUser) {
+    return [
+      { id: 'toy-car', title: 'Toy Car', cost: 50, emoji: '🚗' },
+      { id: 'super-star', title: 'Super Star Badge', cost: 100, emoji: '⭐' },
+      { id: 'rocket-sticker', title: 'Rocket Sticker', cost: 150, emoji: '🚀' }
+    ];
+  }
   try {
     const snap = await getDocs(collection(db, 'rewards'));
     return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
@@ -425,11 +506,32 @@ export async function getRewardsCatalog() {
 ══════════════════════════════════════════ */
 
 export async function getUserRole(uid) {
+  if (uid === 'mock-user-123' || !auth.currentUser) {
+    return 'child';
+  }
   try {
     const snap = await getDoc(doc(db, 'user_accounts', uid));
     if (snap.exists()) return snap.data().role || 'child';
     return 'child';
-  } catch (e) {
+  } catch {
     return 'child';
+  }
+}
+
+/* ══════════════════════════════════════════
+   ACHIEVEMENT GETTER
+   Used to render achievements dynamically.
+══════════════════════════════════════════ */
+export async function getUnlockedAchievements(uid) {
+  if (!uid || uid === 'mock-user-123') {
+    return ['first-game', 'streak-3'];
+  }
+  try {
+    const q = query(collection(db, 'achievements'), where('child_id', '==', uid));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => d.data().achievement_id);
+  } catch (e) {
+    console.error('getUnlockedAchievements error:', e);
+    return [];
   }
 }

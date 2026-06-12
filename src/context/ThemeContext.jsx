@@ -1,66 +1,78 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext(null);
+const THEME_KEY = 'spacece_theme';
+const SEASON_KEY = 'spacece_season';
 
 /**
  * Manages light/dark mode and seasonal themes.
- * Matches reference UI: Light | Dark | System, + Seasonal (None/Diwali/Holi)
+ * Uses data-theme attribute on <html> to match Pratiush's design system.
  */
 export function ThemeProvider({ children }) {
-  const [themeMode, setThemeMode] = useState(() => {
-    return localStorage.getItem('spacece-theme') || 'light';
+  const [theme, setThemeState] = useState(() => {
+    try { return localStorage.getItem(THEME_KEY) || 'light'; } catch { return 'light'; }
+  });
+  const [season, setSeasonState] = useState(() => {
+    try { return localStorage.getItem(SEASON_KEY) || 'none'; } catch { return 'none'; }
   });
 
-  const [seasonal, setSeasonal] = useState(() => {
-    return localStorage.getItem('spacece-seasonal') || 'none';
-  });
-
-  // Resolve actual dark/light based on mode
-  const isDark = themeMode === 'dark' || 
-    (themeMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  // Resolve effective theme from system preference
+  const [systemDark, setSystemDark] = useState(() =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
 
   useEffect(() => {
-    const root = document.documentElement;
-    // Clear previous theme classes
-    root.classList.remove('dark', 'seasonal-diwali', 'seasonal-holi');
-
-    if (isDark) root.classList.add('dark');
-    if (seasonal !== 'none') root.classList.add(`seasonal-${seasonal}`);
-
-    localStorage.setItem('spacece-theme', themeMode);
-    localStorage.setItem('spacece-seasonal', seasonal);
-  }, [isDark, themeMode, seasonal]);
-
-  // Listen for system theme changes when in 'system' mode
-  useEffect(() => {
-    if (themeMode !== 'system') return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = () => {
-      const root = document.documentElement;
-      if (mq.matches) root.classList.add('dark');
-      else root.classList.remove('dark');
-    };
+    const handler = (e) => setSystemDark(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
-  }, [themeMode]);
+  }, []);
 
-  const toggleTheme = () =>
-    setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const effectiveTheme = theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
+  const isDark = effectiveTheme === 'dark';
 
-  const setMode = (mode) => setThemeMode(mode); // 'light' | 'dark' | 'system'
-  const setSeasonalTheme = (theme) => setSeasonal(theme); // 'none' | 'diwali' | 'holi'
+  // Apply to <html> via data-theme attribute (matches Pratiush's approach)
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', effectiveTheme);
+  }, [effectiveTheme]);
+
+  useEffect(() => {
+    if (season && season !== 'none') {
+      document.documentElement.setAttribute('data-season', season);
+    } else {
+      document.documentElement.removeAttribute('data-season');
+    }
+  }, [season]);
+
+  const setTheme = useCallback((t) => {
+    setThemeState(t);
+    try { localStorage.setItem(THEME_KEY, t); } catch (err) { console.warn('LocalStorage error:', err); }
+  }, []);
+
+  const setSeason = useCallback((s) => {
+    setSeasonState(s);
+    try { localStorage.setItem(SEASON_KEY, s); } catch (err) { console.warn('LocalStorage error:', err); }
+  }, []);
+
+  // Backward-compatible API
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+  const setMode = (mode) => setTheme(mode);
+  const setSeasonalTheme = (theme) => setSeason(theme);
 
   return (
-    <ThemeContext.Provider
-      value={{ isDark, themeMode, seasonal, toggleTheme, setMode, setSeasonalTheme }}
-    >
+    <ThemeContext.Provider value={{
+      theme, setTheme, effectiveTheme, season, setSeason,
+      isDark, themeMode: theme, seasonal: season,
+      toggleTheme, setMode, setSeasonalTheme
+    }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) throw new Error('useTheme must be used within a ThemeProvider');
-  return context;
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
+  return ctx;
 }

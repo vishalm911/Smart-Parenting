@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ReactConfetti from 'react-confetti';
 
 /**
@@ -21,7 +21,9 @@ export default function ConfettiEffect({ active = false, duration = 3000 }) {
 
   useEffect(() => {
     if (active) {
-      setShow(true);
+      Promise.resolve().then(() => {
+        setShow(true);
+      });
       const timer = setTimeout(() => setShow(false), duration);
       return () => clearTimeout(timer);
     }

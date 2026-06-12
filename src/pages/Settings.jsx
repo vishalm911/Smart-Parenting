@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
@@ -13,7 +13,7 @@ const LANGUAGES = [
 
 export default function Settings() {
   const { themeMode, setMode, seasonal, setSeasonalTheme } = useTheme();
-  const { user, profile, refreshProfile, markLoggedOut } = useUser();
+  const { user, refreshProfile, markLoggedOut } = useUser();
   const [language, setLanguage] = useState('English');
   const [showMascot, setShowMascot] = useState(true);
   const [saving, setSaving] = useState(false);

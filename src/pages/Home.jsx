@@ -1,68 +1,19 @@
-import React from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
-import ProgressBar from '../components/common/ProgressBar';
-import FloatingElements from '../components/animations/FloatingElements';
+import './Home.css';
 
-const MODULES = [
-  {
-    id: 'math-world',
-    title: 'Math World',
-    path: '/math-world',
-    emoji: '🔢',
-    bgGradient: 'bg-gradient-to-br from-[#FF9A56] via-[#F5A623] to-[#FFCC02]',
-    progress: 65,
-    total: 8,
-    done: 5,
-    color: '#F5A623',
-  },
-  {
-    id: 'puzzle-world',
-    title: 'Puzzle World',
-    path: '/puzzle-world',
-    emoji: '🧩',
-    bgGradient: 'bg-gradient-to-br from-[#2EC4B6] to-[#4FC3F7]',
-    progress: 40,
-    total: 8,
-    done: 3,
-    color: '#2EC4B6',
-  },
-  {
-    id: 'number-adventure',
-    title: 'Number Adventure',
-    path: '/number-adventure',
-    emoji: '🗺️',
-    bgGradient: 'bg-gradient-to-br from-[#7C4DFF] to-[#FF6B9D]',
-    progress: 25,
-    total: 6,
-    done: 2,
-    color: '#7C4DFF',
-  },
-  {
-    id: 'logic-island',
-    title: 'Logic Island',
-    path: '/logic-island',
-    emoji: '🧠',
-    bgGradient: 'bg-gradient-to-br from-[#FF6B9D] via-[#F5A623] to-[#FFD180]',
-    progress: 10,
-    total: 6,
-    done: 1,
-    color: '#FF6B9D',
-  },
-];
-
-const LEARNING_JOURNEY = [
-  { id: 'alphabet-forest', title: 'Alphabet Forest', emoji: '🌲', progress: 100, done: true },
-  { id: 'literacy-land',   title: 'Literacy Land',   emoji: '📚', progress: 35,  done: false },
-  { id: 'math-mountain',   title: 'Math Mountain',   emoji: '🏔️', progress: 0,   done: false },
+const LEARNING_PATH = [
+  { id: 'counting', name: 'Counting Garden', icon: '🌻', status: 'unlocked', progress: 100 },
+  { id: 'addition', name: 'Addition Valley', icon: '➕', status: 'current', progress: 35 },
+  { id: 'shapes', name: 'Shape Kingdom', icon: '🔷', status: 'locked', progress: 0 },
+  { id: 'patterns', name: 'Pattern Palace', icon: '🎨', status: 'locked', progress: 0 },
 ];
 
 const DAILY_MISSIONS = [
-  { label: 'Complete Letter Safari', done: true },
-  { label: 'Solve 5 Math Puzzles',   done: false },
-  { label: 'Earn 3 Stars',           done: false },
+  { id: 1, task: 'Solve 5 Math Puzzles', completed: true, xp: 20 },
+  { id: 2, task: 'Complete a Logic Game', completed: true, xp: 15 },
+  { id: 3, task: 'Earn 3 Stars', completed: false, xp: 10 },
 ];
 
 function getGreeting() {
@@ -74,247 +25,232 @@ function getGreeting() {
 
 export default function Home() {
   const navigate = useNavigate();
-  const { isDark } = useTheme();
   const { profile } = useUser();
+  const [animateStars, setAnimateStars] = useState(0);
+  const [animateXP, setAnimateXP] = useState(0);
 
   const name = profile?.name ?? 'Ayush';
   const greeting = getGreeting();
+  const dayStreak = profile?.dayStreak ?? 0;
+  const badgeCount = profile?.badges ?? 0;
+
+  useEffect(() => {
+    if (!profile) return;
+
+    const target = profile.stars ?? 0;
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 30));
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      setAnimateStars(current);
+    }, 30);
+
+    const xpTarget = profile.xp ?? 0;
+    let xpCurrent = 0;
+    const xpStep = Math.max(1, Math.floor(xpTarget / 35));
+    const xpTimer = setInterval(() => {
+      xpCurrent += xpStep;
+      if (xpCurrent >= xpTarget) {
+        xpCurrent = xpTarget;
+        clearInterval(xpTimer);
+      }
+      setAnimateXP(xpCurrent);
+    }, 30);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(xpTimer);
+    };
+  }, [profile]);
+
+  const MODULES = useMemo(() => {
+    return [
+      { id: 'math-world', title: 'Math World', path: '/math-world', emoji: '🔢', progress: Math.min(100, Math.floor((profile?.progress?.mathWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.mathWorld ?? 0) / 40)) },
+      { id: 'puzzle-world', title: 'Puzzle World', path: '/puzzle-world', emoji: '🧩', progress: Math.min(100, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 40)) },
+      { id: 'number-adventure', title: 'Number Adventure', path: '/number-adventure', emoji: '🗺️', progress: Math.min(100, Math.floor((profile?.progress?.numberAdventure ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.numberAdventure ?? 0) / 50)) },
+      { id: 'logic-island', title: 'Logic Island', path: '/logic-island', emoji: '🧠', progress: Math.min(100, Math.floor((profile?.progress?.logicIsland ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.logicIsland ?? 0) / 50)) },
+    ];
+  }, [profile?.progress]);
+
+  const recommendation = useMemo(() => {
+    if (!profile) return { title: 'Numeracy World', subtitle: 'Start your math journey!', path: '/adventure', emoji: '🔢' };
+    const prog = profile.progress || {};
+    const mw = prog.mathWorld ?? 0;
+    const pw = prog.puzzleWorld ?? 0;
+    const na = prog.numberAdventure ?? 0;
+    const li = prog.logicIsland ?? 0;
+
+    const minVal = Math.min(mw, pw, na, li);
+    if (minVal === mw) {
+      return { title: 'Math World', subtitle: 'Learn numbers & simple counting!', path: '/math-world', emoji: '🔢' };
+    } else if (minVal === pw) {
+      return { title: 'Puzzle World', subtitle: 'Train your brain with 3D shapes!', path: '/puzzle-world', emoji: '🧩' };
+    } else if (minVal === na) {
+      return { title: 'Number Adventure', subtitle: 'Explore the map of numbers!', path: '/number-adventure', emoji: '🗺️' };
+    } else {
+      return { title: 'Logic Island', subtitle: 'Solve patterns and multiplication quests!', path: '/logic-island', emoji: '🧠' };
+    }
+  }, [profile]);
 
   return (
-    <div className="relative min-h-screen">
-      <FloatingElements count={5} />
+    <div className="dashboard-page">
+      {/* Top Navigation Bar */}
+      <div className="dashboard-topnav">
+        <div className="topnav-left">
+          <div className="topnav-greeting">
+            <h2>{greeting}, {name} 👋</h2>
+          </div>
+        </div>
+        <div className="topnav-right">
+          <div className="topnav-stat" title="Daily Streak">
+            <span className="stat-icon">🔥</span>
+            <span className="stat-value">{dayStreak}</span>
+            <span className="stat-label">Streak</span>
+          </div>
+          <div className="topnav-stat" title="Total Stars">
+            <span className="stat-icon">⭐</span>
+            <span className="stat-value">{animateStars}</span>
+            <span className="stat-label">Stars</span>
+          </div>
+          <div className="topnav-stat" title="Total Badges">
+            <span className="stat-icon">🏆</span>
+            <span className="stat-value">{badgeCount}</span>
+            <span className="stat-label">Badges</span>
+          </div>
+          <div className="topnav-stat" title="XP Progress">
+            <span className="stat-icon">⚡</span>
+            <span className="stat-value">{animateXP}</span>
+            <span className="stat-label">XP</span>
+          </div>
+          <div className="topnav-avatar" onClick={() => navigate('/avatar')}>
+            👤
+          </div>
+        </div>
+      </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-6">
-        {/* ─── Greeting ─── */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
-          <h1
-            className="text-3xl font-bold"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
-          >
-            {greeting}, {name} 🥰 👋
-          </h1>
-        </motion.div>
-
-        {/* ─── Continue Learning Banner ─── */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="rounded-3xl overflow-hidden mb-6"
-        >
-          <div
-            className="relative p-7"
-            style={{ background: 'linear-gradient(135deg, #F5A623, #FFCC02)' }}
-          >
-            {/* Background book emoji */}
-            <div className="absolute -bottom-2 right-6 text-[90px] opacity-80 select-none pointer-events-none">
-              📖
-            </div>
-            {/* Sparkle */}
-            <div className="absolute top-4 right-48 text-2xl animate-sparkle select-none pointer-events-none">✨</div>
-            <div className="absolute top-8 right-40 text-2xl animate-sparkle select-none pointer-events-none" style={{ animationDelay: '0.5s' }}>⭐</div>
-
-            <div className="relative z-10 max-w-lg">
-              <span
-                className="inline-block text-xs font-bold tracking-widest text-white/80 bg-white/20 rounded-full px-3 py-1 mb-3"
-              >
-                CONTINUE LEARNING
-              </span>
-              <h2
-                className="text-3xl font-bold text-white mb-1"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Literacy Land
-              </h2>
-              <p className="text-white/80 text-sm mb-4">Current Course: Letter Sounds & Recognition</p>
-
-              {/* Progress bar */}
-              <div className="mb-1">
-                <div className="progress-track" style={{ background: 'rgba(255,255,255,0.3)' }}>
-                  <div
-                    className="progress-fill"
-                    style={{ width: '35%', background: 'white' }}
-                  />
+      <div className="dashboard-inner">
+        {/* Hero Section */}
+        <div className="hero-section">
+          <div className="hero-card" onClick={() => navigate(recommendation.path)}>
+            <div className="hero-content">
+              <div className="hero-badge">Continue Learning</div>
+              <h3 className="hero-title">{recommendation.title}</h3>
+              <p className="hero-subtitle">{recommendation.subtitle}</p>
+              <div className="hero-progress">
+                <div className="hero-progress-bar">
+                  <div className="hero-progress-fill" style={{ width: '35%' }}>
+                    <span className="progress-glow"></span>
+                  </div>
                 </div>
+                <span className="hero-progress-text">35% Complete</span>
               </div>
-              <p className="text-white font-bold text-sm mb-5">35% Complete</p>
-
-              <div className="flex items-center gap-2 text-white/80 text-sm mb-5">
-                <span>🕐</span>
-                <span>Estimated Time: 10 minutes remaining</span>
+              <p className="hero-time">⏱️ Estimated Time: 10 minutes remaining</p>
+              <button className="hero-btn">Continue Journey →</button>
+            </div>
+            <div className="hero-illustration">
+              <div className="hero-icon">{recommendation.emoji}</div>
+              <div className="hero-sparkles">
+                <span className="sparkle" style={{ '--delay': '0s' }}>✨</span>
+                <span className="sparkle" style={{ '--delay': '0.5s' }}>⭐</span>
+                <span className="sparkle" style={{ '--delay': '1s' }}>💫</span>
               </div>
-
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => navigate('/adventure')}
-                className="btn-primary text-base"
-              >
-                Continue Journey →
-              </motion.button>
             </div>
           </div>
-        </motion.section>
-
-        {/* ─── Two-column: Learning Journey + Daily Missions ─── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-          {/* Learning Journey */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="card p-5"
-          >
-            <h3 className="font-bold text-base mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-              🗺️ Learning Journey
-            </h3>
-            <div className="space-y-3">
-              {LEARNING_JOURNEY.map((item) => (
-                <div key={item.id} className="flex items-center gap-3">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl flex-shrink-0 relative"
-                    style={{ background: item.done ? '#4CAF5020' : 'var(--bg-accent)' }}
-                  >
-                    {item.emoji}
-                    {item.done && (
-                      <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#4CAF50] flex items-center justify-center text-white text-xs font-bold">
-                        ✓
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{item.title}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className="flex-1 progress-track" style={{ height: 6 }}>
-                        <div
-                          className="progress-fill"
-                          style={{
-                            width: `${item.progress}%`,
-                            background: item.done ? '#4CAF50' : 'linear-gradient(90deg, #F5A623, #FF9A56)',
-                          }}
-                        />
-                      </div>
-                      <span className="text-xs font-bold" style={{ color: 'var(--text-muted)' }}>
-                        {item.progress}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.section>
-
-          {/* Daily Missions */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-            className="card p-5"
-          >
-            <h3 className="font-bold text-base mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-              ✅ Daily Missions
-            </h3>
-            <div className="space-y-3">
-              {DAILY_MISSIONS.map((m, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + i * 0.07 }}
-                  className="flex items-center gap-3 p-3 rounded-2xl"
-                  style={{ background: m.done ? '#4CAF5010' : 'var(--bg-accent)' }}
-                >
-                  <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0"
-                    style={{
-                      background: m.done ? '#4CAF50' : 'var(--border-default)',
-                      color: m.done ? 'white' : 'var(--text-muted)',
-                    }}
-                  >
-                    {m.done ? '✓' : '○'}
-                  </div>
-                  <span
-                    className="text-sm font-semibold"
-                    style={{
-                      color: m.done ? '#4CAF50' : 'var(--text-primary)',
-                      textDecoration: m.done ? 'line-through' : 'none',
-                    }}
-                  >
-                    {m.label}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
         </div>
 
-        {/* ─── Module Cards ─── */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <h3 className="font-bold text-lg mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-            🌍 Explore Worlds
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {MODULES.map((mod, i) => (
-              <motion.div
-                key={mod.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 + i * 0.08, type: 'spring', stiffness: 300, damping: 25 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => navigate(mod.path)}
-                className="relative overflow-hidden rounded-3xl cursor-pointer"
-              >
-                <div className={`${mod.bgGradient} p-5 pb-6 relative min-h-[160px] flex flex-col justify-between`}>
-                  {/* Background emoji */}
-                  <div className="absolute -top-3 -right-3 text-[80px] opacity-15 animate-float select-none pointer-events-none">
-                    {mod.emoji}
+        {/* Dashboard Grid */}
+        <div className="dashboard-grid">
+          {/* Learning Journey Map */}
+          <div className="dash-card journey-map">
+            <h3 className="card-title">🗺️ Learning Journey</h3>
+            <div className="journey-path">
+              {LEARNING_PATH.map((step, index) => (
+                <div key={step.id} className="journey-step">
+                  <div className={`step-node ${step.status}`}>
+                    <span className="step-icon">{step.icon}</span>
+                    {step.status === 'unlocked' && <span className="step-check">✓</span>}
+                    {step.status === 'current' && <div className="step-pulse"></div>}
                   </div>
-
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-3xl drop-shadow">{mod.emoji}</span>
-                      <h4
-                        className="text-xl font-bold text-white drop-shadow"
-                        style={{ fontFamily: 'var(--font-display)' }}
-                      >
-                        {mod.title}
-                      </h4>
-                    </div>
-                    <span className="bg-white/25 backdrop-blur-sm text-white text-xs font-bold rounded-full px-3 py-1">
-                      {mod.done}/{mod.total} lessons
-                    </span>
+                  <div className="step-info">
+                    <span className="step-name">{step.name}</span>
+                    {step.status !== 'locked' && <span className="step-progress">{step.progress}%</span>}
                   </div>
+                  {index < LEARNING_PATH.length - 1 && (
+                    <div className={`step-connector ${step.status === 'unlocked' ? 'completed' : ''}`}></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
-                  {/* Bottom progress */}
-                  <div className="mt-4">
-                    <div className="flex justify-between text-white text-xs font-semibold mb-1">
-                      <span>Progress</span>
-                      <span>{mod.progress}%</span>
-                    </div>
-                    <div className="progress-track" style={{ background: 'rgba(255,255,255,0.3)', height: 8 }}>
-                      <motion.div
-                        className="progress-fill"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${mod.progress}%` }}
-                        transition={{ duration: 1, ease: 'easeOut', delay: 0.5 + i * 0.1 }}
-                        style={{ background: 'rgba(255,255,255,0.8)' }}
-                      />
-                    </div>
+          {/* Daily Missions */}
+          <div className="dash-card daily-missions">
+            <h3 className="card-title">✅ Daily Missions</h3>
+            <div className="missions-list">
+              {DAILY_MISSIONS.map(mission => (
+                <div key={mission.id} className={`mission-item ${mission.completed ? 'completed' : ''}`}>
+                  <div className="mission-checkbox">{mission.completed ? '✅' : '⬜'}</div>
+                  <div className="mission-text">{mission.task}</div>
+                  <div className="mission-reward">+{mission.xp} XP</div>
+                </div>
+              ))}
+            </div>
+            <div className="missions-reward">
+              <span className="reward-text">Complete all for bonus:</span>
+              <span className="reward-value">+20 XP 🎁</span>
+            </div>
+          </div>
+
+          {/* Explore Worlds */}
+          <div className="dash-card explore-worlds">
+            <h3 className="card-title">🌍 Explore Worlds</h3>
+            <div className="module-grid">
+              {MODULES.map(mod => (
+                <div key={mod.id} className="module-card" onClick={() => navigate(mod.path)}>
+                  <span className="module-emoji">{mod.emoji}</span>
+                  <div className="module-info">
+                    <h4 className="module-name">{mod.title}</h4>
+                    <span className="module-lessons">{mod.done}/{mod.total} lessons</span>
+                  </div>
+                  <div className="module-progress-bar">
+                    <div className="module-progress-fill" style={{ width: `${mod.progress}%` }}></div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </motion.section>
+
+          {/* Statistics */}
+          <div className="dash-card statistics-section">
+            <h3 className="card-title">📊 Your Progress</h3>
+            <div className="stats-grid">
+              <div className="stat-box">
+                <div className="stat-icon-large">⏱️</div>
+                <div className="stat-label">Learning Time</div>
+                <div className="stat-value">2h 45m</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon-large">📚</div>
+                <div className="stat-label">Lessons Done</div>
+                <div className="stat-value">{23 + (profile?.badges ?? 0) * 2}</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon-large">🎯</div>
+                <div className="stat-label">Current Level</div>
+                <div className="stat-value">Level {profile?.level ?? 1}</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon-large">🧩</div>
+                <div className="stat-label">Puzzles Solved</div>
+                <div className="stat-value">{42 + (profile?.stars ?? 0)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

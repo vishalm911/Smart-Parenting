@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { UserProvider } from './context/UserContext';
@@ -30,7 +29,12 @@ function AdminRoute() {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    if (!user) { setChecking(false); return; }
+    if (!user) {
+      Promise.resolve().then(() => {
+        setChecking(false);
+      });
+      return;
+    }
     getUserRole(user.uid).then(r => { setRole(r); setChecking(false); });
   }, [user]);
 

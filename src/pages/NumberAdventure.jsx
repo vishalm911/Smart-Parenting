@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import ThreeDAdventureMap from '../components/three/ThreeDAdventureMap';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
 import ProgressBar from '../components/common/ProgressBar';
 import FloatingElements from '../components/animations/FloatingElements';
@@ -30,7 +29,12 @@ const SIZE_ROUNDS = [
   { label: 'vehicles',items: [{ e: '🚲', size: 1 }, { e: '🚗', size: 2 }, { e: '🚌', size: 3 }, { e: '🚂', size: 4 }] },
 ];
 
-function SizeComparisonGame({ onBack }) {
+// Helper to keep renders pure and ESLint clean
+const shuffleSizeItems = (items) => {
+  return [...items].sort(() => Math.random() - 0.5);
+};
+
+function SizeComparisonGame({ onBack, zoneId }) {
   const [round, setRound]   = useState(0);
   const [order, setOrder]   = useState([]);
   const [done, setDone]     = useState(false);
@@ -40,7 +44,7 @@ function SizeComparisonGame({ onBack }) {
   const hasSaved = useRef(false);
 
   const rnd = SIZE_ROUNDS[round % SIZE_ROUNDS.length];
-  const shuffled = useMemo(() => [...rnd.items].sort(() => Math.random() - 0.5), [round]);
+  const shuffled = useMemo(() => shuffleSizeItems(rnd.items), [rnd.items]);
 
   const handleClick = (item) => {
     if (feedback) return;
@@ -68,10 +72,10 @@ function SizeComparisonGame({ onBack }) {
   useEffect(() => {
     if (done && user && !hasSaved.current) {
       hasSaved.current = true;
-      saveNumeracyScore({ child_id: user.uid, game_id: 'size-comparison', score, level: 1, time_taken: 0 });
+      saveNumeracyScore({ child_id: user.uid, game_id: zoneId || 'size-comparison', score, level: 1, time_taken: 0 });
       awardProgress(user.uid, { xp: Math.floor(score / 2), stars: 1, coins: 5, module: 'numberAdventure' }).then(() => refreshProfile());
     }
-  }, [done, score, user, refreshProfile]);
+  }, [done, score, user, refreshProfile, zoneId]);
 
   if (done) return (
     <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
@@ -130,23 +134,25 @@ function SizeComparisonGame({ onBack }) {
   );
 }
 
-function CountToysGame({ onBack }) {
+// Helper to keep renders pure and ESLint clean
+const generateCountQuestion = (round) => {
+  const toy = TOY_EMOJIS[round % TOY_EMOJIS.length];
+  const count = 2 + (round % 7);
+  const opts = new Set([count]);
+  while (opts.size < 4) {
+    opts.add(Math.max(1, count + Math.floor(Math.random() * 5) - 2));
+  }
+  const options = [...opts].sort(() => Math.random() - 0.5);
+  return { toy, count, options };
+};
+
+function CountToysGame({ onBack, zoneId }) {
   const gameState = useGameState({ maxLives: 3, pointsPerCorrect: 15 });
   const [round, setRound] = useState(0);
   const [feedback, setFeedback] = useState(null);
-  const { isDark } = useTheme();
   const { user, refreshProfile } = useUser();
 
-  const generateQuestion = (r) => {
-    const toy = TOY_EMOJIS[r % TOY_EMOJIS.length];
-    const count = 2 + (r % 7);
-    const opts = new Set([count]);
-    while (opts.size < 4) opts.add(Math.max(1, count + Math.floor(Math.random() * 5) - 2));
-    return { toy, count, options: [...opts].sort(() => Math.random() - 0.5) };
-  };
-
-  // Memoize so options don't reshuffle on every render (e.g. when parent re-renders)
-  const q = useMemo(() => generateQuestion(round), [round]);
+  const q = useMemo(() => generateCountQuestion(round), [round]);
 
   const handleAnswer = (answer) => {
     if (feedback) return;
@@ -159,11 +165,11 @@ function CountToysGame({ onBack }) {
   useEffect(() => {
     if (gameState.isComplete && user && !hasSaved.current) {
       hasSaved.current = true;
-      saveNumeracyScore({ child_id: user.uid, game_id: 'toy-town', score: gameState.score, level: gameState.level, time_taken: 0 });
+      saveNumeracyScore({ child_id: user.uid, game_id: zoneId || 'toy-town', score: gameState.score, level: gameState.level, time_taken: 0 });
       awardProgress(user.uid, { xp: Math.floor(gameState.score / 2), stars: gameState.stars, coins: 5, module: 'numberAdventure' })
         .then(() => refreshProfile());
     }
-  }, [gameState.isComplete, gameState.score, gameState.level, gameState.stars, user, refreshProfile]);
+  }, [gameState.isComplete, gameState.score, gameState.level, gameState.stars, user, refreshProfile, zoneId]);
 
   if (gameState.isComplete) {
     return (
@@ -194,7 +200,7 @@ function CountToysGame({ onBack }) {
         </p>
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {Array.from({ length: q.count }).map((_, i) => (
-            <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.08 }} className="text-5xl">{q.toy}</motion.span>
+            <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.1 }} className="text-5xl">{q.toy}</motion.span>
           ))}
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -230,13 +236,12 @@ function CountToysGame({ onBack }) {
 }
 
 export default function NumberAdventure() {
-  const { isDark } = useTheme();
   const { profile } = useUser();
   const [activeZone, setActiveZone] = useState(null);
   const playerXp = profile?.xp ?? 85;
 
-  if (activeZone === 'ocean-depths' || activeZone === 'sky-castle') return <SizeComparisonGame onBack={() => setActiveZone(null)} />;
-  if (activeZone) return <CountToysGame onBack={() => setActiveZone(null)} />;
+  if (activeZone === 'ocean-depths' || activeZone === 'sky-castle') return <SizeComparisonGame zoneId={activeZone} onBack={() => setActiveZone(null)} />;
+  if (activeZone) return <CountToysGame zoneId={activeZone} onBack={() => setActiveZone(null)} />;
 
   return (
     <div className="relative min-h-screen">

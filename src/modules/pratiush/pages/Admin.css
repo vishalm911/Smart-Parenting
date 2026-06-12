@@ -1,0 +1,296 @@
+/* ============================================================
+   Admin Panel
+   ============================================================ */
+
+.admin-page {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  padding-bottom: 140px;
+}
+
+.admin-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.admin-inner > h1 {
+  font-size: 2rem;
+  margin-bottom: var(--space-6);
+  animation: slide-up 0.5s var(--ease-spring);
+}
+
+/* ---- Tabs ---- */
+.admin-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.admin-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-card);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.admin-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.admin-tab-icon {
+  font-size: 1.1rem;
+}
+
+/* ---- Table ---- */
+.admin-table-wrapper {
+  animation: slide-up 0.4s var(--ease-spring);
+}
+
+.admin-add-btn {
+  margin-bottom: var(--space-4);
+}
+
+.admin-table-scroll {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg-card);
+  font-size: 0.85rem;
+}
+
+.admin-table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-elevated);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background: rgba(245, 166, 35, 0.04);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.table-emoji {
+  font-size: 1.5rem;
+}
+
+.cat-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-elevated);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+}
+
+.color-dot {
+  display: inline-block;
+  width: 24px; height: 24px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+}
+
+.action-cell {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+
+.action-btn:hover {
+  background: var(--color-divider);
+}
+
+.action-btn.delete:hover {
+  background: #FFEBEE;
+}
+
+/* ---- Modal ---- */
+.admin-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 500;
+  animation: fadeIn 0.2s;
+}
+
+.admin-modal {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-6);
+  width: 400px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: bounce-in 0.4s var(--ease-spring);
+  position: relative;
+  box-shadow: var(--shadow-xl);
+}
+
+.admin-modal h3 {
+  font-size: 1.3rem;
+  margin-bottom: var(--space-6);
+}
+
+.admin-field {
+  margin-bottom: var(--space-4);
+}
+
+.admin-field label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-secondary);
+}
+
+.admin-field input,
+.admin-field select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.admin-field input:focus,
+.admin-field select:focus {
+  border-color: var(--color-primary);
+}
+
+.admin-field input[type="color"] {
+  height: 44px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+/* Preview */
+.admin-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-6);
+}
+
+.preview-emoji {
+  font-size: 2rem;
+}
+
+.preview-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.admin-modal-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+/* ---- Toast ---- */
+.admin-toast {
+  position: fixed;
+  bottom: 160px; left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-success);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-lg);
+  animation: bounce-in 0.4s var(--ease-spring);
+  z-index: 600;
+}
+
+/* ---- Dark Mode ---- */
+[data-theme="dark"] .admin-table {
+  background: var(--color-bg-card);
+}
+
+[data-theme="dark"] .admin-table th {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .admin-table tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .admin-modal {
+  background: #1E2A3A;
+}
+
+[data-theme="dark"] .admin-tab {
+  background: var(--color-bg-card);
+  border-color: rgba(255,255,255,0.1);
+  color: var(--color-text);
+}
+
+@media (max-width: 480px) {
+  .admin-tabs {
+    gap: var(--space-1);
+  }
+  .admin-tab {
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.75rem;
+  }
+  .admin-table { font-size: 0.75rem; }
+}

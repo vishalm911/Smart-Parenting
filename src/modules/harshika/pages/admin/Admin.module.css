@@ -1,0 +1,104 @@
+/* src/pages/admin/Admin.module.css  – shared across all admin tabs */
+.section{margin-bottom:36px}
+.sectionHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+.sectionTitle{font-family:var(--font-heading);font-size:18px;font-weight:800;color:var(--color-text)}
+
+/* Form card */
+.formCard{background:var(--color-bg-card);border:2px solid var(--color-border);border-radius:var(--radius);padding:24px;margin-bottom:28px;box-shadow:var(--shadow)}
+.formGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.formActions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+/* Table */
+.tableWrap{background:var(--color-bg-card);border:2px solid var(--color-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.table{width:100%;border-collapse:collapse}
+.table th{background:var(--color-bg-elevated);padding:12px 16px;text-align:left;font-size:12px;font-weight:800;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--color-border)}
+.table td{padding:13px 16px;font-size:14px;color:var(--color-text);border-bottom:1px solid var(--color-border);vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:var(--color-bg-elevated)}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700}
+.badgeGreen{background:#E8F5E9;color:#2E7D32}
+.badgeBlue{background:#E3F2FD;color:#185FA5}
+.badgeOrange{background:#FFF3E0;color:#E08E00}
+.badgePurple{background:#F3E5F5;color:#6A1B9A}
+[data-theme="dark"] .badgeGreen{background:#1B3A1C;color:#A5D6A7}
+[data-theme="dark"] .badgeBlue{background:#0A1F3A;color:#90CAF9}
+[data-theme="dark"] .badgeOrange{background:#3A2800;color:#FFCC80}
+[data-theme="dark"] .badgePurple{background:#2A0A3A;color:#CE93D8}
+.badgePink{background:#FCE4EC;color:#AD1457}
+.badgeYellow{background:#FFFDE7;color:#F57F17}
+.badgeTeal{background:#E0F2F1;color:#00695C}
+[data-theme="dark"] .badgePink{background:#3A0A1C;color:#F48FB1}
+[data-theme="dark"] .badgeYellow{background:#3A3000;color:#FFF176}
+[data-theme="dark"] .badgeTeal{background:#003A35;color:#80CBC4}
+
+.iconBtn{background:none;border:none;font-size:18px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .18s}
+.iconBtn:hover{background:var(--color-bg-elevated)}
+.deleteBtn{color:var(--color-error)}
+
+.empty{text-align:center;padding:40px;color:var(--color-text-secondary);font-weight:600;font-size:14px}
+.loadingRow td{text-align:center;padding:40px;color:var(--color-text-secondary)}
+
+.statGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:28px}
+.statCard{background:var(--color-bg-card);border:2px solid var(--color-border);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow)}
+.statNum{font-family:var(--font-heading);font-size:32px;font-weight:800;color:var(--color-secondary);display:block;margin-bottom:4px}
+.statLabel{font-size:13px;font-weight:700;color:var(--color-text-secondary)}
+
+.toast{position:fixed;bottom:28px;right:28px;background:#2D2D2D;color:#fff;padding:12px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;z-index:999;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* Step tabs */
+.stepTabs{display:flex;gap:0;margin-bottom:0;border-bottom:2px solid var(--color-border);overflow-x:auto}
+.stepTab{padding:11px 20px;border:none;background:none;font-family:var(--font-body);font-size:13px;font-weight:700;color:var(--color-text-secondary);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .18s}
+.stepTab:hover{color:var(--color-primary)}
+.stepActive{color:var(--color-secondary-dark)!important;border-bottom-color:var(--color-secondary)!important}
+
+/* Page blocks in story editor */
+.pageBlock{background:var(--color-bg-elevated);border:2px solid var(--color-border);border-radius:var(--radius-sm);padding:16px;margin-bottom:14px}
+.pageBlockHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.textarea{resize:vertical;min-height:100px;font-size:14px;line-height:1.7}
+
+/* Filter chips in tables */
+.chipBtn{padding:7px 14px;border-radius:20px;border:2px solid var(--color-border);background:var(--color-bg-card);font-family:var(--font-body);font-size:12px;font-weight:700;color:var(--color-text-secondary);cursor:pointer;transition:all .18s;white-space:nowrap}
+.chipBtn:hover{border-color:var(--color-secondary);color:var(--color-secondary-dark)}
+.chipActive{background:var(--color-secondary)!important;border-color:var(--color-secondary)!important;color:#fff!important}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  .statGrid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .statCard { padding: 14px 10px; }
+  .statNum { font-size: 24px; }
+
+  .formCard { padding: 14px; }
+  .formGrid { grid-template-columns: 1fr; gap: 10px; }
+  .formActions { flex-direction: column; }
+  .formActions .btn { width: 100%; justify-content: center; text-align: center; }
+
+  .sectionHead { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .sectionTitle { font-size: 16px; }
+
+  .stepTabs { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .stepTab { padding: 9px 12px; font-size: 12px; }
+
+  .tableWrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); }
+  .table { min-width: 520px; }
+  .table th, .table td { padding: 9px 10px; font-size: 12px; }
+
+  .chipBtn { padding: 6px 10px; font-size: 11px; }
+  .iconBtn { font-size: 16px; padding: 4px 6px; }
+
+  .toast { bottom: 16px; left: 12px; right: 12px; text-align: center; font-size: 13px; }
+
+  .pageBlock { padding: 12px; }
+  .textarea { min-height: 80px; }
+  .badge { padding: 2px 7px; font-size: 10px; }
+}
+
+@media (max-width: 480px) {
+  .statGrid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .statNum { font-size: 20px; }
+  .statCard { padding: 12px 8px; }
+  .sectionTitle { font-size: 15px; }
+  .table { min-width: 480px; }
+  .table th, .table td { padding: 8px 8px; font-size: 11px; }
+}

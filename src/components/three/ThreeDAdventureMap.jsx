@@ -1,11 +1,11 @@
-import React, { useRef, useState, Suspense } from 'react';
+import { useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text, Sphere, RoundedBox, Float, Stars } from '@react-three/drei';
+import { OrbitControls, Text, Stars } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
 /* ─── Floating Island ─── */
-function Island({ position, color, label, emoji, unlocked, progress, onClick }) {
+function Island({ position, color, label, unlocked, progress, onClick }) {
   const groupRef = useRef();
   const [hovered, setHovered] = useState(false);
 

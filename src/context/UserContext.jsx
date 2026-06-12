@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import {
   onAuthChange,
   getUserProfile,
@@ -38,12 +38,12 @@ export function UserProvider({ children }) {
         loggedOut.current = false;
         setUser(firebaseUser);
 
-        // 1. Fetch profile
+        // 1. Update day streak first
+        await updateDayStreak(firebaseUser.uid).catch(() => {});
+
+        // 2. Fetch profile
         const prof = await getUserProfile(firebaseUser.uid);
         setProfile(prof);
-
-        // 2. Update day streak
-        updateDayStreak(firebaseUser.uid).catch(() => {});
 
         // 3. Start session tracking
         if (!sessionId.current) {
@@ -62,7 +62,11 @@ export function UserProvider({ children }) {
         try {
           await loginAnonymous();
         } catch (e) {
-          console.error('Anonymous sign-in failed:', e);
+          console.error('Anonymous sign-in failed, falling back to mock profile:', e);
+          const mockUser = { uid: 'mock-user-123', isAnonymous: true };
+          setUser(mockUser);
+          const prof = await getUserProfile(mockUser.uid);
+          setProfile(prof);
         }
       } else {
         // Explicit logout — close session and stay signed out
@@ -109,6 +113,7 @@ export function UserProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUser() {
   const context = useContext(UserContext);
   if (!context) throw new Error('useUser must be used within a UserProvider');

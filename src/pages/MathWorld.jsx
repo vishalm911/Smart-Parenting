@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
 import GameCard from '../components/common/GameCard';
 import ScoreDisplay from '../components/common/ScoreDisplay';
@@ -171,7 +170,6 @@ function CountingGame({ onBack }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [feedback, setFeedback] = useState(null);
-  const { isDark } = useTheme();
   const { user, refreshProfile } = useUser();
 
   const questions = [
@@ -297,7 +295,6 @@ function CountingGame({ onBack }) {
 
 /* ─── Math World Hub ─── */
 export default function MathWorld() {
-  const { isDark } = useTheme();
   const [activeGame, setActiveGame] = useState(null);
   const [selectedAge, setSelectedAge] = useState('all');
   const [games, setGames] = useState(FALLBACK_MATH_GAMES);
@@ -346,7 +343,7 @@ export default function MathWorld() {
           <div className="text-center py-12" style={{ color: 'var(--text-muted)' }}>Loading games…</div>
         ) : (
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                      <AnimatePresence mode="popLayout">
+            <AnimatePresence mode="popLayout">
               {filteredGames.map((game, i) => (
                 <GameCard key={game.id} title={game.title} description={game.description} emoji={game.emoji}
                   ageRange={game.ageRange} difficulty={game.difficulty} gradient={game.gradient}

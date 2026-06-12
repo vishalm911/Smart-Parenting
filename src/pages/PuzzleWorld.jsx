@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
 import GameCard from '../components/common/GameCard';
 import ThreeDPuzzle from '../components/three/ThreeDPuzzle';
@@ -29,7 +28,6 @@ const SHAPES = [
   { name: 'Heart',    shape: '♥', color: '#EF5350' },
 ];
 
-// Moved outside component so it's a stable reference
 function shuffleOptions(roundIdx) {
   const target = SHAPES[roundIdx % SHAPES.length];
   const others = SHAPES.filter((s) => s.name !== target.name).sort(() => Math.random() - 0.5).slice(0, 3);
@@ -42,27 +40,33 @@ function ShapeMatchGame({ onBack }) {
   const [targetShape, setTargetShape] = useState(SHAPES[0]);
   const [options, setOptions] = useState(() => shuffleOptions(0));
   const [feedback, setFeedback] = useState(null);
-  const { isDark } = useTheme();
   const { user, refreshProfile } = useUser();
 
-  function nextRound() {
-    const next = round + 1;
-    setRound(next);
-    const nextTarget = SHAPES[next % SHAPES.length];
-    setTargetShape(nextTarget);
-    setOptions(shuffleOptions(next));
-    setFeedback(null);
-    if (next % SHAPES.length === 0) gameState.levelUp();
-  }
+  const nextRound = useCallback(() => {
+    setRound((r) => {
+      const next = r + 1;
+      const nextTarget = SHAPES[next % SHAPES.length];
+      setTargetShape(nextTarget);
+      setOptions(shuffleOptions(next));
+      setFeedback(null);
+      if (next % SHAPES.length === 0) gameState.levelUp();
+      return next;
+    });
+  }, [gameState]);
 
   const handleSelect = useCallback(
     (shape) => {
       if (feedback) return;
-      if (shape.name === targetShape.name) { setFeedback('correct'); gameState.onCorrectAnswer(); }
-      else { setFeedback('wrong'); gameState.onWrongAnswer(); }
+      if (shape.name === targetShape.name) {
+        setFeedback('correct');
+        gameState.onCorrectAnswer();
+      } else {
+        setFeedback('wrong');
+        gameState.onWrongAnswer();
+      }
       setTimeout(() => nextRound(), 1200);
     },
-    [feedback, targetShape, gameState]
+    [feedback, targetShape, gameState, nextRound]
   );
 
   const hasSaved = useRef(false);
@@ -141,6 +145,7 @@ function ShapeMatchGame({ onBack }) {
 }
 
 export default function PuzzleWorld() {
+  const { user, refreshProfile } = useUser();
   const [activeGame, setActiveGame] = useState(null);
   const [timerMode, setTimerMode] = useState(false);
   const [games, setGames] = useState(FALLBACK_PUZZLE_GAMES);
@@ -181,7 +186,7 @@ export default function PuzzleWorld() {
           <h3 className="font-bold text-lg mb-3 flex items-center gap-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
             🎮 3D Shape Challenge
           </h3>
-          <ThreeDPuzzle onScoreUpdate={(s, l) => console.log('3D score:', s, 'level:', l)} />
+          <ThreeDPuzzle user={user} refreshProfile={refreshProfile} />
         </motion.div>
 
         {loading ? (

@@ -1,6 +1,4 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from '../../context/ThemeContext';
 
 /**
  * Reusable game card component with gradient background, hover effects,
@@ -19,7 +17,7 @@ export default function GameCard({
   locked = false,
   index = 0,
 }) {
-  const { isDark } = useTheme();
+
 
   return (
     <motion.div

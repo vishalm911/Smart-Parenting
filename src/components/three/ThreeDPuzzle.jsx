@@ -1,8 +1,8 @@
-import React, { useRef, useState, Suspense } from 'react';
+import { useRef, useState, Suspense, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text, RoundedBox, Sphere, Torus, Cone } from '@react-three/drei';
+import { OrbitControls, RoundedBox, Sphere, Torus, Cone } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import * as THREE from 'three';
+import { saveNumeracyScore, awardProgress } from '../../firebase/services';
 
 /* ─── Individual 3D Shape ─── */
 function Shape3D({ type, color, position, isTarget, isSelected, onSelect }) {
@@ -54,6 +54,7 @@ function Shape3D({ type, color, position, isTarget, isSelected, onSelect }) {
 
 /* ─── Scene with target + options ─── */
 function PuzzleScene({ target, options, onSelect, selected }) {
+  if (!target) return null;
   return (
     <>
       <ambientLight intensity={0.6} />
@@ -113,7 +114,7 @@ function generateRound(roundIdx) {
   return { target, options };
 }
 
-export default function ThreeDPuzzle({ onScoreUpdate, onBack }) {
+export default function ThreeDPuzzle({ user, refreshProfile }) {
   const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -121,10 +122,36 @@ export default function ThreeDPuzzle({ onScoreUpdate, onBack }) {
   const [level, setLevel] = useState(1);
   const [perfectStreak, setPerfectStreak] = useState(0);
 
-  const { target, options } = generateRound(round);
+  const isComplete = round >= 10;
+  const hasSaved = useRef(false);
+
+  // Safely extract target and options only if game is not complete
+  const { target, options } = !isComplete ? generateRound(round) : { target: null, options: [] };
+
+  useEffect(() => {
+    if (isComplete && user && !hasSaved.current) {
+      hasSaved.current = true;
+      saveNumeracyScore({
+        child_id: user.uid,
+        game_id: 'shape-match-3d',
+        score: score,
+        level: level,
+        time_taken: 0
+      });
+      const starsAwarded = Math.min(3, Math.max(1, Math.floor(score / 80)));
+      awardProgress(user.uid, {
+        xp: Math.floor(score / 2),
+        stars: starsAwarded,
+        coins: 10,
+        module: 'puzzleWorld'
+      }).then(() => {
+        if (refreshProfile) refreshProfile();
+      });
+    }
+  }, [isComplete, score, level, user, refreshProfile]);
 
   const handleSelect = (opt) => {
-    if (feedback) return;
+    if (feedback || isComplete) return;
     setSelected(opt.id);
 
     if (opt.type === target.type) {
@@ -134,12 +161,10 @@ export default function ThreeDPuzzle({ onScoreUpdate, onBack }) {
       setFeedback('correct');
       const newStreak = perfectStreak + 1;
       setPerfectStreak(newStreak);
-      // Difficulty ladder: auto-advance level on 3 perfect scores
       if (newStreak >= 3 && level < 5) {
         setLevel((l) => l + 1);
         setPerfectStreak(0);
       }
-      onScoreUpdate?.(newScore, level);
     } else {
       setFeedback('wrong');
       setPerfectStreak(0);
@@ -151,6 +176,48 @@ export default function ThreeDPuzzle({ onScoreUpdate, onBack }) {
       setRound((r) => r + 1);
     }, 1500);
   };
+
+  const resetGame = () => {
+    setRound(0);
+    setScore(0);
+    setSelected(null);
+    setFeedback(null);
+    setLevel(1);
+    setPerfectStreak(0);
+    hasSaved.current = false;
+  };
+
+  if (isComplete) {
+    const starsAwarded = Math.min(3, Math.max(1, Math.floor(score / 80)));
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col items-center justify-center min-h-[40vh] text-center px-4 py-8 card"
+      >
+        <span className="text-7xl mb-4">🧩</span>
+        <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
+          Challenge Complete!
+        </h2>
+        <p className="mb-2" style={{ color: 'var(--text-secondary)' }}>
+          Final Score: <strong>{score}</strong> points
+        </p>
+        <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
+          Level Reached: <strong>{level}</strong> | Stars: <strong>{'⭐'.repeat(starsAwarded)}</strong>
+        </p>
+        <div className="flex gap-3">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={resetGame}
+            className="btn-orange text-sm px-6 py-2.5"
+          >
+            Play Again 🔄
+          </motion.button>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <div className="w-full">
@@ -172,12 +239,12 @@ export default function ThreeDPuzzle({ onScoreUpdate, onBack }) {
       {/* Instructions */}
       <div className="text-center mb-3">
         <p className="font-semibold text-sm" style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-display)' }}>
-          Find the matching shape below! 👇
+          Find the matching shape below! (Round {round + 1}/10) 👇
         </p>
       </div>
 
       {/* Three.js Canvas */}
-      <div className="rounded-3xl overflow-hidden border-2" style={{ borderColor: 'var(--border-default)', height: 380 }}>
+      <div className="rounded-3xl overflow-hidden border-2 h-[280px] md:h-[380px]" style={{ borderColor: 'var(--border-default)' }}>
         <Canvas camera={{ position: [0, 0, 7], fov: 50 }} style={{ background: 'linear-gradient(135deg, #1a1a3e, #2d1b69)' }}>
           <Suspense fallback={null}>
             <PuzzleScene
@@ -192,28 +259,25 @@ export default function ThreeDPuzzle({ onScoreUpdate, onBack }) {
 
       {/* Shape labels */}
       <div className="flex justify-around mt-3 px-4">
-        {options.map((opt, i) => {
-          const xLabels = options.length === 3 ? ['Left', 'Center', 'Right'] : ['Left', 'Right'];
-          return (
-            <motion.button
-              key={opt.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleSelect(opt)}
-              disabled={!!feedback}
-              className="flex-1 mx-1 py-2 rounded-2xl text-sm font-bold transition-all"
-              style={{
-                background: selected === opt.id && feedback === 'correct' ? '#4CAF50'
-                  : selected === opt.id && feedback === 'wrong' ? '#F44336'
-                  : 'var(--bg-accent)',
-                color: selected === opt.id ? 'white' : 'var(--text-primary)',
-                fontFamily: 'var(--font-display)',
-              }}
-            >
-              {opt.name}
-            </motion.button>
-          );
-        })}
+        {options.map((opt) => (
+          <motion.button
+            key={opt.id}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handleSelect(opt)}
+            disabled={!!feedback}
+            className="flex-1 mx-1 py-2 rounded-2xl text-sm font-bold transition-all"
+            style={{
+              background: selected === opt.id && feedback === 'correct' ? '#4CAF50'
+                : selected === opt.id && feedback === 'wrong' ? '#F44336'
+                : 'var(--bg-accent)',
+              color: selected === opt.id ? 'white' : 'var(--text-primary)',
+              fontFamily: 'var(--font-display)',
+            }}
+          >
+            {opt.name}
+          </motion.button>
+        ))}
       </div>
 
       {/* Feedback banner */}

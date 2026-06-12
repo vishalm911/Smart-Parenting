@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
-import ProgressBar from '../components/common/ProgressBar';
 import FloatingElements from '../components/animations/FloatingElements';
 
 const ZONES = [
@@ -66,7 +63,6 @@ const ZONES = [
 
 export default function Adventure() {
   const navigate = useNavigate();
-  const { isDark } = useTheme();
   const { profile } = useUser();
   const playerXp = profile?.xp ?? 180;
 

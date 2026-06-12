@@ -1,21 +1,13 @@
-import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
-import {
-  HiOutlineHome,
-  HiOutlineCalculator,
-  HiOutlinePuzzlePiece,
-  HiOutlineMap,
-  HiOutlineLightBulb,
-} from 'react-icons/hi2';
 
 const NAV_ITEMS = [
-  { path: '/', label: 'Home', icon: HiOutlineHome, emoji: '🏠' },
-  { path: '/math-world', label: 'Math', icon: HiOutlineCalculator, emoji: '🔢' },
-  { path: '/puzzle-world', label: 'Puzzle', icon: HiOutlinePuzzlePiece, emoji: '🧩' },
-  { path: '/number-adventure', label: 'Adventure', icon: HiOutlineMap, emoji: '🗺️' },
-  { path: '/logic-island', label: 'Logic', icon: HiOutlineLightBulb, emoji: '🧠' },
+  { path: '/', label: 'Home', emoji: '🏠' },
+  { path: '/math-world', label: 'Math', emoji: '🔢' },
+  { path: '/puzzle-world', label: 'Puzzle', emoji: '🧩' },
+  { path: '/number-adventure', label: 'Adventure', emoji: '🗺️' },
+  { path: '/logic-island', label: 'Logic', emoji: '🧠' },
 ];
 
 export default function BottomNav() {
@@ -31,7 +23,7 @@ export default function BottomNav() {
       }`}
     >
       <div className="flex items-center justify-around py-2 px-1 max-w-lg mx-auto">
-        {NAV_ITEMS.map(({ path, label, icon: Icon, emoji }) => {
+        {NAV_ITEMS.map(({ path, label, emoji }) => {
           const isActive = location.pathname === path;
           return (
             <NavLink

@@ -1,65 +1,72 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import Header from './Header';
 import Sidebar from './Sidebar';
 import Mascot from './Mascot';
 import { useUser } from '../../context/UserContext';
 
 /**
- * App shell: fixed sidebar on left, scrollable main content on right.
- * Also renders global achievement unlock toasts from UserContext.
+ * App shell matching Pratiush's layout:
+ * - Bottom navbar on mobile, left sidebar on desktop
+ * - main-content shifts right on desktop
+ * - Floating mascot
  */
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { newAchievements, clearNewAchievements } = useUser();
+  const showNavbar = true; // Always show nav (no onboarding flow in this module)
 
   return (
-    <div className="app-shell">
-      {/* Sidebar */}
+    <>
+      {/* Sidebar / Navbar */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main content area */}
-      <div className="main-content flex flex-col">
-        <Header onMenuToggle={() => setSidebarOpen((v) => !v)} />
-        <main className="flex-1 overflow-y-auto">
+      <div className={`main-content ${showNavbar ? 'has-navbar' : ''}`}>
+        <main style={{ minHeight: '100dvh', paddingBottom: '140px' }}>
           <Outlet />
         </main>
       </div>
 
       {/* Floating mascot */}
-      <Mascot />
+      {showNavbar && <Mascot />}
 
-      {/* ── Achievement Unlock Toasts ── */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none">
-        <AnimatePresence>
+      {/* Achievement Unlock Toasts */}
+      {newAchievements.length > 0 && (
+        <div style={{
+          position: 'fixed', bottom: '24px', right: '24px', zIndex: 500,
+          display: 'flex', flexDirection: 'column', gap: '12px',
+          pointerEvents: 'none'
+        }}>
           {newAchievements.map((ach, i) => (
-            <motion.div
+            <div
               key={ach.id}
-              initial={{ opacity: 0, x: 80, scale: 0.8 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 80 }}
-              transition={{ delay: i * 0.15 }}
-              onAnimationComplete={() => {
-                // Auto-dismiss after 4 seconds
-                setTimeout(clearNewAchievements, 4000);
-              }}
-              className="pointer-events-auto flex items-center gap-3 px-5 py-3 rounded-2xl shadow-2xl"
               style={{
+                pointerEvents: 'auto',
+                display: 'flex', alignItems: 'center', gap: '12px',
+                padding: '12px 20px',
                 background: 'linear-gradient(135deg, #7C4DFF, #E91E8C)',
                 color: 'white',
+                borderRadius: 'var(--radius-xl)',
+                boxShadow: 'var(--shadow-xl)',
                 minWidth: 220,
+                animation: 'bounce-in 0.5s var(--ease-spring)',
+                animationDelay: `${i * 0.15}s`,
               }}
+              onAnimationEnd={() => setTimeout(clearNewAchievements, 4000)}
             >
-              <span className="text-3xl">{ach.emoji}</span>
+              <span style={{ fontSize: '1.8rem' }}>{ach.emoji}</span>
               <div>
-                <p className="text-xs font-bold opacity-80 uppercase tracking-wide">🏅 Achievement Unlocked!</p>
-                <p className="font-bold text-sm">{ach.label}</p>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  🏅 Achievement Unlocked!
+                </p>
+                <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem' }}>
+                  {ach.label}
+                </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </AnimatePresence>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,7 +1,5 @@
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
 import { HiOutlineBars3, HiOutlineChevronLeft } from 'react-icons/hi2';
 
@@ -24,7 +22,6 @@ const PAGE_TITLES = {
  * Matches reference design exactly.
  */
 export default function Header({ onMenuToggle }) {
-  const { isDark } = useTheme();
   const { profile } = useUser();
   const location = useLocation();
   const navigate = useNavigate();

@@ -1,36 +1,72 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
+import { useUser } from '../context/UserContext';
+import { getUnlockedAchievements } from '../firebase/services';
 
 const CATEGORIES = ['All', 'Literacy', 'Math', 'Creative', 'Emotion', 'Brain', 'Science'];
 
 const TROPHY_SHELF = [
-  { id: 'first-steps',    label: 'First Steps',    emoji: '🏅', locked: false },
+  { id: 'first-steps',    label: 'First Steps',    emoji: '🏅', locked: true },
   { id: 'rising-star',    label: 'Rising Star',    emoji: '🌟', locked: true },
   { id: 'rocket-learner', label: 'Rocket Learner', emoji: '🚀', locked: true },
   { id: 'knowledge-king', label: 'Knowledge King', emoji: '👑', locked: true },
 ];
 
 const BADGES = [
+  { id: 'first-game',     title: 'First Game!',      desc: 'Play your first learning game',    emoji: '🎮', cat: 'Brain',   locked: true },
+  { id: 'streak-3',       title: '3-Day Streak',     desc: 'Log in 3 days in a row',           emoji: '🔥', cat: 'Emotion', locked: true },
+  { id: 'streak-7',       title: 'Week Warrior',     desc: 'Log in 7 days in a row',           emoji: '⚡', cat: 'Emotion', locked: true },
+  { id: 'xp-100',         title: 'XP Hunter',        desc: 'Earn 100 Experience Points',        emoji: '💫', cat: 'Brain',   locked: true },
+  { id: 'xp-500',         title: 'Math Master',      desc: 'Reach 500 Experience Points',        emoji: '🏆', cat: 'Math',    locked: true },
+  { id: 'stars-10',       title: 'Star Collector',   desc: 'Collect 10 stars in games',        emoji: '⭐', cat: 'Brain',   locked: true },
+  { id: 'coins-100',      title: 'Coin Champion',    desc: 'Amass 100 gold coins',             emoji: '🪙', cat: 'Brain',   locked: true },
+  { id: 'numeracy-pro',   title: 'Numeracy Pro',     desc: 'Get 200 XP in Math World',          emoji: '🔢', cat: 'Math',    locked: true },
+
+  // existing hardcoded badges for other domains
   { id: 'literacy-star',  title: 'Literacy Star',    desc: 'Complete 5 reading activities',   emoji: '📚', cat: 'Literacy', locked: true },
-  { id: 'math-champ',     title: 'Math Champion',    desc: 'Solve 10 math challenges',        emoji: '🔢', cat: 'Math',    locked: true },
   { id: 'creative-mind',  title: 'Creative Mind',    desc: 'Finish 5 creative projects',      emoji: '🎨', cat: 'Creative', locked: true },
   { id: 'emotion-exp',    title: 'Emotion Explorer', desc: 'Complete emotional learning path', emoji: '💖', cat: 'Emotion', locked: true },
   { id: 'science-whiz',   title: 'Science Whiz',     desc: 'Do 5 science experiments',        emoji: '🔬', cat: 'Science', locked: true },
   { id: 'puzzle-master',  title: 'Puzzle Master',    desc: 'Solve 20 puzzles',                emoji: '🧩', cat: 'Brain',   locked: true },
   { id: 'bookworm',       title: 'Bookworm',         desc: 'Read 10 stories',                 emoji: '📖', cat: 'Literacy', locked: true },
-  { id: 'math-ninja',     title: 'Math Ninja',       desc: 'Master all math levels',          emoji: '🥷', cat: 'Math',    locked: true },
   { id: 'music-maker',    title: 'Music Maker',      desc: 'Complete all music activities',   emoji: '🎵', cat: 'Creative', locked: true },
-  { id: 'happy-learner',  title: 'Happy Learner',    desc: 'Log in 7 days in a row',          emoji: '😊', cat: 'Emotion', locked: true },
 ];
 
 export default function Awards() {
-  const { isDark } = useTheme();
+  const { user } = useUser();
   const [activeCategory, setActiveCategory] = useState('All');
+  const [unlockedIds, setUnlockedIds] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      getUnlockedAchievements(user.uid).then((ids) => {
+        setUnlockedIds(ids || []);
+      });
+    }
+  }, [user]);
+
+  // Dynamically map trophy locking
+  const trophies = TROPHY_SHELF.map((t) => {
+    let unlocked = false;
+    if (t.id === 'first-steps') unlocked = unlockedIds.includes('first-game');
+    if (t.id === 'rising-star') unlocked = unlockedIds.includes('xp-100');
+    if (t.id === 'rocket-learner') unlocked = unlockedIds.includes('stars-10');
+    if (t.id === 'knowledge-king') unlocked = unlockedIds.includes('xp-500');
+    return { ...t, locked: !unlocked };
+  });
+
+  // Dynamically map badge locking
+  const badges = BADGES.map((b) => {
+    const isUnlocked = unlockedIds.includes(b.id);
+    return { ...b, locked: !isUnlocked };
+  });
 
   const filtered = activeCategory === 'All'
-    ? BADGES
-    : BADGES.filter((b) => b.cat === activeCategory);
+    ? badges
+    : badges.filter((b) => b.cat === activeCategory);
+
+  const totalUnlocked = badges.filter((b) => !b.locked).length;
+  const percentage = Math.min(100, Math.round((totalUnlocked / badges.length) * 100));
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-6">
@@ -44,11 +80,11 @@ export default function Awards() {
           Achievements 🏆
         </h1>
         <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-          0/12 badges unlocked
+          {totalUnlocked}/{badges.length} badges unlocked
         </p>
         <div className="mt-3 max-w-xs mx-auto">
           <div className="progress-track">
-            <div className="progress-fill" style={{ width: '0%', background: 'linear-gradient(90deg, #F5A623, #E91E8C)' }} />
+            <div className="progress-fill" style={{ width: `${percentage}%`, background: 'linear-gradient(90deg, #F5A623, #E91E8C)' }} />
           </div>
         </div>
       </motion.div>
@@ -70,7 +106,7 @@ export default function Awards() {
             style={{ background: 'var(--border-default)' }}
           />
           <div className="flex justify-around pb-2">
-            {TROPHY_SHELF.map((t, i) => (
+            {trophies.map((t, i) => (
               <motion.div
                 key={t.id}
                 initial={{ opacity: 0, y: 20 }}

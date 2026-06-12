@@ -1,0 +1,50 @@
+.lang-toggle {
+  display: inline-flex;
+  background: var(--color-divider);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+  gap: 2px;
+}
+
+.lang-btn {
+  padding: 4px 12px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  white-space: nowrap;
+}
+
+.lang-btn.active {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.3);
+}
+
+.lang-btn:hover:not(.active) {
+  background: rgba(245, 166, 35, 0.12);
+  color: var(--color-primary-dark);
+}
+
+.lang-toggle.compact .lang-btn {
+  padding: 3px 8px;
+  font-size: 0.65rem;
+}
+
+[data-theme="dark"] .lang-toggle {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .lang-btn {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .lang-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}

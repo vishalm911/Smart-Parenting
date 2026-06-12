@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
 import { useUser } from '../context/UserContext';
 import GameCard from '../components/common/GameCard';
 import { MultiplicationQuestGame } from '../components/common/NumberArray';
@@ -67,8 +66,6 @@ function MazeGame({ onBack }) {
       awardProgress(user?.uid, { xp: Math.floor(score / 2), stars: level >= 2 ? 1 : 0, coins: 5, module: 'logicIsland' }).then(() => refreshProfile?.());
     }
   }, [won, level, score, user, refreshProfile]);
-
-  const DIRS = [{ label: '↑', dr: -1, dc: 0 }, { label: '←', dr: 0, dc: -1 }, { label: '↓', dr: 1, dc: 0 }, { label: '→', dr: 0, dc: 1 }];
 
   return (
     <div className="max-w-md mx-auto px-4 py-6">
@@ -151,7 +148,6 @@ function PatternGame({ onBack }) {
   const gameState = useGameState({ maxLives: 3, pointsPerCorrect: 25 });
   const [round, setRound] = useState(0);
   const [feedback, setFeedback] = useState(null);
-  const { isDark } = useTheme();
   const { user, refreshProfile } = useUser();
   const q = PATTERN_QUESTIONS[round % PATTERN_QUESTIONS.length];
 

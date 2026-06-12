@@ -1,0 +1,10 @@
+/* src/pages/AuthPage.module.css */
+.page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--gradient-sky);padding:20px}
+.card{background:var(--color-bg-card);border:2px solid var(--color-border);border-radius:var(--radius-lg);padding:40px 36px;width:100%;max-width:440px;box-shadow:var(--shadow-hover)}
+.logo{font-size:56px;text-align:center;margin-bottom:14px}
+.heading{font-family:var(--font-heading);font-size:28px;font-weight:800;color:var(--color-text);text-align:center;margin-bottom:6px}
+.sub{font-size:14px;color:var(--color-text-secondary);text-align:center;margin-bottom:28px;font-weight:600}
+.submitBtn{width:100%;justify-content:center;padding:14px;font-size:16px;margin-top:6px}
+.switch{text-align:center;margin-top:20px;font-size:14px;color:var(--color-text-secondary)}
+.link{color:var(--color-secondary-dark);font-weight:700}
+.link:hover{text-decoration:underline}

@@ -1,0 +1,296 @@
+/* ============================================================
+   Settings Page
+   ============================================================ */
+
+.settings-page {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  padding-bottom: 140px;
+}
+
+.settings-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.settings-inner > h1 {
+  font-size: 2rem;
+  margin-bottom: var(--space-8);
+  animation: slide-up 0.5s var(--ease-spring);
+}
+
+/* ---- Section ---- */
+.settings-section {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 2px solid var(--color-divider);
+  animation: slide-up 0.5s var(--ease-spring);
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section h2 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+/* ---- Language Options ---- */
+.settings-lang-options {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.settings-lang-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-xl);
+  border: 3px solid var(--color-border);
+  background: var(--color-bg-card);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-bounce);
+  min-width: 100px;
+}
+
+.settings-lang-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-glow-primary);
+  transform: scale(1.05);
+}
+
+.settings-lang-btn:hover:not(.active) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.lang-flag {
+  font-size: 2rem;
+}
+
+.lang-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* ---- Theme Options ---- */
+.settings-theme-options {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.settings-theme-btn {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-card);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.settings-theme-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* ---- Seasonal Theme Cards ---- */
+.settings-season-options {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.season-card {
+  flex: 1;
+  min-width: 120px;
+  padding: var(--space-6) var(--space-3);
+  border-radius: var(--radius-xl);
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-bounce);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.season-card.active {
+  border-color: white;
+  box-shadow: 0 0 0 3px var(--color-primary), var(--shadow-lg);
+  transform: scale(1.05);
+}
+
+.season-label {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.season-card:first-child .season-label {
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+/* ---- Toggle Switch ---- */
+.settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.toggle-switch {
+  width: 52px; height: 28px;
+  border-radius: 14px;
+  background: var(--color-border);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s;
+  padding: 0;
+}
+
+.toggle-switch.on {
+  background: var(--color-primary);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 22px; height: 22px;
+  border-radius: var(--radius-full);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.toggle-switch.on .toggle-knob {
+  transform: translateX(24px);
+}
+
+/* ---- Profile List ---- */
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  transition: all 0.3s;
+}
+
+.profile-item.current {
+  border-color: var(--color-primary-light);
+  background: var(--color-bg-elevated);
+}
+
+.profile-avatar-mini {
+  font-size: 1.8rem;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.profile-age {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.profile-current-tag {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: #E8F5E9;
+  color: var(--color-success);
+}
+
+.profile-delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  padding: var(--space-1);
+}
+
+.profile-delete-btn:hover {
+  opacity: 1;
+}
+
+/* ---- PIN Actions ---- */
+.pin-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* ---- About ---- */
+.settings-about p {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-1);
+}
+
+/* ---- Dark Mode ---- */
+[data-theme="dark"] .settings-page {
+  background: var(--color-bg);
+}
+
+[data-theme="dark"] .settings-lang-btn,
+[data-theme="dark"] .settings-theme-btn,
+[data-theme="dark"] .profile-item {
+  background: var(--color-bg-card);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .profile-current-tag {
+  background: rgba(102, 187, 106, 0.15);
+}
+
+@media (max-width: 480px) {
+  .settings-lang-options {
+    flex-direction: column;
+  }
+  .settings-lang-btn {
+    flex-direction: row;
+  }
+  .settings-season-options {
+    flex-direction: column;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
@@ -9,7 +9,9 @@ export default function NumberArray({ rows, cols, color = '#7C4DFF', animate = t
   const [revealed, setRevealed] = useState([]);
 
   useEffect(() => {
-    setRevealed([]);
+    Promise.resolve().then(() => {
+      setRevealed([]);
+    });
     const total = rows * cols;
     let i = 0;
     const timer = setInterval(() => {
@@ -65,6 +67,16 @@ const MULT_QUESTIONS = [
 
 const COLORS = ['#7C4DFF', '#E91E8C', '#F5A623', '#2EC4B6', '#FF6B9D', '#66BB6A'];
 
+// Pure function helper to generate multiplication options
+const generateMultOptions = (ans) => {
+  const opts = new Set([ans]);
+  while (opts.size < 4) {
+    const wrong = ans + Math.floor(Math.random() * 7) - 3;
+    if (wrong > 0 && wrong !== ans) opts.add(wrong);
+  }
+  return [...opts].sort(() => Math.random() - 0.5);
+};
+
 export function MultiplicationQuestGame({ onBack, onScoreUpdate }) {
   const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
@@ -77,39 +89,12 @@ export function MultiplicationQuestGame({ onBack, onScoreUpdate }) {
   const q = MULT_QUESTIONS[round % MULT_QUESTIONS.length];
   const color = COLORS[round % COLORS.length];
 
-  // Ref to prevent handleAnswer double-fire from timer
   const timeoutFiredRef = useRef(false);
 
-  // Timer
-  useEffect(() => {
-    if (feedback) return;
-    setTimeLeft(15);
-    timeoutFiredRef.current = false;
-    const timer = setInterval(() => {
-      setTimeLeft((t) => {
-        if (t <= 1 && !timeoutFiredRef.current) {
-          timeoutFiredRef.current = true;
-          clearInterval(timer);
-          // Schedule outside updater to avoid calling setState inside setState
-          setTimeout(() => handleAnswer(-1), 0);
-        }
-        return t - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [round, feedback]);
+  // Memoize options so they don't reshuffle on every render
+  const options = useMemo(() => generateMultOptions(q.ans), [q.ans]);
 
-  // Memoize options so they don't reshuffle on every render (e.g. timer ticks)
-  const options = useMemo(() => {
-    const opts = new Set([q.ans]);
-    while (opts.size < 4) {
-      const wrong = q.ans + Math.floor(Math.random() * 7) - 3;
-      if (wrong > 0 && wrong !== q.ans) opts.add(wrong);
-    }
-    return [...opts].sort(() => Math.random() - 0.5);
-  }, [q.ans, round]); // regenerate only when question changes
-
-  const handleAnswer = (answer) => {
+  const handleAnswer = useCallback((answer) => {
     if (feedback) return;
     if (answer === q.ans) {
       const pts = 30 * level;
@@ -135,7 +120,27 @@ export function MultiplicationQuestGame({ onBack, onScoreUpdate }) {
         setShowArray(true);
       }, 200);
     }, 1200);
-  };
+  }, [feedback, q.ans, level, score, perfectStreak, onScoreUpdate]);
+
+  // Timer useEffect hook
+  useEffect(() => {
+    if (feedback) return;
+    Promise.resolve().then(() => {
+      setTimeLeft(15);
+    });
+    timeoutFiredRef.current = false;
+    const timer = setInterval(() => {
+      setTimeLeft((t) => {
+        if (t <= 1 && !timeoutFiredRef.current) {
+          timeoutFiredRef.current = true;
+          clearInterval(timer);
+          setTimeout(() => handleAnswer(-1), 0);
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [round, feedback, handleAnswer]);
 
   return (
     <div className="max-w-lg mx-auto px-4 py-4">

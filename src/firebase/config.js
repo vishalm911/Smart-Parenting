@@ -24,8 +24,12 @@ export const auth = getAuth(app);
 
 // Analytics: lazy-init to avoid top-level await issues
 export let analytics = null;
-isSupported().then((yes) => {
-  if (yes) analytics = getAnalytics(app);
-}).catch(() => {});
+try {
+  isSupported().then((yes) => {
+    if (yes) analytics = getAnalytics(app);
+  }).catch(() => {});
+} catch (e) {
+  console.warn('Firebase Analytics is not supported in this environment:', e);
+}
 
 export default app;

@@ -1,0 +1,284 @@
+/* ============================================================
+   Achievement Page
+   ============================================================ */
+
+.achievements-page {
+  min-height: 100dvh;
+  background: linear-gradient(180deg, #FFF8EC 0%, #FFFDF7 100%);
+  padding-bottom: 140px;
+}
+
+.achievements-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+/* ---- Header ---- */
+.ach-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  animation: slide-up 0.5s var(--ease-spring);
+}
+.ach-header h1 { font-size: 2rem; margin-bottom: var(--space-1); }
+.ach-sub {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin-bottom: var(--space-3);
+}
+.ach-overall-bar {
+  width: 100%; max-width: 300px;
+  height: 10px; margin: 0 auto;
+  background: var(--color-divider);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.ach-overall-fill {
+  height: 100%;
+  background: var(--gradient-warm);
+  border-radius: var(--radius-pill);
+  transition: width 1s var(--ease-smooth);
+}
+
+/* ---- Trophy Shelf ---- */
+.trophy-section {
+  margin-bottom: var(--space-8);
+}
+.trophy-section h2 { font-size: 1.3rem; margin-bottom: var(--space-4); }
+
+.trophy-shelf {
+  background: linear-gradient(180deg, #EFEBE9, #D7CCC8);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  perspective: 600px;
+}
+.shelf-bar {
+  position: absolute;
+  bottom: 50px; left: 0; right: 0;
+  height: 8px;
+  background: linear-gradient(180deg, #A1887F, #8D6E63);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.trophies {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+.trophy {
+  display: flex; flex-direction: column;
+  align-items: center; gap: var(--space-2);
+  animation: bounce-in 0.6s var(--ease-spring) both;
+  transition: transform 0.3s var(--ease-bounce);
+  position: relative;
+}
+.trophy:hover { transform: scale(1.1) translateY(-4px); }
+.trophy-emoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+.trophy.earned .trophy-emoji {
+  animation: wiggle 3s ease-in-out infinite;
+}
+.trophy.locked .trophy-emoji {
+  filter: grayscale(0.8);
+  opacity: 0.4;
+}
+.trophy-name {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #5D4037;
+}
+.trophy-lock {
+  position: absolute;
+  top: 0; right: -4px;
+  font-size: 0.9rem;
+}
+
+/* ---- Filters ---- */
+.ach-filters {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+.filter-chip {
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+.filter-chip.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* ---- Badge Gallery ---- */
+.badge-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.badge-card {
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: var(--space-5) var(--space-3);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-border);
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.4s var(--ease-bounce), box-shadow 0.3s, border-color 0.3s;
+  animation: scale-in 0.4s var(--ease-spring) both;
+}
+.badge-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+.badge-card.unlocked {
+  border-color: var(--color-primary-light);
+  background: linear-gradient(180deg, #FFFDE7, white);
+}
+.badge-card.unlocked:hover {
+  box-shadow: var(--shadow-glow-primary);
+}
+.badge-card.locked {
+  opacity: 0.65;
+  filter: grayscale(0.3);
+}
+
+.badge-icon-wrapper {
+  position: relative;
+  margin-bottom: var(--space-2);
+}
+.badge-emoji { font-size: 2.5rem; }
+.badge-glow {
+  position: absolute; inset: -8px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(245,166,35,0.3) 0%, transparent 70%);
+  animation: pulse-glow 2s infinite;
+}
+.badge-lock-icon {
+  position: absolute;
+  bottom: -4px; right: -8px;
+  font-size: 1rem;
+}
+
+.badge-name {
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+}
+.badge-desc {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+.badge-unlocked-tag {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-success);
+  padding: 2px 8px;
+  background: #E8F5E9;
+  border-radius: var(--radius-pill);
+}
+
+/* ---- Certificates ---- */
+.certificate-section {
+  margin-bottom: var(--space-8);
+}
+.certificate-section h2 { font-size: 1.3rem; margin-bottom: var(--space-2); }
+.cert-desc {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+.cert-card {
+  display: flex; flex-direction: column;
+  align-items: center; gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--color-border);
+  background: white;
+  text-align: center;
+  transition: all 0.3s;
+}
+.cert-card.earned {
+  border-style: solid;
+  border-color: var(--color-primary-light);
+  background: linear-gradient(180deg, #FFF8E1, white);
+  box-shadow: var(--shadow-glow-primary);
+}
+.cert-icon { font-size: 2rem; }
+.cert-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.cert-locked {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* ---- Badge Modal ---- */
+.badge-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 400;
+  animation: fadeIn 0.2s;
+}
+.badge-modal {
+  background: white;
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  animation: bounce-in 0.4s var(--ease-spring);
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: var(--space-3); right: var(--space-3);
+  background: none; border: none;
+  font-size: 1.2rem; cursor: pointer;
+  color: var(--color-text-muted);
+}
+.modal-emoji { font-size: 4rem; margin-bottom: var(--space-3); display: block; }
+.badge-modal h3 { margin-bottom: var(--space-2); }
+.badge-modal p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+.modal-status {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 480px) {
+  .badge-gallery { grid-template-columns: repeat(2, 1fr); }
+  .trophies { gap: var(--space-2); }
+  .trophy-emoji { font-size: 2rem; }
+}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 /**
@@ -9,7 +8,6 @@ export default function ScoreDisplay({
   level = 1,
   lives = 3,
   maxLives = 3,
-  stars = 0,
   streak = 0,
   timeLeft,
   className = '',

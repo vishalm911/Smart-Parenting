@@ -1,0 +1,218 @@
+// Hindi (हिन्दी) translations
+const hi = {
+  // ---- General ----
+  appName: 'SpacECE',
+  tagline: 'सीखने का रोमांच शुरू हो! ✨',
+  tapToStart: 'शुरू करने के लिए कहीं भी टैप करें',
+  continue: 'आगे बढ़ें →',
+  back: '← पीछे',
+  save: 'सहेजें',
+  cancel: 'रद्द करें',
+  delete: 'हटाएं',
+  edit: 'संपादित करें',
+  add: 'जोड़ें',
+  close: 'बंद करें',
+  confirm: 'पुष्टि करें',
+  loading: 'लोड हो रहा है...',
+  success: 'सफल!',
+  error: 'उफ़! कुछ गलत हो गया',
+  yes: 'हाँ',
+  no: 'नहीं',
+
+  // ---- Welcome / Onboarding ----
+  welcomeTitle: 'SpacECE',
+  welcomeSubtitle: 'सीखने का रोमांच शुरू हो! ✨',
+  ageQuestion: 'आपकी उम्र क्या है? 🎂',
+  ageDesc: 'अपना आयु वर्ग चुनें और रोमांच शुरू करें!',
+  age1_3: 'उम्र 1–3',
+  age4_6: 'उम्र 4–6',
+  age7_10: 'उम्र 7–10',
+  tinyExplorers: 'नन्हे खोजी',
+  curiousCubs: 'जिज्ञासु शावक',
+  starVoyagers: 'तारा यात्री',
+  nameQuestion: 'आपका नाम क्या है? 👋',
+  nameDesc: 'हमें बताओ तुम्हें क्या बुलाएं!',
+  namePlaceholder: 'अपना नाम लिखें...',
+  namePreview: 'नमस्ते, {name}!',
+  letsGo: 'चलो शुरू करें! 🚀',
+
+  // ---- Emoji Categories ----
+  emojiCatFaces: 'चेहरे',
+  emojiCatAnimals: 'जानवर',
+  emojiCatStars: 'तारे',
+  emojiCatHearts: 'दिल',
+
+  // ---- Avatar Page ----
+  avatarTitle: 'अपना अवतार बनाएं ✨',
+  avatarDesc: 'एक किरदार चुनें और उसे अपना बनाएं!',
+  chooseCharacter: 'अपना किरदार चुनें',
+  customizeAccessories: 'सजावट चुनें',
+  saveAvatar: 'मेरा अवतार सहेजें 🎉',
+  avatarSaved: '✅ सहेजा गया!',
+  tabHats: '🎩 टोपी',
+  tabOutfits: '👔 पोशाक',
+  tabBadges: '🏅 बैज',
+  tabBackgrounds: '🎨 पृष्ठभूमि',
+  none: 'कोई नहीं',
+  locked: 'बंद',
+  cantAfford: 'पर्याप्त सिक्के नहीं',
+
+  // ---- Dashboard ----
+  dashGreeting: 'नमस्ते, {name}! 👋',
+  dashSubtitle: 'आज के रोमांच के लिए तैयार?',
+  continueLearning: 'सीखना जारी रखें',
+  dailyChallenge: 'दैनिक चुनौती',
+  today: 'आज',
+  acceptChallenge: 'चुनौती स्वीकारें!',
+  myStars: 'मेरे तारे',
+  keepLearning: 'और सीखो, और कमाओ!',
+  weeklyGoal: 'साप्ताहिक लक्ष्य',
+  starsThisWeek: 'इस हफ्ते {count}/50 तारे',
+  myAchievements: 'मेरी उपलब्धियाँ 🏆',
+  viewAll: 'सभी देखें →',
+  recommendedForYou: 'आपके लिए सुझाव ✨',
+
+  // ---- Achievements ----
+  achievementsTitle: 'उपलब्धियाँ 🏆',
+  badgesUnlocked: '{count}/{total} बैज अनलॉक',
+  trophyShelf: 'ट्रॉफी शेल्फ ✨',
+  filterAll: '🌟 सभी',
+  unlocked: '✅ अनलॉक!',
+  keepLearningBadge: '🔒 सीखते रहो!',
+  certificates: 'प्रमाणपत्र 📜',
+  certDesc: 'प्रिंट करने योग्य प्रमाणपत्र अनलॉक करने के लिए बैज कमाएं!',
+  downloadPdf: 'PDF डाउनलोड',
+  needBadges: '{count} बैज चाहिए',
+
+  // Badge Names
+  'badge.literacy-star': 'साक्षरता सितारा',
+  'badge.math-champ': 'गणित चैंपियन',
+  'badge.creative-mind': 'रचनात्मक दिमाग',
+  'badge.emotion-explorer': 'भावना खोजी',
+  'badge.science-whiz': 'विज्ञान विशेषज्ञ',
+  'badge.problem-solver': 'समस्या समाधानकर्ता',
+  'badge.super-reader': 'सुपर पाठक',
+  'badge.number-ninja': 'नंबर निंजा',
+  'badge.music-master': 'संगीत मास्टर',
+  'badge.kind-heart': 'दयालु दिल',
+  'badge.word-wizard': 'शब्द जादूगर',
+  'badge.logic-legend': 'तर्क किंवदंती',
+
+  // Trophy Names
+  'trophy.first-steps': 'पहले कदम',
+  'trophy.rising-star': 'उभरता सितारा',
+  'trophy.rocket-learner': 'रॉकेट शिक्षार्थी',
+  'trophy.knowledge-king': 'ज्ञान राजा',
+
+  // Certificate Names
+  'cert.literacy': 'साक्षरता खोजी',
+  'cert.math': 'गणित जादूगर',
+  'cert.creative': 'रचनात्मक सितारा',
+
+  // ---- Adventure ----
+  adventureLevel: 'स्तर {level} 🌟',
+  xpCount: '{current}/{max} XP',
+  learningModules: 'सीखने के मॉड्यूल',
+  start: 'शुरू करें',
+  review: 'दोहराएं',
+  treasureMsg: 'खज़ाना अनलॉक करने के लिए सभी मॉड्यूल पूरे करें!',
+
+  // Zone Names
+  'zone.literacy': 'साक्षरता भूमि',
+  'zone.math': 'गणित पर्वत',
+  'zone.brain': 'बुद्धि खाड़ी',
+  'zone.creative': 'रचना कोव',
+  'zone.emotion': 'भावना बगीचा',
+
+  // Zone Descriptions
+  'zone.literacy.desc': 'अक्षर, शब्द और कहानियाँ',
+  'zone.math.desc': 'संख्या, आकार और पहेलियाँ',
+  'zone.brain.desc': 'तर्क और समस्या हल',
+  'zone.creative.desc': 'कला, संगीत और कल्पना',
+  'zone.emotion.desc': 'भावनाएं और दोस्ती',
+
+  // ---- Navbar ----
+  navHome: 'होम',
+  navAvatar: 'अवतार',
+  navAwards: 'पुरस्कार',
+  navExplore: 'खोजें',
+  navSettings: 'सेटिंग्स',
+
+  // ---- Offline ----
+  offlineMsg: '📡 आप ऑफलाइन हैं — आपकी प्रगति स्थानीय रूप से सहेजी गई है',
+  backOnline: 'वापस ऑनलाइन! ✅',
+
+  // ---- Parent PIN ----
+  pinTitle: 'अभिभावक एक्सेस',
+  pinDesc: 'अपना 4-अंकों का PIN दर्ज करें',
+  pinSetTitle: 'अभिभावक PIN सेट करें',
+  pinSetDesc: 'सेटिंग्स की सुरक्षा के लिए 4-अंकों का PIN बनाएं',
+  pinWrong: 'गलत PIN। फिर से प्रयास करें।',
+  pinCooldown: 'बहुत ज़्यादा प्रयास। {seconds}s प्रतीक्षा करें',
+  pinSuccess: 'PIN सत्यापित!',
+
+  // ---- Mascot Messages ----
+  mascotIdle1: 'चलो आगे बढ़ें! 💪',
+  mascotIdle2: 'तुम कर सकते हो! 🌟',
+  mascotIdle3: 'मैं यहाँ हूँ! 🤗',
+  mascotAchieve1: 'शाबाश! 🎉',
+  mascotAchieve2: 'अद्भुत काम! ⭐',
+  mascotAchieve3: 'तुम सुपरस्टार हो! 🌟',
+  mascotWelcome: 'वापस स्वागत है! सीखने के लिए तैयार? 📚',
+  mascotError: 'उफ़! फिर से कोशिश करो 🤔',
+
+  // ---- Settings ----
+  settingsTitle: 'सेटिंग्स ⚙️',
+  language: 'भाषा',
+  theme: 'थीम',
+  themeLight: 'लाइट ☀️',
+  themeDark: 'डार्क 🌙',
+  themeSystem: 'सिस्टम',
+  seasonalTheme: 'त्योहार थीम',
+  seasonNone: 'कोई नहीं',
+  seasonDiwali: 'दिवाली 🪔',
+  seasonHoli: 'होली 🎨',
+  mascotSettings: 'मैस्कॉट साथी',
+  mascotShow: 'मैस्कॉट दिखाएं',
+  childProfiles: 'बच्चों की प्रोफ़ाइल',
+  switchProfile: 'प्रोफ़ाइल बदलें',
+  addProfile: 'प्रोफ़ाइल जोड़ें',
+  parentPin: 'अभिभावक PIN',
+  setPin: 'PIN सेट करें',
+  changePin: 'PIN बदलें',
+  removePin: 'PIN हटाएं',
+  about: 'जानकारी',
+  version: 'संस्करण 2.0',
+  credits: 'SpacECE India द्वारा ❤️ से बनाया',
+
+  // ---- Admin Panel ----
+  adminTitle: 'एडमिन पैनल 🛠️',
+  adminAvatars: 'अवतार प्रबंधक',
+  adminBadges: 'बैज प्रबंधक',
+  adminChallenges: 'दैनिक चुनौतियाँ',
+  adminRewards: 'पुरस्कार दुकान',
+  adminAddAvatar: 'अवतार जोड़ें',
+  adminAddBadge: 'बैज जोड़ें',
+  adminAddChallenge: 'चुनौती जोड़ें',
+  adminAddReward: 'पुरस्कार जोड़ें',
+  adminEditItem: 'आइटम संपादित करें',
+  adminDeleteConfirm: 'क्या आप वाकई इसे हटाना चाहते हैं?',
+  adminSaved: 'बदलाव सहेजे गए!',
+  adminName: 'नाम',
+  adminEmoji: 'इमोजी',
+  adminCategory: 'श्रेणी',
+  adminCost: 'सिक्के की कीमत',
+  adminRequired: 'आवश्यक संख्या',
+  adminDifficulty: 'कठिनाई',
+  adminXp: 'XP पुरस्कार',
+  adminDesc: 'विवरण',
+
+  // ---- Certificate ----
+  certTitle: 'उपलब्धि प्रमाणपत्र',
+  certAwardedTo: 'को प्रदान किया गया',
+  certForCompleting: 'पूरा करने के लिए',
+  certDate: 'दिनांक',
+  certIssuer: 'SpacECE India शिक्षण मंच',
+};
+
+export default hi;
