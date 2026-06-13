@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Nunito:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply m-0 p-0 font-poppins bg-light text-dark min-h-screen;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-extrabold;
+  }
+
+  button {
+    @apply font-poppins font-semibold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-8 py-4 rounded-3xl font-semibold text-lg 
+           shadow-soft hover:shadow-float hover:scale-105 transition-all duration-300
+           active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/30;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary border-2 border-primary px-8 py-4 rounded-3xl 
+           font-semibold text-lg shadow-soft hover:bg-primary hover:text-white 
+           transition-all duration-300 active:scale-95 focus:outline-none 
+           focus:ring-4 focus:ring-primary/30;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl shadow-soft p-6 transition-all duration-300
+           hover:shadow-float hover:-translate-y-1;
+  }
+
+  .world-card {
+    @apply card cursor-pointer overflow-hidden;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-2xl border-2 border-gray-200 
+           focus:border-primary focus:outline-none focus:ring-2 
+           focus:ring-primary/20 transition-all;
+  }
+}
+
+@layer utilities {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-yellow;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}

@@ -1,0 +1,62 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if file is an image
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    // Helper function to check file size (max 5MB)
+    function isValidSize() {
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+    
+    // User avatars
+    match /avatars/{userId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() 
+                   && request.auth.uid == userId
+                   && isImage()
+                   && isValidSize();
+    }
+    
+    // Drawings
+    match /drawings/{userId}/{fileName} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow write: if isAuthenticated() 
+                   && request.auth.uid == userId
+                   && isImage()
+                   && isValidSize();
+    }
+    
+    // Colored pages
+    match /colorings/{userId}/{fileName} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow write: if isAuthenticated() 
+                   && request.auth.uid == userId
+                   && isImage()
+                   && isValidSize();
+    }
+    
+    // Story creations
+    match /stories/{userId}/{fileName} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow write: if isAuthenticated() 
+                   && request.auth.uid == userId
+                   && isImage()
+                   && isValidSize();
+    }
+    
+    // Public coloring page templates (read-only)
+    match /templates/coloring/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admins can upload templates
+    }
+  }
+}
