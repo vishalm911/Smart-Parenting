@@ -26,6 +26,23 @@ const DAILY_MISSIONS = [
   { id: 3, task: 'Earn 3 Stars', completed: false, xp: 10 },
 ];
 
+const ACCESSORIES = {
+  hat: '🎩', crown: '👑', glasses: '👓', bow: '🎀', star: '⭐', rocket: '🚀'
+};
+
+function getAvatarEmoji(avatarId) {
+  const characters = {
+    'Alex': '👦', 'Priya': '👧', 'Kofi': '👦🏾', 'Luna': '👧', 'Ravi': '👦🏽', 'Mia': '👱‍♀️',
+    'Ari': '🧒🏾', 'Benny': '👶', 'Amara': '👧🏾', 'Leo': '👦🏼', 'Zara': '👧🏽', 'Niko': '🧒🏽'
+  };
+  const muiAvatars = {
+    avatar1: '🧑‍🚀', avatar2: '🚀', avatar3: '⭐', avatar4: '🪐', avatar5: '🌙',
+    avatar6: '☀️', avatar7: '🌈', avatar8: '🦋', avatar9: '🧸', avatar10: '🤖',
+    avatar11: '🦄', avatar12: '🐉'
+  };
+  return characters[avatarId] || muiAvatars[avatarId] || '👤';
+}
+
 function getGreeting() {
   const h = new Date().getHours();
   if (h < 12) return 'Good Morning';
@@ -141,8 +158,13 @@ export default function Home() {
             <span className="stat-value">{animateXP}</span>
             <span className="stat-label">XP</span>
           </div>
-          <div className="topnav-avatar" onClick={() => navigate('/avatar')}>
-            👤
+          <div className="topnav-avatar" onClick={() => navigate('/child/avatar')} style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.65rem', background: '#E2F0CB', width: '42px', height: '42px', borderRadius: '50%', cursor: 'pointer', border: '2px solid white', boxShadow: 'var(--shadow-sm)' }}>
+            {getAvatarEmoji(profile?.avatar)}
+            {profile?.accessory && (
+              <span style={{ position: 'absolute', fontSize: '1rem', right: '-4px', bottom: '-4px', zIndex: 5, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }}>
+                {ACCESSORIES[profile.accessory]}
+              </span>
+            )}
           </div>
         </div>
       </div>

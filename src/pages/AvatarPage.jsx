@@ -30,7 +30,7 @@ const ACCESSORIES = [
 export default function AvatarPage() {
   const { user, profile, refreshProfile } = useUser();
   const [selected, setSelected] = useState(profile?.avatar ?? 'Alex');
-  const [accessory, setAccessory] = useState('hat');
+  const [accessory, setAccessory] = useState(profile?.accessory ?? 'hat');
   const [saving, setSaving] = useState(false);
 
   const selectedChar = CHARACTERS.find((c) => c.id === selected) ?? CHARACTERS[0];
@@ -38,7 +38,7 @@ export default function AvatarPage() {
   const handleSave = async () => {
     if (!user) return;
     setSaving(true);
-    await updateUserProfile(user.uid, { avatar: selected });
+    await updateUserProfile(user.uid, { avatar: selected, accessory: accessory });
     await refreshProfile();
     setSaving(false);
   };
@@ -66,10 +66,26 @@ export default function AvatarPage() {
         className="flex flex-col items-center mb-8"
       >
         <div
-          className="w-36 h-36 rounded-full flex items-center justify-center text-7xl border-4 border-white shadow-2xl mb-3"
+          className="w-36 h-36 rounded-full flex items-center justify-center text-7xl border-4 border-white shadow-2xl mb-3 relative"
           style={{ background: selectedChar.bg }}
         >
           {selectedChar.emoji}
+          {accessory && (
+            <div
+              className="absolute text-5xl"
+              style={{
+                top: accessory === 'hat' || accessory === 'crown' ? '-20px' : 'auto',
+                bottom: accessory === 'star' || accessory === 'rocket' ? '10px' : 'auto',
+                left: accessory === 'glasses' ? '24px' : 'auto',
+                right: accessory === 'bow' ? '12px' : 'auto',
+                transform: accessory === 'glasses' ? 'scale(1.2)' : 'none',
+                zIndex: 10,
+                filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.15))',
+              }}
+            >
+              {ACCESSORIES.find(a => a.id === accessory)?.emoji}
+            </div>
+          )}
         </div>
         <h2 className="font-bold text-xl" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
           {selected}
