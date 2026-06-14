@@ -15,7 +15,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className={`fixed bottom-0 left-0 right-0 z-50 border-t backdrop-blur-xl md:hidden ${
+      className={`fixed bottom-0 left-0 right-0 z-50 border-t backdrop-blur-xl lg:hidden ${
         isDark
           ? 'bg-[#1A1A2E]/95 border-white/8'
           : 'bg-white/95 border-[#F0E8DA]'

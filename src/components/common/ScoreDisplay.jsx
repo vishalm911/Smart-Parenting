@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 /**
  * Animated score display — uses CSS vars for theme consistency.
@@ -12,6 +13,29 @@ export default function ScoreDisplay({
   timeLeft,
   className = '',
 }) {
+  const [displayScore, setDisplayScore] = useState(score);
+
+  useEffect(() => {
+    let start = displayScore;
+    const end = score;
+    if (start === end) return;
+    const range = end - start;
+    let current = start;
+    // Step by a proportion to complete within 600ms
+    const stepTime = Math.max(16, Math.floor(600 / Math.abs(range || 1)));
+    const increment = end > start ? 1 : -1;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      setDisplayScore(current);
+      if (current === end) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+    
+    return () => clearInterval(timer);
+  }, [score]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div
       className={`flex flex-wrap items-center justify-center gap-3 p-4 rounded-2xl shadow-lg ${className}`}
@@ -19,14 +43,14 @@ export default function ScoreDisplay({
     >
       {/* Score */}
       <motion.div
-        key={score}
-        initial={{ scale: 1.3 }}
+        key={displayScore}
+        initial={{ scale: 1.25 }}
         animate={{ scale: 1 }}
         className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-white"
         style={{ background: 'linear-gradient(135deg, #F5A623, #FFCC02)' }}
       >
         <span className="text-lg">🏆</span>
-        <span className="font-bold text-sm">{score}</span>
+        <span className="font-bold text-sm">{displayScore}</span>
       </motion.div>
 
       {/* Level */}

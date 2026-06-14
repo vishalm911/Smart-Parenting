@@ -26,7 +26,7 @@ export default function Layout() {
 
       {/* Main content area */}
       <div className={`main-content ${showNavbar ? 'has-navbar' : ''}`}>
-        <main style={{ minHeight: '100dvh', paddingBottom: '140px' }}>
+        <main className="main-content-inner">
           <Outlet />
         </main>
       </div>

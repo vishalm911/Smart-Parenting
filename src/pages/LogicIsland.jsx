@@ -68,7 +68,7 @@ function MazeGame({ onBack }) {
   }, [won, level, score, user, refreshProfile]);
 
   return (
-    <div className="max-w-md mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <div className="flex items-center justify-between mb-4">
         <div>
           <p className="font-bold text-sm" style={{ color: 'var(--text-muted)' }}>Maze {level + 1} of {MAZES.length}</p>
@@ -78,7 +78,7 @@ function MazeGame({ onBack }) {
       </div>
 
       {/* Grid */}
-      <div className="card p-4 mb-4">
+      <div className="game-card-viewport p-4 mb-4">
         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${maze.grid}, 1fr)`, gap: 4 }}>
           {Array.from({ length: maze.grid }).map((_, r) =>
             Array.from({ length: maze.grid }).map((_, c) => {
@@ -193,12 +193,12 @@ function PatternGame({ onBack }) {
   }
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
 
-      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="card p-8 mb-6 text-center">
+      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="game-card-viewport p-8 mb-6">
         <p className="text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
           What comes next in the pattern?
         </p>
@@ -312,19 +312,19 @@ function OddOneOutGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="card p-6 mb-4 text-center">
+      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="game-card-viewport p-6 mb-4">
         <p className="text-lg font-semibold mb-6" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
           🔍 Which one does <strong style={{ color: 'var(--text-primary)' }}>NOT</strong> belong?
         </p>
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-4 mb-4 w-full max-w-4xl flex-1 items-stretch">
           {shuffled.map((item) => (
             <motion.button key={item} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
               onClick={() => handle(item)} disabled={!!feedback}
-              className="rounded-2xl py-6 text-6xl shadow-md"
+              className="rounded-2xl py-6 text-6xl shadow-md min-h-[140px] md:min-h-[180px] flex items-center justify-center"
               style={{ background: feedback && item === data.odd ? '#4CAF50' : (feedback && item !== data.odd ? '#FFCDD2' : 'var(--bg-accent)') }}>
               {item}
             </motion.button>
@@ -396,11 +396,11 @@ function WordProblemsGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="card p-6 mb-4">
+      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="game-card-viewport p-6 mb-4">
         <div className="text-center text-6xl mb-4">{q.scene}</div>
         <div className="rounded-2xl p-4 mb-5" style={{ background: 'rgba(124,77,255,0.07)', border: '1.5px solid rgba(124,77,255,0.18)' }}>
           <p className="text-base font-semibold text-center leading-relaxed" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
@@ -447,7 +447,8 @@ export default function LogicIsland() {
   }, []);
 
   if (activeGame === 'multiplication-quest') return <MultiplicationQuestGame onBack={() => setActiveGame(null)} onScoreUpdate={(s, l) => console.log('mult score:', s, l)} />;
-  if (activeGame === 'maze-challenge' || activeGame === 'sequence-complete') return <MazeGame onBack={() => setActiveGame(null)} />;
+  if (activeGame === 'maze-challenge') return <MazeGame onBack={() => setActiveGame(null)} />;
+  if (activeGame === 'sequence-complete') return <PatternGame onBack={() => setActiveGame(null)} />;
   if (activeGame === 'odd-one-out') return <OddOneOutGame onBack={() => setActiveGame(null)} />;
   if (activeGame === 'word-problems') return <WordProblemsGame onBack={() => setActiveGame(null)} />;
   if (activeGame) return <PatternGame onBack={() => setActiveGame(null)} />;

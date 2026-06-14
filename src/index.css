@@ -421,7 +421,7 @@ html { scrollbar-color: var(--color-primary-light) var(--color-divider); scrollb
   flex: 1;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .main-content.has-navbar {
     margin-left: 280px;
   }
@@ -672,4 +672,64 @@ fieldset.MuiOutlinedInput-notchedOutline legend > span {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-12px); }
 }
+
+/* ============================================================
+   Game Active Viewport Styles (Full Screen Remaining Layout)
+   ============================================================ */
+.main-content-inner {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1023px) {
+  .main-content-inner {
+    padding-bottom: 140px; /* Space for mobile bottom nav */
+  }
+}
+@media (min-width: 1024px) {
+  .main-content-inner {
+    padding-bottom: 0px; /* No bottom nav on desktop */
+  }
+}
+
+.game-viewport-container {
+  width: 100%;
+  max-width: none !important;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-4);
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .game-viewport-container {
+    min-height: calc(100vh - 80px);
+    padding: var(--space-6) var(--space-12);
+  }
+}
+
+.game-card-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--color-border);
+  transition: transform 0.5s var(--ease-bounce), box-shadow 0.3s;
+  text-align: center;
+}
+.game-card-viewport:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
 

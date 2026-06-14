@@ -8,6 +8,7 @@ import StarAnimation from '../components/animations/StarAnimation';
 import FloatingElements from '../components/animations/FloatingElements';
 import useGameState from '../hooks/useGameState';
 import { getMathGames, saveNumeracyScore, awardProgress } from '../firebase/services';
+import ThreeDAbacus from '../components/three/ThreeDAbacus';
 
 /* ─── Fallback static data if Firestore empty ─── */
 const FALLBACK_MATH_GAMES = [
@@ -17,6 +18,7 @@ const FALLBACK_MATH_GAMES = [
   { id: 'number-match',   title: 'Number Match',      description: 'Match numbers to the right group of objects!',   emoji: '🎯', ageRange: '4–6', difficulty: 'Medium', gradient: 'bg-gradient-to-br from-[#2EC4B6] to-[#4FC3F7]',                type: 'matching' },
   { id: 'number-order',   title: 'Number Order',      description: 'Tap numbers in the correct ascending order!',    emoji: '📊', ageRange: '4–6', difficulty: 'Medium', gradient: 'bg-gradient-to-br from-[#66BB6A] to-[#2EC4B6]',                type: 'ordering' },
   { id: 'math-story',     title: 'Math Stories',      description: 'Solve fun maths problems hidden in stories!',    emoji: '📖', ageRange: '4–6', difficulty: 'Medium', gradient: 'bg-gradient-to-br from-[#FDDB92] to-[#D1FDFF]',                type: 'story' },
+  { id: 'abacus-simulation', title: '3D Abacus',      description: 'Interactive 3D abacus! Master place values and counting!', emoji: '🧮', ageRange: '4–6', difficulty: 'Medium', gradient: 'bg-gradient-to-br from-[#7C4DFF] via-[#FF6B9D] to-[#F5A623]', type: 'abacus' },
   { id: 'add-sub',        title: 'Add & Subtract',    description: 'Master addition and subtraction!',              emoji: '➕', ageRange: '7–10', difficulty: 'Hard',   gradient: 'bg-gradient-to-br from-[#7C4DFF] to-[#FF6B9D]',                type: 'arithmetic' },
   { id: 'times-tables',   title: 'Times Tables',      description: 'Beat the clock! Speed through multiplications!', emoji: '✖️', ageRange: '7–10', difficulty: 'Hard',   gradient: 'bg-gradient-to-br from-[#FF6B9D] via-[#F5A623] to-[#FFD180]', type: 'arithmetic' },
 ];
@@ -80,11 +82,11 @@ function CountingGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={currentQuestion} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} className="card p-8 mb-6 text-center">
+      <motion.div key={currentQuestion} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} className="game-card-viewport p-8 mb-6">
         <p className="text-lg font-semibold mb-6" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>How many {q.emoji} do you see?</p>
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {Array.from({ length: q.count }).map((_, i) => (
@@ -169,11 +171,11 @@ function ShapeNumbersGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="card p-6 mb-4 text-center">
+      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="game-card-viewport p-6 mb-4">
         <p className="text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
           How many sides does the <strong style={{ color: 'var(--text-primary)' }}>{q.label}</strong> have?
         </p>
@@ -261,11 +263,11 @@ function SizeCompareGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="card p-6 mb-4">
+      <motion.div key={round} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="game-card-viewport p-6 mb-4">
         <p className="text-center text-lg font-semibold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>Tap them <strong style={{ color: '#FF9A56' }}>smallest → largest</strong>!</p>
         {/* Order bar */}
         <div className="flex justify-center gap-3 mb-6 min-h-[60px] items-center">
@@ -348,11 +350,11 @@ function NumberMatchGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="card p-6 mb-4 text-center">
+      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="game-card-viewport p-6 mb-4">
         <p className="text-lg font-semibold mb-2" style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-display)' }}>Which group has exactly</p>
         <motion.p className="text-7xl font-black mb-6" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 0.5 }}
           style={{ color: '#7C4DFF', fontFamily: 'var(--font-display)' }}>{q.digit}</motion.p>
@@ -432,11 +434,11 @@ function NumberOrderGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="card p-6 mb-4">
+      <motion.div key={round} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="game-card-viewport p-6 mb-4">
         <p className="text-center text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
           Tap numbers <strong style={{ color: '#2EC4B6' }}>smallest → largest</strong>!
         </p>
@@ -523,11 +525,11 @@ function MathStoryGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="card p-6 mb-4">
+      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="game-card-viewport p-6 mb-4">
         {/* Scene illustration */}
         <div className="flex justify-center gap-1 mb-4 flex-wrap">
           {q.scene.split('').filter(c => c.trim()).map((ch, i) => (
@@ -608,11 +610,11 @@ function ArithmeticGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
-      <motion.div key={round} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="card p-8 mb-4 text-center">
+      <motion.div key={round} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="game-card-viewport p-8 mb-4">
         <p className="text-5xl font-black mb-6" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
           {q.a} <span style={{ color: q.op === '+' ? '#4CAF50' : '#F44336' }}>{q.op}</span> {q.b} = ?
         </p>
@@ -710,7 +712,7 @@ function TimesTablesGame({ onBack }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
@@ -722,7 +724,7 @@ function TimesTablesGame({ onBack }) {
       </div>
       <p className="text-right text-sm font-bold mb-4" style={{ color: timerColor }}>⏱ {timeLeft}s</p>
 
-      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="card p-8 mb-4 text-center">
+      <motion.div key={round} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="game-card-viewport p-8 mb-4">
         <p className="text-sm font-bold mb-2" style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-display)' }}>Table of {q.table}</p>
         <p className="text-5xl font-black mb-6" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
           {q.table} <span style={{ color: '#FF9A56' }}>×</span> {q.mult} = ?
@@ -758,6 +760,7 @@ const GAME_ROUTER = {
 };
 
 export default function MathWorld() {
+  const { user, refreshProfile } = useUser();
   const [activeGame, setActiveGame] = useState(null);
   const [selectedAge, setSelectedAge] = useState('all');
   const [games, setGames] = useState(FALLBACK_MATH_GAMES);
@@ -775,6 +778,9 @@ export default function MathWorld() {
 
   // Route to the active game
   if (activeGame) {
+    if (activeGame === 'abacus-simulation') {
+      return <ThreeDAbacus user={user} refreshProfile={refreshProfile} onBack={() => setActiveGame(null)} />;
+    }
     const renderer = GAME_ROUTER[activeGame];
     if (renderer) return renderer(() => setActiveGame(null));
     // Fallback

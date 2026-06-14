@@ -80,8 +80,8 @@ export default function Adventure() {
 
       {/* Level / XP Bar at top */}
       <div
-        className="sticky top-0 z-10 px-6 py-3 border-b flex items-center gap-4"
-        style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}
+        className="sticky top-0 z-10 px-6 py-3 border-b flex items-center gap-4 backdrop-blur-md bg-white/70 dark:bg-[#1E2A3A]/70"
+        style={{ borderColor: 'var(--border-default)' }}
       >
         <span className="font-bold text-sm" style={{ color: '#7C4DFF', fontFamily: 'var(--font-display)' }}>
           Level {profile?.level ?? 2} ⭐
@@ -103,42 +103,76 @@ export default function Adventure() {
       </div>
 
       {/* ─── Adventure Island Map ─── */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-6">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-6 animate-scale-in">
         {/* Map background container */}
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           className="relative rounded-3xl overflow-hidden mb-6"
           style={{
-            background: 'linear-gradient(180deg, #87CEEB 0%, #a8e6cf 50%, #68c068 100%)',
-            minHeight: 400,
-            border: '4px solid #F5A623',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.15)',
+            background: 'linear-gradient(180deg, #4EA8DE 0%, #48CAE4 40%, #0077B6 80%, #03045E 100%)',
+            minHeight: 420,
+            border: '4px solid var(--color-primary-light)',
+            boxShadow: '0 12px 48px rgba(124, 77, 255, 0.15)',
           }}
         >
+          {/* Subtle grid pattern overlay */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: 'radial-gradient(circle, white 10%, transparent 11%)',
+              backgroundSize: '20px 20px'
+            }}
+          />
+
           {/* Title banner */}
           <div
-            className="relative z-10 text-center py-3"
-            style={{ background: 'rgba(10,10,50,0.75)' }}
+            className="relative z-10 text-center py-3 border-b border-white/10"
+            style={{ background: 'rgba(10, 15, 40, 0.65)', backdropFilter: 'blur(8px)' }}
           >
             <h2
-              className="text-2xl font-bold text-white tracking-widest"
+              className="text-2xl font-bold text-white tracking-widest drop-shadow-md"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               ★ ADVENTURE ISLAND ★
             </h2>
           </div>
 
+          {/* Map pathway SVG */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ zIndex: 1 }}>
+            {/* Winding outer track glow */}
+            <path
+              d="M 25,20 Q 52.5,12 80,20 T 44,53 T 88,65 T 10,67"
+              fill="none"
+              stroke="#FFF"
+              strokeWidth="4"
+              strokeDasharray="6 8"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              opacity="0.25"
+            />
+            {/* Inner dashed line */}
+            <path
+              d="M 25,20 Q 52.5,12 80,20 T 44,53 T 88,65 T 10,67"
+              fill="none"
+              stroke="#F5A623"
+              strokeWidth="2"
+              strokeDasharray="4 6"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              opacity="0.8"
+            />
+          </svg>
+
           {/* Zone bubbles on map */}
-          <div className="relative" style={{ minHeight: 360 }}>
+          <div className="relative" style={{ minHeight: 380, zIndex: 5 }}>
             {ZONES.map((zone, i) => {
               const unlocked = playerXp >= zone.xpRequired;
               const positions = [
-                { top: '15%', left: '25%' },
-                { top: '15%', right: '20%' },
-                { top: '48%', left: '44%' },
-                { top: '60%', right: '12%' },
-                { top: '62%', left: '10%' },
+                { top: '20%', left: '25%' },
+                { top: '20%', right: '20%' },
+                { top: '53%', left: '44%' },
+                { top: '65%', right: '12%' },
+                { top: '67%', left: '10%' },
               ];
               const pos = positions[i] || { top: '50%', left: '50%' };
 
@@ -146,8 +180,18 @@ export default function Adventure() {
                 <motion.div
                   key={zone.id}
                   initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: i * 0.1, type: 'spring', stiffness: 300 }}
+                  animate={{ 
+                    scale: 1,
+                    y: [0, -6, 0]
+                  }}
+                  transition={{ 
+                    scale: { delay: i * 0.1, type: 'spring', stiffness: 250 },
+                    y: {
+                      duration: 3 + i * 0.4,
+                      repeat: Infinity,
+                      ease: 'easeInOut'
+                    }
+                  }}
                   whileHover={unlocked ? { scale: 1.1 } : {}}
                   whileTap={unlocked ? { scale: 0.95 } : {}}
                   onClick={() => unlocked && navigate(zone.path)}
@@ -155,14 +199,31 @@ export default function Adventure() {
                   style={{ ...pos, transform: 'translate(-50%,-50%)', cursor: unlocked ? 'pointer' : 'not-allowed' }}
                 >
                   <div
-                    className="bg-white rounded-2xl shadow-lg p-3 text-center min-w-[90px]"
-                    style={{ opacity: unlocked ? 1 : 0.55 }}
+                    className={`rounded-2xl p-3 text-center min-w-[100px] border transition-all duration-300 relative ${
+                      unlocked
+                        ? 'bg-white/85 dark:bg-[#1E2A3A]/85 backdrop-blur-md border-white/50 dark:border-white/10 shadow-xl'
+                        : 'bg-black/35 backdrop-blur-md border-white/10 shadow-md text-white/50'
+                    }`}
                   >
-                    <div className="text-2xl mb-1">{zone.emoji}</div>
-                    <p className="text-xs font-bold" style={{ color: '#1A1A1A' }}>{zone.name}</p>
-                    <p className="text-[10px] font-semibold" style={{ color: '#9E9E9E' }}>
-                      {unlocked ? `${zone.done}/${zone.total}` : `🔒 ${zone.xpRequired} XP`}
+                    {/* Glowing outer shadow if currently active and unlocked */}
+                    {unlocked && (
+                      <div className="absolute inset-0 rounded-2xl -z-10 animate-pulse-glow"
+                        style={{ boxShadow: `0 0 16px ${zone.color}40` }}
+                      />
+                    )}
+
+                    <div className="text-3xl mb-1 filter drop-shadow-sm">{zone.emoji}</div>
+                    <p className="text-xs font-bold" style={{ color: unlocked ? 'var(--text-primary)' : 'rgba(255,255,255,0.45)' }}>{zone.name}</p>
+                    <p className="text-[10px] font-semibold" style={{ color: unlocked ? 'var(--text-secondary)' : 'rgba(255,255,255,0.3)' }}>
+                      {unlocked ? `${zone.done}/${zone.total}` : `${zone.xpRequired} XP`}
                     </p>
+
+                    {/* Small Lock indicator */}
+                    {!unlocked && (
+                      <div className="absolute -top-2 -right-2 bg-amber-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] border border-white shadow-md">
+                        🔒
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -174,7 +235,7 @@ export default function Adventure() {
         <h3 className="font-bold text-lg mb-4" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
           🗺️ All Zones
         </h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {ZONES.map((zone, i) => {
             const unlocked = playerXp >= zone.xpRequired;
             return (
@@ -183,12 +244,19 @@ export default function Adventure() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.07 }}
-                whileHover={unlocked ? { x: 4 } : {}}
+                whileHover={unlocked ? { x: 6, scale: 1.01, boxShadow: `0 8px 24px ${zone.color}15` } : {}}
                 onClick={() => unlocked && navigate(zone.path)}
-                className={`card p-4 flex items-center gap-4 ${unlocked ? 'cursor-pointer' : 'cursor-not-allowed opacity-60'}`}
+                className={`card p-4 flex items-center gap-4 transition-all ${
+                  unlocked 
+                    ? 'cursor-pointer hover:border-transparent' 
+                    : 'cursor-not-allowed opacity-60'
+                }`}
+                style={{
+                  borderLeft: `6px solid ${zone.color}`
+                }}
               >
                 <div
-                  className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl bg-gradient-to-br ${zone.gradient}`}
+                  className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl bg-gradient-to-br ${zone.gradient} shadow-md`}
                 >
                   {zone.emoji}
                 </div>
@@ -198,14 +266,14 @@ export default function Adventure() {
                       {zone.name}
                     </h4>
                     {!unlocked && (
-                      <span className="text-xs font-bold text-white bg-[#9E9E9E] rounded-full px-2 py-0.5">
+                      <span className="text-[10px] font-bold text-white bg-amber-500 rounded-full px-2.5 py-0.5 flex items-center gap-1 shadow-sm">
                         🔒 {zone.xpRequired} XP
                       </span>
                     )}
                   </div>
                   <p className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>{zone.description}</p>
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 progress-track" style={{ height: 6 }}>
+                    <div className="flex-1 progress-track" style={{ height: 8, background: 'rgba(0,0,0,0.06)' }}>
                       <div
                         className="progress-fill"
                         style={{

@@ -91,8 +91,8 @@ function SizeComparisonGame({ onBack, zoneId }) {
   );
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
-      <div className="card p-4 mb-4 text-center">
+    <div className="game-viewport-container">
+      <div className="game-card-viewport p-4 mb-4">
         <p className="font-bold text-sm mb-1" style={{ color: 'var(--text-muted)' }}>Round {round + 1} / {SIZE_ROUNDS.length}</p>
         <p className="text-lg font-bold" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
           Tap the {rnd.label} from ⬅️ smallest to largest ➡️
@@ -150,15 +150,36 @@ function CountToysGame({ onBack, zoneId }) {
   const gameState = useGameState({ maxLives: 3, pointsPerCorrect: 15 });
   const [round, setRound] = useState(0);
   const [feedback, setFeedback] = useState(null);
+  const [tappedIndices, setTappedIndices] = useState([]);
   const { user, refreshProfile } = useUser();
 
   const q = useMemo(() => generateCountQuestion(round), [round]);
 
+  const speakCount = (c) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(c.toString());
+      utterance.rate = 1.1;
+      utterance.pitch = 1.4; // Kid voice feel
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const handleAnswer = (answer) => {
     if (feedback) return;
-    if (answer === q.count) { setFeedback('correct'); gameState.onCorrectAnswer(); }
-    else { setFeedback('wrong'); gameState.onWrongAnswer(); }
-    setTimeout(() => { setFeedback(null); setRound((r) => r + 1); if ((round + 1) % 5 === 0) gameState.levelUp(); }, 1000);
+    if (answer === q.count) {
+      setFeedback('correct');
+      gameState.onCorrectAnswer();
+    } else {
+      setFeedback('wrong');
+      gameState.onWrongAnswer();
+    }
+    setTimeout(() => {
+      setFeedback(null);
+      setRound((r) => r + 1);
+      setTappedIndices([]); // Reset here
+      if ((round + 1) % 5 === 0) gameState.levelUp();
+    }, 1200);
   };
 
   const hasSaved = useRef(false);
@@ -181,32 +202,66 @@ function CountToysGame({ onBack, zoneId }) {
         <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Toy Counting Complete!</h2>
         <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>Score: <strong>{gameState.score}</strong> | XP: <strong>{gameState.xp}</strong></p>
         <div className="flex gap-3">
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={gameState.resetGame} className="btn-orange">Play Again 🔄</motion.button>
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => { gameState.resetGame(); setTappedIndices([]); }} className="btn-orange">Play Again 🔄</motion.button>
           <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={onBack} className="btn-ghost">Back</motion.button>
         </div>
       </motion.div>
     );
   }
 
+  const allToysTapped = tappedIndices.length === q.count;
+
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div className="game-viewport-container">
       <ConfettiEffect active={gameState.showConfetti} />
       <StarAnimation show={gameState.showStarAnimation} />
       <ScoreDisplay score={gameState.score} level={gameState.level} lives={gameState.lives} streak={gameState.streak} className="mb-6" />
 
-      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="card p-8 mb-6 text-center">
-        <p className="text-lg font-semibold mb-6" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
-          How many {q.toy} are there?
+      <motion.div key={round} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} className="game-card-viewport p-8 mb-6">
+        <p className="text-lg font-semibold mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
+          Tap each toy to count it aloud! 📢
         </p>
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {Array.from({ length: q.count }).map((_, i) => (
-            <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.1 }} className="text-5xl">{q.toy}</motion.span>
-          ))}
+        <p className="text-xs mb-6" style={{ color: 'var(--text-muted)' }}>
+          (Tapped: {tappedIndices.length} of {q.count})
+        </p>
+        
+        {/* Interactive Toy Row */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8 min-h-[100px] items-center">
+          {Array.from({ length: q.count }).map((_, i) => {
+            const isTapped = tappedIndices.includes(i);
+            return (
+              <motion.button
+                key={i}
+                onClick={() => {
+                  if (!isTapped) {
+                    const nextCount = tappedIndices.length + 1;
+                    setTappedIndices(prev => [...prev, i]);
+                    speakCount(nextCount);
+                  }
+                }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1, filter: isTapped ? 'none' : 'grayscale(100%) opacity(0.35)' }}
+                whileHover={{ scale: isTapped ? 1 : 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-5xl p-2 rounded-2xl bg-transparent transition-all cursor-pointer"
+              >
+                {q.toy}
+              </motion.button>
+            );
+          })}
         </div>
+
         <div className="grid grid-cols-2 gap-3">
           {q.options.map((opt) => (
-            <motion.button key={opt} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} onClick={() => handleAnswer(opt)} disabled={!!feedback}
-              className="font-bold text-2xl rounded-2xl py-4 shadow-md transition-colors"
+            <motion.button
+              key={opt}
+              whileHover={allToysTapped ? { scale: 1.05 } : {}}
+              whileTap={allToysTapped ? { scale: 0.9 } : {}}
+              onClick={() => handleAnswer(opt)}
+              disabled={!allToysTapped || !!feedback}
+              className={`font-bold text-2xl rounded-2xl py-4 shadow-md transition-colors ${
+                !allToysTapped ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'
+              }`}
               style={{
                 background: feedback && opt === q.count ? '#4CAF50' : 'var(--bg-accent)',
                 color: feedback && opt === q.count ? 'white' : 'var(--text-primary)',
@@ -217,6 +272,7 @@ function CountToysGame({ onBack, zoneId }) {
             </motion.button>
           ))}
         </div>
+
         <AnimatePresence>
           {feedback && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -239,6 +295,47 @@ export default function NumberAdventure() {
   const { profile } = useUser();
   const [activeZone, setActiveZone] = useState(null);
   const playerXp = profile?.xp ?? 85;
+
+  // Number Line Interactive States
+  const [startNum, setStartNum] = useState(3);
+  const [operation, setOperation] = useState('+');
+  const [steps, setSteps] = useState(4);
+  const [frogPos, setFrogPos] = useState(3);
+  const [isHopping, setIsHopping] = useState(false);
+  const [hopSeq, setHopSeq] = useState([]);
+  const [seqIndex, setSeqIndex] = useState(0);
+
+  const startHopping = () => {
+    if (isHopping) return;
+    let target = startNum;
+    const seq = [startNum];
+    for (let i = 0; i < steps; i++) {
+      const nextVal = operation === '+' ? target + 1 : target - 1;
+      if (nextVal >= 0 && nextVal <= 10) {
+        target = nextVal;
+        seq.push(target);
+      }
+    }
+    setHopSeq(seq);
+    setSeqIndex(0);
+    setFrogPos(startNum);
+    setIsHopping(true);
+  };
+
+  useEffect(() => {
+    if (!isHopping || hopSeq.length === 0) return;
+    if (seqIndex >= hopSeq.length - 1) {
+      Promise.resolve().then(() => {
+        setIsHopping(false);
+      });
+      return;
+    }
+    const timer = setTimeout(() => {
+      setSeqIndex((p) => p + 1);
+      setFrogPos(hopSeq[seqIndex + 1]);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [isHopping, seqIndex, hopSeq]);
 
   if (activeZone === 'ocean-depths' || activeZone === 'sky-castle') return <SizeComparisonGame zoneId={activeZone} onBack={() => setActiveZone(null)} />;
   if (activeZone) return <CountToysGame zoneId={activeZone} onBack={() => setActiveZone(null)} />;
@@ -304,7 +401,7 @@ export default function NumberAdventure() {
                       <div className="absolute -top-2 -right-2 text-6xl opacity-15 select-none pointer-events-none">{zone.emoji}</div>
                       <div className="relative z-10">
                         <div className="flex items-center gap-3 mb-2">
-                          <span className="text-3xl">{zone.emoji}</span>
+                           <span className="text-3xl">{zone.emoji}</span>
                           <div>
                             <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>{zone.name}</h3>
                             <p className="text-white/80 text-sm">{zone.description}</p>
@@ -327,14 +424,75 @@ export default function NumberAdventure() {
         {/* Number Line */}
         <motion.section initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-10 card p-6">
           <h3 className="text-xl font-bold mb-4 text-center" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>📏 Interactive Number Line</h3>
-          <div className="relative py-4">
-            <div className="h-2 rounded-full" style={{ background: 'var(--border-default)' }} />
-            <div className="flex justify-between mt-2">
+
+          {/* Equation Display */}
+          <div className="text-center mb-6">
+            <span className="text-3xl font-black bg-gradient-to-r from-[#7C4DFF] to-[#FF6B9D] bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-display)' }}>
+              {startNum} {operation} {isHopping ? (hopSeq.length - 1) : steps} = {isHopping ? '❓' : frogPos}
+            </span>
+          </div>
+
+          {/* Controls */}
+          <div className="flex flex-wrap justify-center items-center gap-4 mb-8 p-4 rounded-3xl bg-black/5 border border-dashed" style={{ borderColor: 'var(--border-default)' }}>
+            <div className="flex flex-col items-center">
+              <span className="text-xs font-bold mb-1" style={{ color: 'var(--text-muted)' }}>Start</span>
+              <select value={startNum} onChange={(e) => {
+                const val = parseInt(e.target.value);
+                setStartNum(val);
+                if (!isHopping) setFrogPos(val);
+              }} className="p-2 rounded-xl border font-bold text-sm" style={{ background: 'var(--bg-accent)', color: 'var(--text-primary)', borderColor: 'var(--border-default)' }}>
+                {Array.from({ length: 11 }).map((_, i) => <option key={i} value={i}>{i}</option>)}
+              </select>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <span className="text-xs font-bold mb-1" style={{ color: 'var(--text-muted)' }}>Hop Action</span>
+              <div className="flex rounded-xl overflow-hidden border" style={{ borderColor: 'var(--border-default)' }}>
+                <button onClick={() => setOperation('+')} className={`px-4 py-2 font-bold text-xs transition-colors cursor-pointer ${operation === '+' ? 'bg-[#4CAF50] text-white' : 'bg-transparent text-primary'}`}>Add (+)</button>
+                <button onClick={() => setOperation('-')} className={`px-4 py-2 font-bold text-xs transition-colors cursor-pointer ${operation === '-' ? 'bg-[#F44336] text-white' : 'bg-transparent text-primary'}`}>Sub (-)</button>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <span className="text-xs font-bold mb-1" style={{ color: 'var(--text-muted)' }}>Hops Count</span>
+              <select value={steps} onChange={(e) => setSteps(parseInt(e.target.value))} className="p-2 rounded-xl border font-bold text-sm" style={{ background: 'var(--bg-accent)', color: 'var(--text-primary)', borderColor: 'var(--border-default)' }}>
+                {Array.from({ length: 5 }).map((_, i) => <option key={i + 1} value={i + 1}>{i + 1} steps</option>)}
+              </select>
+            </div>
+
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={startHopping} disabled={isHopping} className="btn-orange text-xs py-2.5 px-5 font-bold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              🐸 Hop, Froggy, Hop!
+            </motion.button>
+          </div>
+
+          {/* Hopper Track */}
+          <div className="relative py-8 px-4 border rounded-3xl" style={{ background: 'var(--bg-accent)', borderColor: 'var(--border-default)' }}>
+            <div className="h-2 rounded-full relative" style={{ background: 'var(--border-default)' }}>
+              {/* Animated Frog Mascot */}
+              <motion.div
+                className="absolute text-5xl"
+                animate={{
+                  left: `${(frogPos / 10) * 100}%`,
+                  y: isHopping ? [0, -45, 0] : 0,
+                  scale: isHopping ? [1, 1.25, 1] : 1,
+                }}
+                transition={{
+                  left: { type: 'spring', stiffness: 90, damping: 11 },
+                  y: { duration: 0.55, ease: 'easeOut' },
+                  scale: { duration: 0.55 }
+                }}
+                style={{ bottom: '8px', transform: 'translateX(-50%)', pointerEvents: 'none', zIndex: 10 }}
+              >
+                🐸
+              </motion.div>
+            </div>
+
+            <div className="flex justify-between mt-4">
               {Array.from({ length: 11 }).map((_, i) => (
-                <motion.div key={i} whileHover={{ scale: 1.3, y: -5 }} className="flex flex-col items-center cursor-pointer">
-                  <div className="w-4 h-4 rounded-full -mt-5 mb-1" style={{ background: `hsl(${i * 30}, 70%, 55%)` }} />
-                  <span className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>{i}</span>
-                </motion.div>
+                <div key={i} className="flex flex-col items-center">
+                  <div className="w-1.5 h-3 bg-slate-400 rounded-full mb-1" />
+                  <span className="text-sm font-black" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{i}</span>
+                </div>
               ))}
             </div>
           </div>
