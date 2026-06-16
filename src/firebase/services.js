@@ -256,7 +256,7 @@ export async function awardProgress(uid, { xp = 0, stars = 0, coins = 0, module 
     }
     await updateDoc(doc(db, collName, uid), updates);
 
-    // Also write to shared progress_tracking collection (Aditya reads this)
+    // Also write to shared progress_tracking collection (for parent analytics tracking)
     if (module && xp > 0) {
       await addDoc(collection(db, 'progress_tracking'), {
         child_id: uid,
@@ -429,7 +429,7 @@ export async function checkAndUnlockAchievements(uid, profile) {
         // Send parent notification
         await addDoc(collection(db, 'notifications'), {
           child_id: uid,
-          parent_id: null,          // parent links handled by Gyanendra's auth module
+          parent_id: null,          // parent links handled by the auth module
           message: `🎉 ${profile.name || 'Your child'} just unlocked "${milestone.label}" ${milestone.emoji}`,
           type: 'achievement',
           read_status: false,
@@ -553,7 +553,6 @@ export async function getChildScores(childId, limitCount = 20) {
 
 /* ══════════════════════════════════════════
    REWARDS  →  collection: rewards  (READ ONLY)
-   Pratiush owns this — we only read metadata.
 ══════════════════════════════════════════ */
 
 export async function getRewardsCatalog() {
@@ -575,7 +574,6 @@ export async function getRewardsCatalog() {
 
 /* ══════════════════════════════════════════
    USER ACCOUNTS  →  collection: user_accounts
-   Gyanendra owns this — we only read role.
 ══════════════════════════════════════════ */
 
 export async function getUserRole(uid) {

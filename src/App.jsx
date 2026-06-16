@@ -2,86 +2,86 @@
  * App.jsx - Root Application Component & Router
  *
  * Integrated SpacECE Learning Platform containing:
- * 1. Auth & Profiles Module (Gyanendra) — Parent, Child, Teacher, Admin portals
- * 2. Numeracy Module (Ayush) — Math World, Puzzle World, Number Adventure, Logic Island
- * 3. Literacy & Phonics Module (Harsh) — Reading World, Story World, Vocabulary, Challenges
- * 4. Cognitive & Creativity Module (Yogashwar) — Brain World, Creativity World, Emotion World
- * 5. Parent Analytics & Reports (Aditya) — Linked dashboard views under Parent Analytics
+ * 1. Auth & Profiles — Parent, Child, Teacher, Admin portals
+ * 2. Numeracy — Math World, Puzzle World, Number Adventure, Logic Island
+ * 3. Literacy & Phonics — Reading World, Story World, Vocabulary, Challenges
+ * 4. Cognitive & Creativity — Brain World, Creativity World, Emotion World
+ * 5. Parent Analytics & Reports — Linked dashboard views under Parent Analytics
  */
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import theme from './modules/gyanendra/theme/theme';
+import theme from './theme/theme';
 import { ThemeProvider } from './context/ThemeContext';
 import { UserProvider } from './context/UserContext';
 import Layout from './components/layout/Layout';
 
-// Gyanendra contexts
-import { AuthProvider } from './modules/gyanendra/context/AuthContext';
-import { ChildProfileProvider, useChildProfile } from './modules/gyanendra/context/ChildProfileContext';
-import { NotificationProvider } from './modules/gyanendra/context/NotificationContext';
-import { AppProvider as PlatformProvider } from './modules/gyanendra/context/AppContext';
+// Core contexts
+import { AuthProvider } from './context/AuthContext';
+import { ChildProfileProvider, useChildProfile } from './context/ChildProfileContext';
+import { NotificationProvider } from './context/NotificationContext';
+import { AppProvider as PlatformProvider } from './context/AppContext';
 
-// Auth layouts & pages (Gyanendra)
-import AuthLayout from './modules/gyanendra/layouts/AuthLayout';
-import RoleSelector from './modules/gyanendra/pages/auth/RoleSelector';
-import ChildLogin from './modules/gyanendra/pages/auth/ChildLogin';
-import ParentLogin from './modules/gyanendra/pages/auth/ParentLogin';
-import TeacherLogin from './modules/gyanendra/pages/auth/TeacherLogin';
-import AdminLogin from './modules/gyanendra/pages/auth/AdminLogin';
-import Register from './modules/gyanendra/pages/auth/Register';
-import ForgotPassword from './modules/gyanendra/pages/auth/ForgotPassword';
-import PrivacyPolicy from './modules/gyanendra/pages/auth/PrivacyPolicy';
-import TermsOfService from './modules/gyanendra/pages/auth/TermsOfService';
+// Auth layouts & pages
+import AuthLayout from './components/layout/AuthLayout';
+import RoleSelector from './pages/auth/RoleSelector';
+import ChildLogin from './pages/auth/ChildLogin';
+import ParentLogin from './pages/auth/ParentLogin';
+import TeacherLogin from './pages/auth/TeacherLogin';
+import AdminLogin from './pages/auth/AdminLogin';
+import Register from './pages/auth/Register';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import PrivacyPolicy from './pages/auth/PrivacyPolicy';
+import TermsOfService from './pages/auth/TermsOfService';
 
-// Layout guards (Gyanendra)
-import ProtectedRoute from './modules/gyanendra/routes/ProtectedRoute';
-import RoleRoute from './modules/gyanendra/routes/RoleRoute';
-import MainLayout from './modules/gyanendra/layouts/MainLayout';
+// Layout guards
+import ProtectedRoute from './routes/ProtectedRoute';
+import RoleRoute from './routes/RoleRoute';
+import MainLayout from './components/layout/MainLayout';
 
-// Parent pages (Gyanendra & Aditya)
-import ParentDashboard from './modules/gyanendra/pages/parent/ParentDashboard';
-import ChildProfileManager from './modules/gyanendra/pages/parent/ChildProfileManager';
-import SwitchChild from './modules/gyanendra/pages/parent/SwitchChild';
-import AccountSettings from './modules/gyanendra/pages/settings/AccountSettings';
-import { ParentDashboard as AdityaParentDashboard } from './modules/aditya/pages/ParentDashboard';
-import { ReportsPage } from './modules/aditya/pages/ReportsPage';
+// Parent pages
+import ParentDashboard from './pages/parent/ParentDashboard';
+import ChildProfileManager from './pages/parent/ChildProfileManager';
+import SwitchChild from './pages/parent/SwitchChild';
+import AccountSettings from './pages/settings/AccountSettings';
+import { ParentDashboard as ParentAnalyticsDashboard } from './pages/analytics/ParentDashboard';
+import { ReportsPage } from './pages/analytics/ReportsPage';
 
-// Teacher pages (Gyanendra)
-import TeacherDashboard from './modules/gyanendra/pages/teacher/TeacherDashboard';
-import TeacherProfile from './modules/gyanendra/pages/teacher/TeacherProfile';
+// Teacher pages
+import TeacherDashboard from './pages/teacher/TeacherDashboard';
+import TeacherProfile from './pages/teacher/TeacherProfile';
 
-// Admin pages (Gyanendra)
-import AdminDashboard from './modules/gyanendra/pages/admin/AdminDashboard';
-import UserManagement from './modules/gyanendra/pages/admin/UserManagement';
-import SessionManagement from './modules/gyanendra/pages/admin/SessionManagement';
-import NotificationManager from './modules/gyanendra/pages/admin/NotificationManager';
-import FeatureFlags from './modules/gyanendra/pages/admin/FeatureFlags';
+// Admin pages
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagement from './pages/admin/UserManagement';
+import SessionManagement from './pages/admin/SessionManagement';
+import NotificationManager from './pages/admin/NotificationManager';
+import FeatureFlags from './pages/admin/FeatureFlags';
 
 // Numeracy Child Pages (Our module)
-import Home from './pages/Home';
-import Adventure from './pages/Adventure';
-import Awards from './pages/Awards';
-import AvatarPage from './pages/AvatarPage';
-import Settings from './pages/Settings';
-import MathWorld from './pages/MathWorld';
-import PuzzleWorld from './pages/PuzzleWorld';
-import NumberAdventure from './pages/NumberAdventure';
-import LogicIsland from './pages/LogicIsland';
-import AdminPanel from './pages/AdminPanel';
+import Home from './pages/child/Home';
+import Adventure from './pages/child/Adventure';
+import Awards from './pages/child/Awards';
+import AvatarPage from './pages/child/AvatarPage';
+import Settings from './pages/child/Settings';
+import MathWorld from './pages/numeracy/MathWorld';
+import PuzzleWorld from './pages/numeracy/PuzzleWorld';
+import NumberAdventure from './pages/numeracy/NumberAdventure';
+import LogicIsland from './pages/numeracy/LogicIsland';
+import AdminPanel from './pages/numeracy/AdminPanel';
 
-// Language Child Pages (Harsh's module)
-import ReadingWorldPage from './modules/harsh/pages/ReadingWorldPage';
-import StoryWorldPage from './modules/harsh/pages/StoryWorldPage';
-import VocabularyZonePage from './modules/harsh/pages/VocabularyZonePage';
-import LanguageChallengesPage from './modules/harsh/pages/LanguageChallengesPage';
+// Language Child Pages
+import ReadingWorldPage from './pages/literacy/ReadingWorldPage';
+import StoryWorldPage from './pages/literacy/StoryWorldPage';
+import VocabularyZonePage from './pages/literacy/VocabularyZonePage';
+import LanguageChallengesPage from './pages/literacy/LanguageChallengesPage';
 
-// Cognitive, Creativity & Emotional Worlds (Yogashwar's module)
-import YogashwarBrainWorldPage from './modules/yogashwar/pages/BrainWorldPage';
-import YogashwarCreativityWorldPage from './modules/yogashwar/pages/CreativityWorldPage';
-import YogashwarEmotionWorldPage from './modules/yogashwar/pages/EmotionWorldPage';
-import YogashwarStoryWorldPage from './modules/yogashwar/pages/StoryWorldPage';
+// Cognitive, Creativity & Emotional Worlds
+import BrainWorldPage from './pages/cognitive-sel/BrainWorldPage';
+import CreativityWorldPage from './pages/cognitive-sel/CreativityWorldPage';
+import EmotionWorldPage from './pages/cognitive-sel/EmotionWorldPage';
+import CognitiveStoryWorldPage from './pages/cognitive-sel/StoryWorldPage';
 
-// Helper controller views to safely map Aditya's child-specific parent views
+// Helper controller views to safely map child-specific parent views
 function ParentAnalyticsView() {
   const { activeChild, refreshProfiles } = useChildProfile();
   if (!activeChild) {
@@ -92,7 +92,7 @@ function ParentAnalyticsView() {
       </div>
     );
   }
-  return <AdityaParentDashboard selectedChild={activeChild} onRefresh={refreshProfiles} />;
+  return <ParentAnalyticsDashboard selectedChild={activeChild} onRefresh={refreshProfiles} />;
 }
 
 function ParentReportsView() {
@@ -212,11 +212,11 @@ export default function App() {
                       <Route path="/child/vocabulary-zone"      element={<VocabularyZonePage />} />
                       <Route path="/child/language-challenges"  element={<LanguageChallengesPage />} />
 
-                      {/* Cognitive, Creativity & Emotional Worlds (Yogashwar) */}
-                      <Route path="/child/brain-world/*"       element={<YogashwarBrainWorldPage />} />
-                      <Route path="/child/creativity-world/*"  element={<YogashwarCreativityWorldPage />} />
-                      <Route path="/child/emotion-world/*"     element={<YogashwarEmotionWorldPage />} />
-                      <Route path="/child/story-choice-world/*" element={<YogashwarStoryWorldPage />} />
+                      {/* Cognitive, Creativity & Emotional Worlds */}
+                      <Route path="/child/brain-world/*"       element={<BrainWorldPage />} />
+                      <Route path="/child/creativity-world/*"  element={<CreativityWorldPage />} />
+                      <Route path="/child/emotion-world/*"     element={<EmotionWorldPage />} />
+                      <Route path="/child/story-choice-world/*" element={<CognitiveStoryWorldPage />} />
 
                       {/* Admin panel inside child portal */}
                       <Route path="/admin" element={<AdminPanel />} />

@@ -6,7 +6,7 @@ const SEASON_KEY = 'spacece_season';
 
 /**
  * Manages light/dark mode and seasonal themes.
- * Uses data-theme attribute on <html> to match Pratiush's design system.
+ * Uses data-theme attribute on <html> to match the application's global design system.
  */
 export function ThemeProvider({ children }) {
   const [theme, setThemeState] = useState(() => {
@@ -31,7 +31,7 @@ export function ThemeProvider({ children }) {
   const effectiveTheme = theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
   const isDark = effectiveTheme === 'dark';
 
-  // Apply to <html> via data-theme attribute (matches Pratiush's approach)
+  // Apply to <html> via data-theme attribute (matches the unified approach)
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', effectiveTheme);
   }, [effectiveTheme]);

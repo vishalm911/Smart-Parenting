@@ -2,7 +2,7 @@
 
 Welcome to **SpacECE**, a comprehensive, gamified early childhood learning platform built for parents, children, teachers, and admins. 
 
-This repository consolidates and integrates multiple workspaces built by the SpacECE developer team, offering a responsive interface, premium glassmorphic visual aesthetics, and database integrations.
+This repository houses a unified, single-application platform offering a responsive interface, premium glassmorphic visual aesthetics, and database integrations.
 
 ---
 
@@ -37,21 +37,34 @@ This repository consolidates and integrates multiple workspaces built by the Spa
 ├── functions/                     # Firebase Cloud Functions (index.js & package.json)
 ├── public/                        # Static assets, fallback logos
 ├── src/
-│   ├── assets/                    # Shared image assets (logos, hero graphics)
-│   ├── components/                # Shared layout shells & global animations
-│   │   ├── layout/                # Sidebar.jsx, Layout.jsx, BottomNav.jsx (Child Portal)
-│   │   └── animations/            # ConfettiEffect, StarAnimation, FloatingElements
-│   ├── context/                   # Global state providers (UserContext.jsx, ThemeContext.jsx)
-│   ├── hooks/                     # Custom hooks (useGameState.js, useDifficultyLadder.js)
-│   ├── modules/                   # Intern-specific modules
-│   │   ├── aditya/                # Parent Dashboard views & Reports pages
-│   │   ├── gyanendra/             # Multi-role Auth, Switch Child & Admin consoles
-│   │   ├── harsh/                 # Phonics, stories, and Language Challenges (Harsh)
-│   │   ├── pratiush/              # Achievements, themes, Hindi translations & components
-│   │   └── yogashwar/             # Brain, Emotions, Creativity, and Story Choice games
-│   ├── pages/                     # Child numeracy pages (Home, MathWorld, LogicIsland, etc.)
-│   ├── theme/                     # Global color tokens & styling configs
-│   ├── App.jsx                    # Root router registering all universe views
+│   ├── assets/                    # Image assets & theme media
+│   ├── components/                # Components partitioned by feature
+│   │   ├── auth/                  # Role selectors and login cards
+│   │   ├── layout/                # Global Layout, PortalSidebar, PortalTopNavbar, PortalBottomNav
+│   │   ├── shared/                # SpacECELogo and global buttons
+│   │   ├── literacy/              # Phonics and story components
+│   │   ├── analytics/             # Charts, metrics, and progress bars
+│   │   └── animations/            # ConfettiEffect, FloatingElements, StarAnimation
+│   ├── context/                   # Context states (AuthContext, UserContext, AppContext, ChildProfileContext, ThemeContext, NotificationContext)
+│   ├── data/                      # Hardcoded activity data and vocab levels
+│   ├── firebase/                  # Central config (config.js) and service helpers (services.js, literacyService.js)
+│   ├── hooks/                     # Custom react hooks (useStreak, useDifficultyLadder, useGameState)
+│   ├── pages/                     # Page components partitioned by access portal
+│   │   ├── auth/                  # Authentication pages (ChildLogin, ParentLogin, TeacherLogin, AdminLogin, Register, etc.)
+│   │   ├── parent/                # Parent portals (ParentDashboard, SwitchChild, ChildProfileManager, etc.)
+│   │   ├── teacher/               # Teacher portals (TeacherDashboard, TeacherProfile, etc.)
+│   │   ├── admin/                 # Admin consoles (AdminDashboard, SessionManagement, notification templates, etc.)
+│   │   ├── settings/              # Shared settings pages (AccountSettings)
+│   │   ├── cognitive-sel/         # Cognitive, Emotion, Creativity, and branching Story worlds
+│   │   ├── literacy/              # Literacy, Phonics, Spelling, reading, and admin activities
+│   │   ├── analytics/             # Charts, parent analytics dashboard, and reports pages
+│   │   ├── Home.jsx               # Child portal main screen
+│   │   ├── Adventure.jsx          # Child explore map screen
+│   │   └── ...
+│   ├── routes/                    # Router guards (ProtectedRoute, RoleRoute)
+│   ├── theme/                     # Global styles and Material UI themes
+│   ├── utils/                     # Helper functions and constants
+│   ├── App.jsx                    # Root Router registering all routes
 │   └── main.jsx                   # React application mount script
 ├── firestore.rules                # Unified database security access rules
 ├── vite.config.js                 # Local dev server configs
@@ -96,6 +109,6 @@ npm run build
 ---
 
 ## 🔍 Codebase Quality & Verification
-* **ESLint Purity**: Run `npx eslint "src/**/*.{js,jsx}"` to verify that all code compiles cleanly with 0 warnings.
+* **ESLint Purity**: Run `npm run lint` to verify that all code compiles cleanly with 0 warnings.
 * **Component Purity**: The mathematical games utilize deterministic, idempotent shuffling algorithms to maintain pure React rendering cycles.
-* **Context Bridging**: A global unified context bridges multi-intern states securely without duplicate Firebase app initializations.
+* **Context Bridging**: A global unified context bridges system states securely without duplicate Firebase app initializations.

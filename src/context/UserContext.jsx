@@ -3,7 +3,7 @@
  *
  * Serves as the central state engine for children, bridging:
  * - Active Firebase Auth state & sessions
- * - Syncs Gyanendra's local child login selections and profile data
+ * - Syncs local child login selections and profile data
  * - Manages session streaks, badge rewards, stars, and XP counters
  */
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
@@ -16,7 +16,7 @@ import {
   endSession,
   checkAndUnlockAchievements,
 } from '../firebase/services';
-import { useChildProfile } from '../modules/gyanendra/context/ChildProfileContext';
+import { useChildProfile } from './ChildProfileContext';
 
 const UserContext = createContext();
 
@@ -41,7 +41,7 @@ export function UserProvider({ children }) {
   // Tracks active session doc ID so we can close it on logout
   const sessionId  = useRef(null);
 
-  // Read active child profile from Gyanendra's context
+  // Read active child profile from the child profile context
   const childCtx = useChildProfile();
   const activeChild = childCtx?.activeChild;
 

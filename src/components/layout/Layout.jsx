@@ -6,7 +6,7 @@ import Mascot from './Mascot';
 import { useUser } from '../../context/UserContext';
 
 /**
- * App shell matching Pratiush's layout:
+ * App shell layout:
  * - Bottom navbar on mobile, left sidebar on desktop
  * - main-content shifts right on desktop
  * - Floating mascot
