@@ -285,3 +285,60 @@
   50% { box-shadow: 0 0 0 6px rgba(244, 163, 0, 0); }
 }
 .notification-badge { animation: pulse-notification 2s infinite; }
+
+/* ============================================================
+   Sign Out Button Styles (Bottom Left Corner)
+   ============================================================ */
+.navbar-logout-container {
+  padding: 0 var(--space-4);
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.navbar-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  width: 100%;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-bounce);
+}
+
+.navbar-logout-btn .logout-icon {
+  font-size: 1.8rem;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.navbar-logout-btn:hover {
+  background: rgba(239, 83, 80, 0.1);
+  border-color: var(--color-error);
+  color: var(--color-error);
+  transform: translateX(4px);
+}
+
+.navbar-logout-btn:hover .logout-icon {
+  transform: scale(1.1);
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .navbar-logout-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .navbar-logout-btn:hover {
+  background: rgba(239, 83, 80, 0.2);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+

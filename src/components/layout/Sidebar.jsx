@@ -7,6 +7,7 @@
  */
 import { NavLink, Link } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
+import { logout } from '../../firebase/services';
 import logoImg from '../../assets/logo.jpeg';
 import './Sidebar.css';
 
@@ -24,7 +25,17 @@ const NAV_ITEMS = [
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
-  const { profile } = useUser();
+  const { profile, markLoggedOut } = useUser();
+
+  const handleLogout = async () => {
+    try {
+      markLoggedOut();
+      await logout();
+      window.location.href = '/';
+    } catch (e) {
+      console.error('Logout failed:', e);
+    }
+  };
 
   return (
     <>
@@ -87,6 +98,13 @@ export default function Sidebar({ isOpen, onClose }) {
             <span className="stat-icon">⭐</span>
             <span className="stat-value">{profile?.stars ?? 0}</span>
           </div>
+        </div>
+
+        <div className="navbar-logout-container">
+          <button className="navbar-logout-btn" onClick={handleLogout}>
+            <span className="logout-icon">🚪</span>
+            <span className="logout-label">Sign Out</span>
+          </button>
         </div>
       </nav>
     </>
