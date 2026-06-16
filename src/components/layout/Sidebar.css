@@ -87,6 +87,21 @@
 .navbar-tabs {
   display: flex;
   width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(244, 163, 0, 0.35) transparent;
+}
+.navbar-tabs::-webkit-scrollbar {
+  width: 6px;
+}
+.navbar-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+.navbar-tabs::-webkit-scrollbar-thumb {
+  background: rgba(244, 163, 0, 0.35);
+  border-radius: 10px;
+}
+.navbar-tabs::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 163, 0, 0.55);
 }
 
 .navbar-tab {
@@ -170,9 +185,7 @@
     flex-direction: column; justify-content: flex-start;
     gap: var(--space-2); padding: 0 var(--space-4);
     flex: 1; overflow-y: auto;
-    scrollbar-width: none;
   }
-  .navbar-tabs::-webkit-scrollbar { display: none; }
 
   .navbar-tab {
     flex-direction: row;
