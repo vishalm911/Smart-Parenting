@@ -89,16 +89,6 @@ export default function Sidebar({ isOpen, onClose }) {
           ))}
         </div>
 
-        <div className="navbar-stats">
-          <div className="stat-item">
-            <span className="stat-icon">🪙</span>
-            <span className="stat-value">{profile?.coins ?? 50}</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-icon">⭐</span>
-            <span className="stat-value">{profile?.stars ?? 0}</span>
-          </div>
-        </div>
 
         <div className="navbar-logout-container">
           <button className="navbar-logout-btn" onClick={handleLogout}>
