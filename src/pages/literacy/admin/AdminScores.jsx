@@ -173,7 +173,7 @@ export default function AdminScores() {
       <div className={s.section} style={{marginBottom:32}}>
         <h2 className={s.sectionTitle} style={{marginBottom:8}}>📚 Score Breakdown Per Story</h2>
         <p style={{fontSize:13,color:"var(--color-text-secondary)",marginBottom:16,fontWeight:600}}>
-          Kisi bhi story row par click karein per-user scores dekhne ke liye 👆
+          Click on a story to see per-user performance details.
         </p>
         {loading
           ? <p className={s.empty}>Loading...</p>

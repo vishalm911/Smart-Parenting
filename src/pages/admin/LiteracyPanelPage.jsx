@@ -15,7 +15,7 @@ export default function LiteracyPanelPage() {
           📚 Literacy Panel
         </Typography>
         <Typography variant="body1" color="text.secondary" fontWeight={600} sx={{ fontFamily: '"Nunito", sans-serif' }}>
-          Stories, Vocabulary, Activities aur Reading Scores manage karein
+          Manage Stories, Vocabulary, Activities and Reading Scores 
         </Typography>
       </Box>
 
@@ -31,8 +31,7 @@ export default function LiteracyPanelPage() {
             Literacy Content Management
           </Typography>
           <Typography variant="caption" color="text.secondary" fontWeight={600}>
-            Yahan se aap seedha reading stories add/edit karein, vocabulary cards manage karein,
-            language challenges update karein aur bacchon ke reading scores dekh saktein hain.
+            Create and edit stories, vocabulary, activities and reading scores
           </Typography>
         </Box>
       </Paper>

@@ -141,7 +141,7 @@ const AdminLogin = () => {
         </form>
       </Box>
 
-      {/* ── Literacy Panel Direct Button ── */}
+      {/* ── Literacy Panel Direct Button ──
       <Button
         fullWidth variant="outlined"
         startIcon={<MenuBookIcon />}
@@ -161,8 +161,8 @@ const AdminLogin = () => {
           },
         }}
       >
-        📚 Open Literacy Panel
-      </Button>
+        // 📚 Open Literacy Panel
+      </Button> */}
 
       {/* ── Footer ── */}
       <Box sx={{ textAlign: 'center', mt: 1 }}>
