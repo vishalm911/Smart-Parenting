@@ -520,18 +520,63 @@ export default function LanguageChallengesPage() {
   };
 
   return (
-    <div className="page-wrap">
-      <div className="hero-banner" style={{background:"var(--gradient-sunset)"}}>
-        <h1>Language Challenges 🎯</h1>
-        <p>Fun activities for every age — real sounds, alphabets, phonics, reading fluency, and more!</p>
-        <div className="hero-badges">
-          <span className="hero-badge">🔊 Animal Sounds</span>
-          <span className="hero-badge">🔤 Alphabet</span>
-          <span className="hero-badge">🅰️ Phonics</span>
-          <span className="hero-badge">📖 Fluency Timer</span>
+    <div style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column' }}>
+      {/* Hero Banner */}
+      <div style={{
+        background: 'var(--gradient-sunset)',
+        padding: '32px 40px 28px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', top: '-20px', right: '-10px', fontSize: '120px', opacity: 0.1, transform: 'rotate(15deg)', pointerEvents: 'none' }}>🎯</div>
+        <h1 style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '2rem',
+          fontWeight: 800,
+          color: 'white',
+          marginBottom: 6,
+          textShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        }}>
+          Language Challenges 🎯
+        </h1>
+        <p style={{
+          color: 'rgba(255,255,255,0.9)',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          marginBottom: 16,
+        }}>
+          Fun activities for every age — real sounds, alphabets, phonics, reading fluency, and more!
+        </p>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🔊 Animal Sounds</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🔤 Alphabet</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🅰️ Phonics</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>📖 Fluency Timer</span>
         </div>
-        <div className="hero-deco">🎯</div>
       </div>
+
+      {/* Content Area */}
+      <div style={{ flex: 1, padding: '28px 32px 40px', display: 'flex', flexDirection: 'column' }}>
 
       {/* Active game */}
       {active && (
@@ -547,7 +592,9 @@ export default function LanguageChallengesPage() {
       {!active && (
         <>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12,marginBottom:8}}>
-            <h2 className="sec-title" style={{margin:0}}><span>🎯</span> Choose a Challenge</h2>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span>🎯</span> Choose a Challenge
+            </h2>
             {/* Age Filter */}
             <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {AGE_FILTERS.map(f=>(
@@ -592,6 +639,7 @@ export default function LanguageChallengesPage() {
           )}
         </>
       )}
+      </div>
     </div>
   );
 }

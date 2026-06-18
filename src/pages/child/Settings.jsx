@@ -41,11 +41,11 @@ export default function Settings() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-6">
+    <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto', padding: '32px 24px', minHeight: 'calc(100vh - 80px)' }}>
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold mb-8 flex items-center gap-2"
+        className="text-4xl font-bold mb-8 flex items-center justify-center gap-2"
         style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}
       >
         Settings ⚙️

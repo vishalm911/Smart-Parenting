@@ -197,17 +197,57 @@ export default function VocabularyZonePage() {
   }, []);
 
   return (
-    <div className="page-wrap">
-      <div className="hero-banner" style={{background:"var(--gradient-cosmic)"}}>
-        <h1>Vocabulary Zone 🔤</h1>
-        <p>Learn new words, play matching games, and build your vocabulary!</p>
-        <div className="hero-badges">
-          <span className="hero-badge">🎯 Picture Match</span>
-          <span className="hero-badge">🔡 Word Builder</span>
-          <span className="hero-badge">🃏 Flashcards</span>
+    <div style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column' }}>
+      {/* Hero Banner */}
+      <div style={{
+        background: 'var(--gradient-cosmic)',
+        padding: '32px 40px 28px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', top: '-20px', right: '-10px', fontSize: '120px', opacity: 0.1, transform: 'rotate(15deg)', pointerEvents: 'none' }}>🔤</div>
+        <h1 style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '2rem',
+          fontWeight: 800,
+          color: 'white',
+          marginBottom: 6,
+          textShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        }}>
+          Vocabulary Zone 🔤
+        </h1>
+        <p style={{
+          color: 'rgba(255,255,255,0.9)',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          marginBottom: 16,
+        }}>
+          Learn new words, play matching games, and build your vocabulary!
+        </p>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🎯 Picture Match</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🔡 Word Builder</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🃏 Flashcards</span>
         </div>
-        <div className="hero-deco">🔤</div>
       </div>
+
+      {/* Content Area */}
+      <div style={{ flex: 1, padding: '28px 32px 40px', display: 'flex', flexDirection: 'column' }}>
 
       {/* Tabs */}
       <div className={s.tabs}>
@@ -264,6 +304,8 @@ export default function VocabularyZonePage() {
           )}
         </div>
       )}
+
+      </div>
     </div>
   );
 }

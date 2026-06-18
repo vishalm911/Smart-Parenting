@@ -78,7 +78,7 @@ function MemoryMatchGame() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto', padding: '24px 16px' }}>
       <ConfettiEffect active={showConfetti} />
       <button onClick={() => navigate('/child/brain-world')} className="flex items-center gap-2 mb-6 font-semibold" style={{ color: 'var(--text-muted)' }}>
         ← Back to Brain World
@@ -164,7 +164,7 @@ function SequenceBuilderGame() {
   };
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-6">
+    <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
       <ConfettiEffect active={showConfetti} />
       <button onClick={() => navigate('/child/brain-world')} className="flex items-center gap-2 mb-6 font-semibold" style={{ color: 'var(--text-muted)' }}>
         ← Back to Brain World
@@ -212,9 +212,9 @@ const BrainWorldHome = () => {
   ];
 
   return (
-    <div className="relative min-h-screen">
+    <div style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       <FloatingElements count={3} />
-      <div className="relative z-10 max-w-4xl mx-auto px-6 py-6">
+      <div style={{ flex: 1, padding: '40px 32px', width: '100%', maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <motion.section initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
           <motion.span className="text-6xl inline-block mb-3" animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 2, repeat: Infinity }}>🧠</motion.span>
           <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-400 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-display)' }}>

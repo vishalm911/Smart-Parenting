@@ -44,11 +44,9 @@ export default function StoryWorldPage() {
   };
 
   if (loading) return (
-    <div className="page-wrap">
-      <div style={{textAlign:"center",padding:80,color:"var(--color-text-secondary)"}}>
-        <span style={{fontSize:48}}>📚</span>
-        <p style={{marginTop:16,fontWeight:600}}>Loading stories…</p>
-      </div>
+    <div style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', padding: '40px' }}>
+      <span style={{ fontSize: 56, marginBottom: 16, animation: 'float 2s ease-in-out infinite' }}>📚</span>
+      <p style={{ fontWeight: 700, color: 'var(--color-text-secondary)', fontFamily: 'var(--font-display)', fontSize: '1.1rem' }}>Loading stories…</p>
     </div>
   );
 
@@ -67,17 +65,57 @@ export default function StoryWorldPage() {
   const allStories = stories;
 
   return (
-    <div className="page-wrap">
-      <div className="hero-banner" style={{ background:"var(--gradient-warm)" }}>
-        <h1>Story World 🌟</h1>
-        <p>Read with audio, answer questions, and earn stars for every story you finish!</p>
-        <div className="hero-badges">
-          <span className="hero-badge">🔊 Audio Ready</span>
-          <span className="hero-badge">❓ Comprehension Quiz</span>
-          <span className="hero-badge">⭐ Earn Stars</span>
+    <div style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column' }}>
+      {/* Hero Banner */}
+      <div style={{
+        background: 'var(--gradient-warm)',
+        padding: '32px 40px 28px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', top: '-20px', right: '-10px', fontSize: '120px', opacity: 0.1, transform: 'rotate(15deg)', pointerEvents: 'none' }}>🌟</div>
+        <h1 style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '2rem',
+          fontWeight: 800,
+          color: 'white',
+          marginBottom: 6,
+          textShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        }}>
+          Story World 🌟
+        </h1>
+        <p style={{
+          color: 'rgba(255,255,255,0.9)',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          marginBottom: 16,
+        }}>
+          Read with audio, answer questions, and earn stars for every story you finish!
+        </p>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>🔊 Audio Ready</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>❓ Comprehension Quiz</span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '6px 16px',
+            color: 'white', fontSize: 13, fontWeight: 700,
+          }}>⭐ Earn Stars</span>
         </div>
-        <div className="hero-deco">🌟</div>
       </div>
+
+      {/* Content Area */}
+      <div style={{ flex: 1, padding: '28px 32px 40px', display: 'flex', flexDirection: 'column' }}>
 
       {/* Continue Reading */}
       {inProgressStory && (() => {
@@ -87,7 +125,9 @@ export default function StoryWorldPage() {
         const pct = Math.round(((resumePage) / total) * 100);
         return (
           <>
-            <h2 className="sec-title"><span>▶️</span> Continue Reading</h2>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span>▶️</span> Continue Reading
+            </h2>
             <div className={s.continueCard}>
               <div className={s.continueCover} style={{ background: inProgressStory.cover_gradient }}>
                 {inProgressStory.emoji}
@@ -116,7 +156,9 @@ export default function StoryWorldPage() {
       {/* Completed Stories */}
       {completedStories.length > 0 && (
         <>
-          <h2 className="sec-title" style={{ marginTop:32 }}><span>🏆</span> Completed Stories</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginTop: 32, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span>🏆</span> Completed Stories
+          </h2>
           <div className={s.grid}>
             {completedStories.map(story => (
               <div key={story.id} style={{ position:"relative" }}>
@@ -129,11 +171,15 @@ export default function StoryWorldPage() {
       )}
 
       {/* All Stories */}
-      <h2 className="sec-title" style={{ marginTop:32 }}><span>📚</span> All Stories</h2>
+      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginTop: 32, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span>📚</span> All Stories
+      </h2>
       <div className={s.grid}>
         {allStories.map(story => (
           <StoryCard key={story.id} story={story} onClick={() => openStory(story, 0)} />
         ))}
+      </div>
+
       </div>
 
       {active && (

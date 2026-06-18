@@ -69,7 +69,7 @@ export default function Awards() {
   const percentage = Math.min(100, Math.round((totalUnlocked / badges.length) * 100));
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-6">
+    <div style={{ width: '100%', maxWidth: '1000px', margin: '0 auto', padding: '24px 24px', minHeight: 'calc(100vh - 80px)' }}>
       {/* Title */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -99,13 +99,13 @@ export default function Awards() {
         <h2 className="font-bold text-base mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
           Trophy Shelf ✨
         </h2>
-        <div className="relative">
+        <div className="relative pt-4 pb-2">
           {/* Shelf line */}
           <div
-            className="absolute bottom-8 left-0 right-0 h-1 rounded-full"
-            style={{ background: 'var(--border-default)' }}
+            className="absolute left-0 right-0 h-1 rounded-full"
+            style={{ top: '65px', background: 'var(--border-default)', zIndex: 0 }}
           />
-          <div className="flex justify-around pb-2">
+          <div className="flex justify-around relative z-10">
             {trophies.map((t, i) => (
               <motion.div
                 key={t.id}
@@ -113,17 +113,18 @@ export default function Awards() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + i * 0.07 }}
                 className="flex flex-col items-center gap-2"
+                style={{ width: '90px' }}
               >
                 <div
-                  className="text-5xl"
+                  className="text-5xl mb-1 relative"
                   style={{ opacity: t.locked ? 0.3 : 1, filter: t.locked ? 'grayscale(1)' : 'none' }}
                 >
                   {t.emoji}
+                  {t.locked && (
+                    <div className="absolute -bottom-2 -right-2 text-base">🔒</div>
+                  )}
                 </div>
-                {t.locked && (
-                  <div className="text-base -mt-2">🔒</div>
-                )}
-                <span className="text-xs font-semibold text-center" style={{ color: 'var(--text-muted)' }}>
+                <span className="text-xs font-semibold text-center mt-1" style={{ color: 'var(--text-muted)' }}>
                   {t.label}
                 </span>
               </motion.div>
