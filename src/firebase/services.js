@@ -181,6 +181,7 @@ export async function getUserProfile(uid) {
     if (snap.exists()) {
       const data = snap.data();
       if (collName === 'child_profiles') {
+        const localLang = typeof window !== 'undefined' ? localStorage.getItem('spaceece_language') || 'English' : 'English';
         return {
           id: snap.id,
           name: data.name || 'Child',
@@ -191,6 +192,7 @@ export async function getUserProfile(uid) {
           dayStreak: data.dayStreak ?? 0,
           badges: Array.isArray(data.badges) ? data.badges.length : (data.badges ?? 0),
           level: data.level ?? 1,
+          language: data.language || localLang,
           progress: data.progress || {
             mathWorld: 0,
             puzzleWorld: 0,
@@ -200,7 +202,8 @@ export async function getUserProfile(uid) {
           ...data
         };
       }
-      return { id: snap.id, ...data };
+      const localLang = typeof window !== 'undefined' ? localStorage.getItem('spaceece_language') || 'English' : 'English';
+      return { id: snap.id, language: localLang, ...data };
     }
     return null;
   } catch (e) {

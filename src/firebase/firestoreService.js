@@ -322,6 +322,8 @@ export const subscribeToNotifications = (userId, field, callback) => {
   return onSnapshot(q, (snapshot) => {
     const notifications = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     callback(notifications);
+  }, (error) => {
+    console.warn('[subscribeToNotifications] Snapshot listener failed (likely missing index or permissions):', error.message);
   });
 };
 
@@ -369,6 +371,8 @@ export const subscribeToFeatureFlags = (callback) => {
     if (snap.exists()) {
       callback(snap.data());
     }
+  }, (error) => {
+    console.warn('[subscribeToFeatureFlags] Snapshot listener failed:', error.message);
   });
 };
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
@@ -13,11 +13,17 @@ const LANGUAGES = [
 
 export default function Settings() {
   const { themeMode, setMode, seasonal, setSeasonalTheme } = useTheme();
-  const { user, refreshProfile, markLoggedOut } = useUser();
+  const { user, profile, setProfile, refreshProfile, markLoggedOut } = useUser();
   const [language, setLanguage] = useState('English');
   const [showMascot, setShowMascot] = useState(true);
   const [saving, setSaving] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
+
+  useEffect(() => {
+    if (profile?.language) {
+      setLanguage(profile.language);
+    }
+  }, [profile?.language]);
 
   const handleLogout = async () => {
     try {
@@ -35,8 +41,15 @@ export default function Settings() {
   const handleSave = async () => {
     if (!user) return;
     setSaving(true);
-    await updateUserProfile(user.uid, { language });
-    await refreshProfile();
+    localStorage.setItem('spaceece_language', language);
+    if (setProfile) {
+      setProfile(prev => prev ? { ...prev, language } : { language });
+    }
+    try {
+      await updateUserProfile(user.uid, { language });
+    } catch (e) {
+      console.warn('Failed to update language in Firestore:', e);
+    }
     setSaving(false);
   };
 

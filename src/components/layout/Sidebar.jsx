@@ -21,7 +21,7 @@ const NAV_ITEMS = [
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
-  const { profile, user, refreshProfile, markLoggedOut } = useUser();
+  const { profile, user, setProfile, refreshProfile, markLoggedOut } = useUser();
 
   const handleLogout = async () => {
     try {
@@ -33,15 +33,18 @@ export default function Sidebar({ isOpen, onClose }) {
     }
   };
 
-  const currentLang = profile?.language || 'English';
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
 
   const handleLanguageChange = async (langLabel) => {
+    localStorage.setItem('spaceece_language', langLabel);
+    if (setProfile) {
+      setProfile(prev => prev ? { ...prev, language: langLabel } : { language: langLabel });
+    }
     if (!user) return;
     try {
       await updateUserProfile(user.uid, { language: langLabel });
-      await refreshProfile();
     } catch (e) {
-      console.error('Failed to update language:', e);
+      console.warn('Failed to update language in Firestore:', e);
     }
   };
 
