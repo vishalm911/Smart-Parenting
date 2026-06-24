@@ -179,7 +179,7 @@ const TopNavbar = ({ onMenuClick }) => {
                     }}
                   >
                     <ListItemText
-                      primary={notif.message}
+                      primary={typeof notif.message === 'string' ? notif.message : JSON.stringify(notif.message)}
                       secondary={
                         notif.created_at?.toDate
                           ? new Date(notif.created_at.toDate()).toLocaleString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })

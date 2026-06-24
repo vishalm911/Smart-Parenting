@@ -219,13 +219,23 @@ const ParentDashboard = () => {
 
                           {/* Progress bar */}
                           <Box sx={{ mb: 1.25 }}>
+                            {(() => {
+                              // child.progress can be a Firestore object ({mathWorld: X, ...}) or a number
+                              const rawProgress = child.progress;
+                              const progressValue = typeof rawProgress === 'number'
+                                ? rawProgress
+                                : (rawProgress && typeof rawProgress === 'object')
+                                  ? Math.min(100, Math.round(Object.values(rawProgress).filter(v => typeof v === 'number').reduce((a, b) => a + b, 0) / Math.max(1, Object.values(rawProgress).filter(v => typeof v === 'number').length)))
+                                  : 0;
+                              return (
+                                <>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.4 }}>
                               <Typography variant="caption" fontWeight={700} color="text.secondary" sx={{ fontSize: '0.6rem' }}>Progress</Typography>
                               <Typography variant="caption" fontWeight={900} sx={{ color: levelStyle.color, fontSize: '0.6rem' }}>
-                                {child.progress || 0}%
+                                {progressValue}%
                               </Typography>
                             </Box>
-                            <LinearProgress variant="determinate" value={child.progress || 0} sx={{
+                            <LinearProgress variant="determinate" value={progressValue} sx={{
                               height: 8, borderRadius: 100,
                               bgcolor: `${levelStyle.color}15`,
                               '& .MuiLinearProgress-bar': {
@@ -233,6 +243,9 @@ const ParentDashboard = () => {
                                 borderRadius: 100,
                               },
                             }} />
+                                </>
+                              );
+                            })()}
                           </Box>
 
                           {/* Coin + streak */}
@@ -337,7 +350,7 @@ const ParentDashboard = () => {
                       }}
                     >
                       <ListItemText
-                        primary={notif.message}
+                        primary={typeof notif.message === 'string' ? notif.message : JSON.stringify(notif.message)}
                         secondary={timeAgo(notif.created_at)}
                         primaryTypographyProps={{ variant: 'body2', fontWeight: notif.read_status ? 500 : 700, fontSize: '0.8rem', lineHeight: 1.4 }}
                         secondaryTypographyProps={{ variant: 'caption', fontSize: '0.65rem' }}
