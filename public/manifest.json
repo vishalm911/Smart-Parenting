@@ -1,0 +1,21 @@
+{
+  "short_name": "SpacECE",
+  "name": "SpacECE Learning Adventures",
+  "icons": [
+    {
+      "src": "/logo.jpeg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo.jpeg",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FFFFFF",
+  "theme_color": "#F5A623",
+  "display": "standalone",
+  "orientation": "portrait"
+}
