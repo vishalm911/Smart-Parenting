@@ -611,6 +611,7 @@ export async function getUnlockedAchievements(uid) {
 }
 
 /* ══════════════════════════════════════════
+/* ══════════════════════════════════════════
    MILESTONE ASSESSMENTS  →  collection: milestone_assessments
    Writes ONE document per completed assessment session.
    Per-question data is stored in the `responses` array inside that document.
@@ -655,3 +656,43 @@ export async function saveMilestoneAssessmentResult(resultData) {
   }
 }
 
+/* ══════════════════════════════════════════
+   ASSESSMENT SEEN-QUESTION TRACKING
+   Stores seen question IDs per child to prevent repeats across sessions.
+   Field: child_profiles/{uid}.assessmentSeenIds  (string[])
+══════════════════════════════════════════ */
+
+/**
+ * Fetch the list of assessment question IDs this child has already seen.
+ * Returns an empty array for mock users or on error.
+ */
+export async function getAssessmentSeenIds(uid) {
+  if (!uid || uid === 'mock-user-123') return [];
+  try {
+    const snap = await getDoc(doc(db, 'child_profiles', uid));
+    if (snap.exists()) {
+      const data = snap.data();
+      return Array.isArray(data.assessmentSeenIds) ? data.assessmentSeenIds : [];
+    }
+    return [];
+  } catch (e) {
+    console.error('getAssessmentSeenIds:', e);
+    return [];
+  }
+}
+
+/**
+ * Persist the updated seen-question ID list back to Firestore.
+ * This is called after each assessment session completes.
+ */
+export async function saveAssessmentSeenIds(uid, seenIds = []) {
+  if (!uid || uid === 'mock-user-123') return;
+  try {
+    await updateDoc(doc(db, 'child_profiles', uid), {
+      assessmentSeenIds: seenIds,
+      updated_at: serverTimestamp(),
+    });
+  } catch (e) {
+    console.error('saveAssessmentSeenIds:', e);
+  }
+}

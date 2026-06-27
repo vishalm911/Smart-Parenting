@@ -578,6 +578,172 @@
   font-size: 1.3rem;
 }
 
+/* ════════════════════════════════════════════════════
+   QUESTION BREAKDOWN CARDS (Score Screen)
+════════════════════════════════════════════════════ */
+
+.score-breakdown {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.breakdown-heading {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: var(--space-2);
+  letter-spacing: -0.01em;
+}
+
+/* Individual card — pill style matching reward chips */
+.breakdown-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-elevated);
+  border: 1.5px solid var(--color-border);
+  animation: bounceIn 0.4s var(--ease-spring) both;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.breakdown-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+.breakdown-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+/* Left accent stripe colors */
+.breakdown-card.status-yes::before,
+.breakdown-card.status-correct::before {
+  background: linear-gradient(180deg, #22C55E, #10B981);
+}
+.breakdown-card.status-sometimes::before {
+  background: linear-gradient(180deg, #FBBF24, #F59E0B);
+}
+.breakdown-card.status-notyet::before {
+  background: linear-gradient(180deg, #A78BFA, #8B5CF6);
+}
+.breakdown-card.status-wrong::before {
+  background: linear-gradient(180deg, #FB7185, #EF4444);
+}
+
+/* Border color per status */
+.breakdown-card.status-yes,
+.breakdown-card.status-correct {
+  border-color: rgba(34, 197, 94, 0.25);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+.breakdown-card.status-sometimes {
+  border-color: rgba(251, 191, 36, 0.25);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+.breakdown-card.status-notyet {
+  border-color: rgba(167, 139, 250, 0.25);
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+.breakdown-card.status-wrong {
+  border-color: rgba(251, 113, 133, 0.25);
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+
+/* Domain emoji */
+.breakdown-card-emoji {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 2rem;
+  text-align: center;
+}
+
+/* Question title */
+.breakdown-card-title {
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status badge (pill inside the card) */
+.breakdown-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px 3px 6px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.breakdown-badge-emoji {
+  font-size: 0.85rem;
+}
+
+/* Badge color variants */
+.breakdown-card-badge.status-yes,
+.breakdown-card-badge.status-correct {
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+.breakdown-card-badge.status-sometimes {
+  background: rgba(251, 191, 36, 0.12);
+  color: #92400E;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+.breakdown-card-badge.status-notyet {
+  background: rgba(167, 139, 250, 0.12);
+  color: #5B21B6;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+.breakdown-card-badge.status-wrong {
+  background: rgba(251, 113, 133, 0.12);
+  color: #9F1239;
+  border: 1px solid rgba(251, 113, 133, 0.2);
+}
+
+@media (max-width: 600px) {
+  .score-breakdown {
+    max-width: 100%;
+  }
+  .breakdown-card {
+    padding: var(--space-2) var(--space-3);
+  }
+  .breakdown-card-title {
+    font-size: 0.8rem;
+  }
+  .breakdown-card-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px 2px 4px;
+  }
+}
+
 /* ─── Domain-wise Development Summary (replaces per-question breakdown) ─── */
 .domain-summary {
   margin-bottom: var(--space-8);
@@ -779,4 +945,328 @@
     font-size: 0.65rem;
     padding: 2px 7px;
   }
+}
+
+/* ════════════════════════════════════════════════════
+   NEW STYLES — Age-Based Assessment (added)
+════════════════════════════════════════════════════ */
+
+/* ─── Age Group Badge ─── */
+.age-group-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.1), rgba(255, 107, 157, 0.1));
+  border: 1.5px solid rgba(124, 77, 255, 0.25);
+  margin-bottom: var(--space-4);
+  animation: bounceIn 0.5s var(--ease-spring);
+}
+
+.age-group-badge-icon {
+  font-size: 1.1rem;
+}
+
+.age-group-badge-text {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-accent-purple);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.score-age-badge {
+  margin: 0 auto var(--space-4);
+}
+
+/* ─── Loading States ─── */
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 200px;
+}
+
+.loading-spinner {
+  font-size: 3rem;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+
+.loading-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-elevated);
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* ─── Question Label Types (extend existing) ─── */
+.assessment-question-label.caregiver {
+  background: rgba(102, 187, 106, 0.1);
+  color: #2E7D32;
+  border: 1.5px solid rgba(102, 187, 106, 0.3);
+}
+
+.assessment-question-label.emotion {
+  background: rgba(255, 107, 157, 0.1);
+  color: #D63384;
+  border: 1.5px solid rgba(255, 107, 157, 0.25);
+}
+
+.assessment-question-label.sort {
+  background: rgba(79, 195, 247, 0.1);
+  color: #0277BD;
+  border: 1.5px solid rgba(79, 195, 247, 0.3);
+}
+
+/* ─── Caregiver Question Visual ─── */
+.caregiver-visual {
+  min-height: 80px !important;
+  flex-direction: column;
+  padding: var(--space-6) var(--space-6) !important;
+}
+
+.caregiver-question-text {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.6;
+  text-align: center;
+  font-style: italic;
+  max-width: 480px;
+}
+
+/* Caregiver options: wide yes/no pills */
+.caregiver-options {
+  grid-template-columns: 1fr 1fr !important;
+  max-width: 340px !important;
+}
+
+.caregiver-options .option-card {
+  min-height: 70px !important;
+  font-size: 1.2rem;
+}
+
+/* ─── Emotion Question Visual ─── */
+.emotion-visual {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.emotion-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.emotion-big-icon {
+  font-size: 3.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.emotion-prompt-text {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* Emotion options: large emoji grid */
+.emotion-options {
+  grid-template-columns: repeat(2, 1fr) !important;
+  max-width: 400px !important;
+}
+
+.emotion-options .option-card-emoji {
+  font-size: 3rem !important;
+}
+
+/* ─── Sort Question Items Row ─── */
+.sort-items-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.sort-item {
+  font-size: 2.8rem;
+  transition: transform 0.3s var(--ease-bounce);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.sort-item-odd {
+  position: relative;
+  animation: pulse-glow 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(124, 77, 255, 0.4));
+  border-radius: var(--radius-lg);
+}
+
+/* ─── Correct Answer Hint (shown after wrong answer) ─── */
+.option-card.correct-hint {
+  border-color: var(--color-success);
+  background: linear-gradient(135deg, rgba(102,187,106,0.06) 0%, rgba(102,187,106,0.12) 100%);
+  opacity: 0.8;
+}
+
+/* ─── Responsive additions for new types ─── */
+@media (max-width: 600px) {
+  .caregiver-question-text {
+    font-size: 0.9rem;
+  }
+
+  .sort-item {
+    font-size: 2.2rem;
+  }
+
+  .emotion-options .option-card-emoji {
+    font-size: 2.2rem !important;
+  }
+
+  .emotion-options {
+    max-width: 320px !important;
+  }
+
+  .age-group-badge-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MILESTONE QUESTION TYPE (3–6 years observational)
+════════════════════════════════════════════════════ */
+
+/* Label badge */
+.assessment-question-label.milestone {
+  background: rgba(244, 163, 0, 0.1);
+  color: #E65100;
+  border: 1.5px solid rgba(244, 163, 0, 0.3);
+}
+
+/* Visual area */
+.milestone-visual {
+  min-height: 100px !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-6) !important;
+  background: linear-gradient(135deg, rgba(244, 163, 0, 0.04) 0%, rgba(124, 77, 255, 0.04) 100%);
+}
+
+/* Options: 3-column for Yes / Sometimes / Not Yet */
+.milestone-options {
+  grid-template-columns: repeat(3, 1fr) !important;
+  max-width: 420px !important;
+}
+
+.milestone-options .option-card {
+  min-height: 80px !important;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.milestone-options .option-card-emoji {
+  font-size: 2rem !important;
+}
+
+.milestone-options .option-card-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .milestone-options {
+    max-width: 340px !important;
+  }
+
+  .milestone-options .option-card {
+    min-height: 65px !important;
+  }
+
+  .milestone-options .option-card-emoji {
+    font-size: 1.6rem !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MILESTONE FEEDBACK STYLES
+════════════════════════════════════════════════════ */
+
+/* Milestone feedback banner */
+.milestone-feedback {
+  animation: milestoneFeedbackSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border-radius: 14px !important;
+  padding: var(--space-4) var(--space-5) !important;
+  font-weight: 600 !important;
+  line-height: 1.5;
+}
+
+@keyframes milestoneFeedbackSlide {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Yes - green/success */
+.milestone-feedback-yes {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.35) !important;
+  color: #166534 !important;
+}
+
+/* Sometimes - warm amber */
+.milestone-feedback-sometimes {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%) !important;
+  border: 1.5px solid rgba(251, 191, 36, 0.35) !important;
+  color: #92400E !important;
+}
+
+/* Not Yet - supportive purple */
+.milestone-feedback-notyet {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%) !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.35) !important;
+  color: #5B21B6 !important;
+}
+
+/* Milestone option card highlight colors when answered */
+.option-card.milestone-sometimes {
+  border-color: #F59E0B !important;
+  background: rgba(251, 191, 36, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18) !important;
+}
+
+.option-card.milestone-notyet {
+  border-color: #8B5CF6 !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18) !important;
 }

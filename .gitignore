@@ -29,3 +29,4 @@ dist-ssr
 *.sw?
 .vite
 .vite/
+node_modules

@@ -88,10 +88,10 @@ const ChildProfileManager = () => {
   const handleSave = async () => {
     if (!formData.name.trim()) { setError('Please enter a name.'); return; }
 
-    // ── Age 1–3: validate DOB and derive milestone fields ─────────
-    if (formData.age_group === '1-3') {
+    // ── Age 1-3 & 4-6: validate DOB and derive milestone fields if applicable ─────────
+    if (['1-3', '4-6'].includes(formData.age_group)) {
       if (!formData.date_of_birth) {
-        setError('Please enter the date of birth for children in the 1–3 age group.');
+        setError(`Please enter the date of birth for children in the ${formData.age_group} age group.`);
         return;
       }
       const dob = new Date(formData.date_of_birth);
@@ -99,20 +99,43 @@ const ChildProfileManager = () => {
         setError('Date of birth cannot be in the future.');
         return;
       }
-      const check = getMilestoneInfo(formData.date_of_birth);
-      if (!check || check.ageMonths > 36) {
-        setError('Date of birth indicates the child is older than 3 years. Please select the correct age group.');
-        return;
+      if (formData.age_group === '0-1') {
+        const ageMonths = (new Date() - dob) / (1000 * 60 * 60 * 24 * 30.44);
+        if (ageMonths > 12) {
+          setError('Date of birth indicates the child is older than 1 year. Please select the correct age group.');
+          return;
+        }
+      } else if (formData.age_group === '1-3') {
+        const check = getMilestoneInfo(formData.date_of_birth);
+        if (!check || check.ageMonths > 36) {
+          setError('Date of birth indicates the child is older than 3 years. Please select the correct age group.');
+          return;
+        }
+      } else if (formData.age_group === '4-6') {
+        const ageMonths = (new Date() - dob) / (1000 * 60 * 60 * 24 * 30.44);
+        if (ageMonths > 84) { // Roughly 7 years
+          setError('Date of birth indicates the child is older than 6 years. Please select the correct age group.');
+          return;
+        }
       }
     }
 
     // ── Build Firestore payload ────────────────────────────────────
     let payload;
-    if (formData.age_group === '1-3' && formData.date_of_birth) {
-      const { ageMonths, milestoneLevel } = getMilestoneInfo(formData.date_of_birth);
+    if (['0-1', '1-3', '4-6'].includes(formData.age_group) && formData.date_of_birth) {
+      const dob = new Date(formData.date_of_birth);
+      const ageMonths = Math.floor((new Date() - dob) / (1000 * 60 * 60 * 24 * 30.44));
+      
+      // Calculate milestoneLevel only if they fall under the 1-3 age group format (1 to 6)
+      // (Older system relied on this, so we preserve it for backwards compatibility)
+      let milestoneLevel = null;
+      if (formData.age_group === '1-3') {
+        milestoneLevel = Math.min(6, Math.floor(ageMonths / 6) + 1);
+      }
+      
       payload = { ...formData, age_months: ageMonths, milestone_level: milestoneLevel };
     } else {
-      // Ensure milestone fields are explicitly cleared for other age groups
+      // Ensure milestone fields are explicitly cleared for other age groups (e.g. 7-10)
       payload = { ...formData, date_of_birth: null, age_months: null, milestone_level: null };
     }
 
@@ -314,12 +337,27 @@ const ChildProfileManager = () => {
             {AGE_GROUPS.map((ag) => (
               <Box
                 key={ag.value}
-                onClick={() => setFormData((p) => ({
-                  ...p,
-                  age_group: ag.value,
-                  // Clear DOB when switching away from Age 1-3 so stale data never persists
-                  ...(ag.value !== '1-3' && { date_of_birth: '' }),
-                }))}
+                onClick={() => {
+                  const now = new Date();
+                  const toISO = (d) => d.toISOString().split('T')[0];
+                  let defaultDob = '';
+                  if (ag.value === '0-1') {
+                    // Default to ~6 months ago
+                    defaultDob = toISO(new Date(now.getFullYear(), now.getMonth() - 6, now.getDate()));
+                  } else if (ag.value === '1-3') {
+                    // Default to ~1.5 years ago (middle of 0-3 range)
+                    defaultDob = toISO(new Date(now.getFullYear() - 1, now.getMonth() - 6, now.getDate()));
+                  } else if (ag.value === '4-6') {
+                    // Default to ~5 years ago (middle of 3-7 range)
+                    defaultDob = toISO(new Date(now.getFullYear() - 5, now.getMonth(), now.getDate()));
+                  }
+                  setFormData((p) => ({
+                    ...p,
+                    age_group: ag.value,
+                    // Set a sensible default DOB for groups that need it, clear for others
+                    date_of_birth: ['0-1', '1-3', '4-6'].includes(ag.value) ? (p.date_of_birth || defaultDob) : '',
+                  }));
+                }}
                 sx={{
                   flex: 1, py: 1.25, borderRadius: '12px', textAlign: 'center', cursor: 'pointer',
                   bgcolor: formData.age_group === ag.value ? ag.color : '#F9FAFB',
@@ -335,28 +373,50 @@ const ChildProfileManager = () => {
             ))}
           </Box>
 
-          {/* Date of Birth — only shown for Age 1–3 */}
-          {formData.age_group === '1-3' && (
-            <>
-              <Typography
-                variant="caption" fontWeight={900}
-                sx={{ mt: 2.5, mb: 1.25, display: 'block', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.06em' }}
-              >
-                Date of Birth
-              </Typography>
-              <TextField
-                fullWidth
-                type="date"
-                value={formData.date_of_birth}
-                onChange={(e) => setFormData((p) => ({ ...p, date_of_birth: e.target.value }))}
-                inputProps={{
-                  max: new Date().toISOString().split('T')[0],
-                  min: new Date(new Date().setFullYear(new Date().getFullYear() - 3)).toISOString().split('T')[0],
-                }}
-                helperText="Used to auto-calculate the child's milestone level (1–6)"
-              />
-            </>
-          )}
+          {/* Date of Birth — shown for Age 0-1, 1-3, and 4-6 */}
+          {['0-1', '1-3', '4-6'].includes(formData.age_group) && (() => {
+            const now = new Date();
+            const toISO = (d) => d.toISOString().split('T')[0];
+            let minDate, maxDate, helperMsg;
+
+            if (formData.age_group === '0-1') {
+              minDate = toISO(new Date(now.getFullYear() - 1, now.getMonth(), now.getDate()));
+              maxDate = toISO(now);
+              helperMsg = "Used to provide age-appropriate activities for your baby";
+            } else if (formData.age_group === '1-3') {
+              // Child must be 0–3 years old
+              minDate = toISO(new Date(now.getFullYear() - 3, now.getMonth(), now.getDate()));
+              maxDate = toISO(now);
+              helperMsg = "Used to auto-calculate the child's milestone level (1–6)";
+            } else {
+              // Age 4-6: child must be 3–7 years old
+              minDate = toISO(new Date(now.getFullYear() - 7, now.getMonth(), now.getDate()));
+              maxDate = toISO(new Date(now.getFullYear() - 3, now.getMonth(), now.getDate()));
+              helperMsg = "Helps personalize your child's learning journey (age 3–6)";
+            }
+
+            return (
+              <>
+                <Typography
+                  variant="caption" fontWeight={900}
+                  sx={{ mt: 2.5, mb: 1.25, display: 'block', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.06em' }}
+                >
+                  Date of Birth
+                </Typography>
+                <TextField
+                  fullWidth
+                  type="date"
+                  value={formData.date_of_birth}
+                  onChange={(e) => setFormData((p) => ({ ...p, date_of_birth: e.target.value }))}
+                  inputProps={{
+                    max: maxDate,
+                    min: minDate,
+                  }}
+                  helperText={helperMsg}
+                />
+              </>
+            );
+          })()}
         </DialogContent>
         <DialogActions sx={{ p: 2.5, gap: 1 }}>
           <Button variant="outlined" onClick={() => setDialogOpen(false)}>Cancel</Button>
