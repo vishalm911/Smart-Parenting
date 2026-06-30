@@ -5,46 +5,480 @@
  * Only renders if child's age_months is between 0-36
  */
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser } from '../../context/UserContext';
 import { getActivitiesForAge, MILESTONE_ACTIVITIES_CATALOG } from '../../data/milestoneActivitiesCatalog';
+import { awardProgress } from '../../firebase/services';
 import './MilestoneCatalogActivities.css';
 
+// Domain information with icons, titles, and theme colors
 const DOMAIN_INFO = {
-  physical: {
-    name: 'Physical Development',
-    icon: '💪',
-    color: '#10B981',
-    description: 'Motor skills, coordination, and physical growth'
-  },
-  social: {
-    name: 'Social Development',
-    icon: '👥',
-    color: '#3B82F6',
-    description: 'Interaction, relationships, and social skills'
-  },
-  emotional: {
-    name: 'Emotional Development',
-    icon: '❤️',
-    color: '#EF4444',
-    description: 'Self-awareness, expression, and emotional regulation'
-  },
-  cognitive: {
-    name: 'Cognitive Development',
-    icon: '🧠',
-    color: '#8B5CF6',
-    description: 'Thinking, learning, and problem-solving'
-  },
-  aesthetic: {
-    name: 'Aesthetic Development',
-    icon: '🎨',
-    color: '#F59E0B',
-    description: 'Creativity, art appreciation, and sensory exploration'
-  }
+  physical: { name: 'Physical Development', icon: '🏃', color: '#10B981', desc: 'Motor skills, coordination, and physical health' },
+  social: { name: 'Social Development', icon: '👥', color: '#3B82F6', desc: 'Interaction, sharing, and peer relationship' },
+  emotional: { name: 'Emotional Development', icon: '❤️', color: '#EF4444', desc: 'Self-awareness, regulation, and empathy' },
+  cognitive: { name: 'Cognitive Development', icon: '🧠', color: '#8B5CF6', desc: 'Problem solving, memory, and logical thinking' },
+  aesthetic: { name: 'Aesthetic Development', icon: '🎨', color: '#F59E0B', desc: 'Sensory play, music, and art exploration' }
 };
 
 export default function MilestoneCatalogActivities() {
-  const { profile } = useUser();
+  const { profile, refreshProfile } = useUser();
+
+  // State hooks
+  const [bookmarks, setBookmarks] = useState(() => {
+    try {
+      const saved = localStorage.getItem('spaceece_bookmarked_milestones');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [toastMessage, setToastMessage] = useState('');
+  const [activeSimulation, setActiveSimulation] = useState(null);
+  const [simulationProgress, setSimulationProgress] = useState(0);
+  const [simulationSuccess, setSimulationSuccess] = useState(false);
+  const [activeParticles, setActiveParticles] = useState([]);
+
+  // Game states
+  const [gameScore, setGameScore] = useState(0);
+  const [gameItems, setGameItems] = useState([]);
+  const [gameStatus, setGameStatus] = useState('');
+  const [gameActive, setGameActive] = useState('');
+
+  // Auto-timer for Sit & Explore
+  useEffect(() => {
+    let interval;
+    if (activeSimulation) {
+      const key = (activeSimulation.name || activeSimulation.eActivity || '').toLowerCase();
+      const isSitExplore = key.includes('sit') && key.includes('explore');
+      if (isSitExplore && !simulationSuccess) {
+        interval = setInterval(() => {
+          setGameScore(prev => {
+            const nextScore = prev + 1;
+            const nextProgress = Math.min(100, nextScore * 10);
+            setSimulationProgress(nextProgress);
+            
+            if (nextScore === 10) {
+              handleSimulationComplete();
+              clearInterval(interval);
+            }
+            return nextScore;
+          });
+        }, 1000);
+      }
+    }
+    return () => clearInterval(interval);
+  }, [activeSimulation, simulationSuccess]);
+
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  const handleToggleBookmark = (activityName) => {
+    let newBookmarks;
+    if (bookmarks.includes(activityName)) {
+      newBookmarks = bookmarks.filter(b => b !== activityName);
+      showToast(`Removed "${activityName}" from bookmarks`);
+    } else {
+      newBookmarks = [...bookmarks, activityName];
+      showToast(`Saved "${activityName}" to bookmarks!`);
+    }
+    setBookmarks(newBookmarks);
+    localStorage.setItem('spaceece_bookmarked_milestones', JSON.stringify(newBookmarks));
+  };
+
+  const playSuccessSound = () => {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [261.63, 329.63, 392.00, 523.25];
+      notes.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        
+        const startTime = audioCtx.currentTime + index * 0.15;
+        osc.start(startTime);
+        
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.2, startTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+        
+        osc.stop(startTime + 0.4);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleSimulationComplete = async () => {
+    setSimulationSuccess(true);
+    playSuccessSound();
+    
+    if (profile?.id) {
+      const success = await awardProgress(profile.id, {
+        xp: 20,
+        stars: 5,
+        coins: 10,
+        module: 'milestone-activities'
+      });
+      if (success) {
+        refreshProfile();
+      }
+    }
+  };
+
+  const getActivityKey = (activity) => {
+    if (!activity) return 'generic';
+    const title = (activity.name || activity.eActivity || '').toLowerCase();
+    if (title.includes('tummy') || title.includes('head-up')) return 'tummy-time';
+    if (title.includes('compass') || title.includes('sound')) return 'sound-compass';
+    if (title.includes('bloom') || title.includes('petal') || title.includes('hand discovery')) return 'hand-bloom';
+    if (title.includes('kick')) return 'kick-count';
+    if (title.includes('grip') || title.includes('hold')) return 'grip-log';
+    if (title.includes('eye connect') || title.includes('gaze')) return 'eye-connect';
+    if (title.includes('sit')) return 'sit-explore';
+    return 'generic';
+  };
+
+  const renderMiniGame = (activity) => {
+    const key = getActivityKey(activity);
+    const gameIdea = activity.gameIdea || '';
+    
+    switch (key) {
+      case 'sit-explore':
+        return (
+          <div className="game-box sit-explore-game">
+            <div className="game-visuals">
+              <div className="baby-seated-animation">
+                {simulationSuccess ? '👑👶👑' : '🧘👶'}
+              </div>
+              <div className="posture-lines"></div>
+              {simulationSuccess && <div className="throne-badge-visual">🛋️ Throne Badge Earned!</div>}
+            </div>
+            <div className="game-dashboard">
+              <div className="timer-count">Time Seated: {gameScore}s / 10s</div>
+              <p className="game-prompt">
+                {simulationSuccess ? 'Excellent posture! Throne Badge awarded.' : 'Calm music is playing. Keep baby seated stably...'}
+              </p>
+              {!simulationSuccess && (
+                <div className="game-stabilizer-indicator">
+                  <span className="indicator-pulse"></span> Stable Seating Active
+                </div>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'tummy-time':
+        return (
+          <div className="game-box tummy-time-game">
+            <div className="high-contrast-bg">
+              <div className="spinning-spiral">🌀</div>
+            </div>
+            <div className="galaxy-board">
+              {gameItems.map((item, idx) => (
+                <span 
+                  key={idx} 
+                  className="galaxy-star" 
+                  style={{ 
+                    left: `${item.x}%`, 
+                    top: `${item.y}%`, 
+                    fontSize: `${1.5 + idx * 0.3}rem` 
+                  }}
+                >
+                  ⭐
+                </span>
+              ))}
+            </div>
+            <div className="game-dashboard">
+              <div className="star-count">Stars collected: {gameItems.length} / 5</div>
+              <p className="game-prompt">Tap "Record Head Lift" when baby looks up to shoot stars into the galaxy!</p>
+              {!simulationSuccess && (
+                <button 
+                  className="btn-game-action"
+                  onClick={() => {
+                    const count = gameItems.length;
+                    if (count >= 5) return;
+                    const nextItems = [...gameItems, { x: Math.random() * 80 + 10, y: Math.random() * 60 + 10 }];
+                    setGameItems(nextItems);
+                    const nextProgress = Math.min(100, (nextItems.length * 20));
+                    setSimulationProgress(nextProgress);
+                    
+                    try {
+                      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                      const osc = audioCtx.createOscillator();
+                      osc.connect(audioCtx.destination);
+                      osc.frequency.setValueAtTime(300 + count * 100, audioCtx.currentTime);
+                      osc.start();
+                      osc.stop(audioCtx.currentTime + 0.15);
+                    } catch {}
+
+                    if (nextItems.length === 5) {
+                      handleSimulationComplete();
+                    }
+                  }}
+                >
+                  👶 Record Head Lift
+                </button>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'sound-compass':
+        return (
+          <div className="game-box sound-compass-game">
+            <div className="compass-visual-area">
+              <div className={`sliding-bell ${gameActive}`}>
+                🔔
+              </div>
+              <div className="sound-pulses">
+                <span className="wave-pulse"></span>
+                <span className="wave-pulse-2"></span>
+              </div>
+            </div>
+            <div className="game-dashboard">
+              <div className="compass-score">Progress: {simulationProgress}%</div>
+              <p className="game-prompt">Look at the bell! Click matching direction when baby turns head.</p>
+              {!simulationSuccess && (
+                <div className="compass-actions" style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                  <button 
+                    className="btn-game-action direction"
+                    onClick={() => {
+                      if (gameActive === 'left') {
+                        const nextProgress = Math.min(100, simulationProgress + 20);
+                        setSimulationProgress(nextProgress);
+                        showToast("Correct! Turned Left.");
+                        setGameActive(Math.random() > 0.5 ? 'left' : 'right');
+                        if (nextProgress === 100) handleSimulationComplete();
+                      } else {
+                        showToast("Oops, the bell was on the right!");
+                      }
+                    }}
+                  >
+                    👈 Tracked Left
+                  </button>
+                  <button 
+                    className="btn-game-action direction"
+                    onClick={() => {
+                      if (gameActive === 'right') {
+                        const nextProgress = Math.min(100, simulationProgress + 20);
+                        setSimulationProgress(nextProgress);
+                        showToast("Correct! Turned Right.");
+                        setGameActive(Math.random() > 0.5 ? 'left' : 'right');
+                        if (nextProgress === 100) handleSimulationComplete();
+                      } else {
+                        showToast("Oops, the bell was on the left!");
+                      }
+                    }}
+                  >
+                    Tracked Right 👉
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'hand-bloom':
+        return (
+          <div className="game-box hand-bloom-game">
+            <div className="flower-visuals">
+              <div className="bouquet-box">
+                {gameItems.map((item, idx) => (
+                  <span key={idx} className="flower-item">🌸</span>
+                ))}
+              </div>
+              <div className="falling-petal-simulation">
+                🍃
+              </div>
+            </div>
+            <div className="game-dashboard">
+              <div className="petal-count">Petals Caught: {gameItems.length} / 5</div>
+              <p className="game-prompt">When baby stretches out and opens their hand, click "Opens Hand" to catch the falling petal!</p>
+              {!simulationSuccess && (
+                <button 
+                  className="btn-game-action"
+                  onClick={() => {
+                    const count = gameItems.length;
+                    if (count >= 5) return;
+                    const nextItems = [...gameItems, '🌸'];
+                    setGameItems(nextItems);
+                    const nextProgress = Math.min(100, nextItems.length * 20);
+                    setSimulationProgress(nextProgress);
+
+                    if (nextItems.length === 5) {
+                      handleSimulationComplete();
+                    }
+                  }}
+                >
+                  🖐️ Baby Opens Hand
+                </button>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'kick-count':
+        return (
+          <div className="game-box kick-count-game">
+            <div className="treble-staff">
+              <div className="staff-line"></div>
+              <div className="staff-line"></div>
+              <div className="staff-line"></div>
+              <div className="staff-line"></div>
+              <div className="staff-line"></div>
+              <div className="staff-notes">
+                {gameItems.map((note, idx) => (
+                  <span 
+                    key={idx} 
+                    className="staff-note-item" 
+                    style={{ left: `${20 + idx * 30}px`, bottom: `${10 + (idx % 3) * 12}px`, position: 'absolute' }}
+                  >
+                    🎵
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="game-dashboard">
+              <div className="note-count">Notes Played: {gameItems.length} / 8</div>
+              <p className="game-prompt">Baby kicks mobile toy and record the kick to compose a song!</p>
+              {!simulationSuccess && (
+                <button 
+                  className="btn-game-action"
+                  onClick={() => {
+                    const count = gameItems.length;
+                    if (count >= 8) return;
+                    const nextItems = [...gameItems, '🎵'];
+                    setGameItems(nextItems);
+                    const nextProgress = Math.min(100, Math.floor(nextItems.length * 12.5));
+                    setSimulationProgress(nextProgress);
+
+                    try {
+                      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                      const osc = audioCtx.createOscillator();
+                      osc.connect(audioCtx.destination);
+                      osc.frequency.setValueAtTime(261.63 * Math.pow(1.12, count), audioCtx.currentTime);
+                      osc.start();
+                      osc.stop(audioCtx.currentTime + 0.2);
+                    } catch {}
+
+                    if (nextItems.length === 8) {
+                      handleSimulationComplete();
+                    }
+                  }}
+                >
+                  🦶 Baby Kicks Mobile
+                </button>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'grip-log':
+        return (
+          <div className="game-box grip-log-game">
+            <div className="grip-visuals">
+              <div className="grip-thermometer">
+                <div className="grip-fill" style={{ height: `${simulationProgress}%`, width: '100%', background: '#EF4444', transition: 'height 0.2s ease' }}></div>
+              </div>
+              <div className="creature-morph">
+                {simulationSuccess ? '🦋 Butterfly Flying!' : '🐛 Caterpillar Climbing'}
+              </div>
+            </div>
+            <div className="game-dashboard">
+              <div className="grip-val">Grip Hold: {simulationProgress}%</div>
+              <p className="game-prompt">Log hold duration. Caterpillar turns into butterfly at 100%!</p>
+              {!simulationSuccess && (
+                <button 
+                  className="btn-game-action"
+                  onClick={() => {
+                    const next = Math.min(100, simulationProgress + 10);
+                    setSimulationProgress(next);
+                    if (next === 100) handleSimulationComplete();
+                  }}
+                >
+                  ✊ Record Grip Pulse
+                </button>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'eye-connect':
+        return (
+          <div className="game-box eye-connect-game">
+            <div className="gaze-face-box">
+              <div className="gaze-face">
+                😊
+              </div>
+            </div>
+            <div className="gaze-garden" style={{ display: 'flex', gap: '8px', justifyContent: 'center', margin: '12px 0' }}>
+              {gameItems.map((flower, idx) => (
+                <span key={idx} className="garden-flower" style={{ fontSize: '2rem' }}>🌷</span>
+              ))}
+            </div>
+            <div className="game-dashboard">
+              <div className="flower-count">Flowers Grown: {gameItems.length} / 5</div>
+              <p className="game-prompt">Look into the baby's eyes and log connection to grow flowers!</p>
+              {!simulationSuccess && (
+                <button 
+                  className="btn-game-action"
+                  onClick={() => {
+                    const count = gameItems.length;
+                    if (count >= 5) return;
+                    const nextItems = [...gameItems, '🌷'];
+                    setGameItems(nextItems);
+                    const nextProgress = Math.min(100, nextItems.length * 20);
+                    setSimulationProgress(nextProgress);
+
+                    if (nextItems.length === 5) {
+                      handleSimulationComplete();
+                    }
+                  }}
+                >
+                  👁️ Record Gaze Connection
+                </button>
+              )}
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="game-box generic-game">
+            <div className="generic-progress-circle">
+              <svg className="progress-ring" width="120" height="120">
+                <circle className="progress-ring-bg" stroke="#e2e8f0" strokeWidth="8" fill="transparent" r="50" cx="60" cy="60" />
+                <circle className="progress-ring-fill" stroke="var(--accent-color, #f5a623)" strokeWidth="8" fill="transparent" r="50" cx="60" cy="60" strokeDasharray={314.16} strokeDashoffset={314.16 - (314.16 * simulationProgress) / 100} />
+              </svg>
+              <div className="progress-value">{simulationProgress}%</div>
+            </div>
+            <div className="game-dashboard">
+              <p className="game-prompt"><strong>Caregiver Guide:</strong> {gameIdea || 'Perform this activity with your child and tap below to log progress.'}</p>
+              {!simulationSuccess && (
+                <button 
+                  className="btn-game-action"
+                  onClick={() => {
+                    const next = Math.min(100, simulationProgress + 20);
+                    setSimulationProgress(next);
+                    if (next === 100) handleSimulationComplete();
+                  }}
+                >
+                  👉 Tap to Log Progress Step
+                </button>
+              )}
+            </div>
+          </div>
+        );
+    }
+  };
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedDomain, setSelectedDomain] = useState(null);
@@ -282,17 +716,101 @@ export default function MilestoneCatalogActivities() {
               </section>
             </div>
 
-            <div className="modal-footer">
-              <button className="btn-primary">
-                🚀 Start Activity
-              </button>
-              <button className="btn-secondary">
-                🔖 Bookmark
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+             <div className="modal-footer">
+               <button 
+                 className="btn-primary"
+                 onClick={() => {
+                   setActiveSimulation(selectedActivity);
+                   setSimulationProgress(0);
+                   setSimulationSuccess(false);
+                   setSelectedActivity(null);
+                   setGameScore(0);
+                   setGameItems([]);
+                   setGameStatus('Ready to play!');
+                   setGameActive(Math.random() > 0.5 ? 'left' : 'right');
+                 }}
+               >
+                 🚀 Start Activity
+               </button>
+               <button 
+                 className={`btn-secondary ${bookmarks.includes(selectedActivity.eActivity) ? 'bookmarked' : ''}`}
+                 onClick={() => handleToggleBookmark(selectedActivity.eActivity)}
+               >
+                 {bookmarks.includes(selectedActivity.eActivity) ? '📌 Bookmarked' : '🔖 Bookmark'}
+               </button>
+             </div>
+           </div>
+         </div>
+       )}
+
+       {/* Simulation Overlay */}
+       {activeSimulation && (
+         <div className="simulation-overlay">
+           <div className="simulation-container">
+             <button 
+               className="simulation-close" 
+               onClick={() => {
+                 setActiveSimulation(null);
+                 setSimulationProgress(0);
+                 setSimulationSuccess(false);
+               }}
+             >
+               ✕ Exit Session
+             </button>
+ 
+             <div className="simulation-header">
+               <span className="simulation-badge">Active Session</span>
+               <h2>{activeSimulation.name || activeSimulation.eActivity}</h2>
+               <p className="simulation-objective">{activeSimulation.objective || activeSimulation.description}</p>
+             </div>
+ 
+             <div className="simulation-body">
+               {simulationSuccess ? (
+                 <div className="simulation-success-pane">
+                   <div className="success-badge-badge">🏆</div>
+                   <h3>Activity Completed!</h3>
+                   <p>Fantastic job! You and your child have earned rewards.</p>
+                   
+                   <div className="rewards-grid">
+                     <div className="reward-box xp">
+                       <span className="reward-icon">⚡</span>
+                       <span className="reward-amount">+20 XP</span>
+                     </div>
+                     <div className="reward-box stars">
+                       <span className="reward-icon">⭐</span>
+                       <span className="reward-amount">+5 Stars</span>
+                     </div>
+                     <div className="reward-box coins">
+                       <span className="reward-icon">🪙</span>
+                       <span className="reward-amount">+10 Coins</span>
+                     </div>
+                   </div>
+ 
+                   <button 
+                     className="btn-success-close"
+                     onClick={() => {
+                       setActiveSimulation(null);
+                       setSimulationProgress(0);
+                       setSimulationSuccess(false);
+                     }}
+                   >
+                     🎉 Awesome!
+                   </button>
+                 </div>
+               ) : (
+                 renderMiniGame(activeSimulation)
+               )}
+             </div>
+           </div>
+         </div>
+       )}
+
+       {/* Toast Notification */}
+       {toastMessage && (
+         <div className="local-toast">
+           {toastMessage}
+         </div>
+       )}
+     </div>
+   );
+ }
