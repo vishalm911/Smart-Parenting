@@ -20,7 +20,10 @@ const User    = require('../models/User');
 const ChildProfile = require('../models/ChildProfile');
 const { verifyToken } = require('../middleware/auth');
 
-const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const googleClient = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET
+);
 
 // ── Helper: sign JWT ──────────────────────────────────────────────────────
 const signToken = (payload) =>
