@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import StoryCard from '../../components/literacy/StoryCard';
 import StoryReader from '../../components/literacy/StoryReader';
+import MilestoneActivities from '../../components/child/MilestoneActivities';
+import MilestoneCatalogActivities from '../../components/child/MilestoneCatalogActivities';
 import { getStories } from '../../firebase/literacyService';
 import { storiesData as defaultStories } from '../../data/storiesData';
 import s from "./StoryWorldPage.module.css";
@@ -116,6 +118,12 @@ export default function StoryWorldPage() {
 
       {/* Content Area */}
       <div style={{ flex: 1, padding: '28px 32px 40px', display: 'flex', flexDirection: 'column' }}>
+
+      {/* Milestone Activities Section - Only for age 0-3 */}
+      <MilestoneActivities />
+
+      {/* Milestone Catalog Activities - Comprehensive catalog for ages 0-36 months */}
+      <MilestoneCatalogActivities />
 
       {/* Continue Reading */}
       {inProgressStory && (() => {

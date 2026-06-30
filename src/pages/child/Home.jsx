@@ -7,6 +7,7 @@ import { useUser } from '../../context/UserContext';
 import { getUserSessions } from '../../firebase/firestoreService';
 import { checkAssessmentSchedule } from '../../utils/assessmentScheduler';
 import RecommendationPanel from '../../components/child/RecommendationPanel';
+import MilestoneCatalogActivities from '../../components/child/MilestoneCatalogActivities';
 import './Home.css';
 
 const LEARNING_PATH = [
@@ -54,6 +55,7 @@ export default function Home() {
   // 'first-time' | 'weekly' | null
   const [assessmentModalType, setAssessmentModalType] = useState(null);
   const [learningTime, setLearningTime] = useState('0m');
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   // ── Assessment scheduling: show first-time or weekly popup via Firestore ──
   useEffect(() => {
@@ -197,14 +199,21 @@ export default function Home() {
             <span className="stat-value">{animateXP}</span>
             <span className="stat-label">XP</span>
           </div>
-          <div className="topnav-avatar" onClick={() => navigate('/child/avatar')} style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.65rem', background: '#E2F0CB', width: '42px', height: '42px', borderRadius: '50%', cursor: 'pointer', border: '2px solid white', boxShadow: 'var(--shadow-sm)' }}>
-            {getAvatarEmoji(profile?.avatar)}
-            {profile?.accessory && (
-              <span style={{ position: 'absolute', fontSize: '1rem', right: '-4px', bottom: '-4px', zIndex: 5, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }}>
-                {ACCESSORIES[profile.accessory]}
-              </span>
-            )}
-          </div>
+          <button 
+            className="topnav-profile-btn" 
+            onClick={() => setShowProfileModal(true)}
+            title="View My Profile"
+          >
+            <div className="profile-btn-avatar">
+              {getAvatarEmoji(profile?.avatar)}
+              {profile?.accessory && (
+                <span className="profile-btn-accessory">
+                  {ACCESSORIES[profile.accessory]}
+                </span>
+              )}
+            </div>
+            <span className="profile-btn-text">My Profile</span>
+          </button>
         </div>
       </div>
 
@@ -330,6 +339,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Milestone Catalog Activities - For ages 0-36 months */}
+        <MilestoneCatalogActivities />
       </div>
 
       {/* Assessment Modal Popup — first-time or weekly */}
@@ -370,6 +382,165 @@ export default function Home() {
                 Maybe Later
               </button>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Profile Modal */}
+      {showProfileModal && (
+        <div className="profile-modal-overlay" onClick={() => setShowProfileModal(false)}>
+          <div className="profile-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="profile-modal-close" onClick={() => setShowProfileModal(false)}>
+              ✕
+            </button>
+
+            <div className="profile-modal-content">
+              <h2 className="profile-modal-title">👤 My Profile</h2>
+              
+              <div className="profile-content">
+                {/* Avatar Section */}
+                <div className="profile-avatar-section">
+                  <div className="profile-avatar-wrapper">
+                    <div className="profile-avatar-large">
+                      {getAvatarEmoji(profile?.avatar)}
+                      {profile?.accessory && (
+                        <span className="profile-accessory">
+                          {ACCESSORIES[profile.accessory]}
+                        </span>
+                      )}
+                    </div>
+                    <button 
+                      className="profile-edit-avatar-btn"
+                      onClick={() => {
+                        setShowProfileModal(false);
+                        navigate('/child/avatar');
+                      }}
+                    >
+                      ✏️ Customize Avatar
+                    </button>
+                  </div>
+
+                  {/* Quick Stats - Moved below Customize Avatar */}
+                  <div className="profile-quick-stats">
+                    <div className="profile-stat-item">
+                      <span className="profile-stat-icon">⭐</span>
+                      <span className="profile-stat-value">{animateStars}</span>
+                      <span className="profile-stat-label">Stars</span>
+                    </div>
+                    <div className="profile-stat-item">
+                      <span className="profile-stat-icon">⚡</span>
+                      <span className="profile-stat-value">{animateXP}</span>
+                      <span className="profile-stat-label">XP</span>
+                    </div>
+                    <div className="profile-stat-item">
+                      <span className="profile-stat-icon">🔥</span>
+                      <span className="profile-stat-value">{dayStreak}</span>
+                      <span className="profile-stat-label">Streak</span>
+                    </div>
+                    <div className="profile-stat-item">
+                      <span className="profile-stat-icon">⏱️</span>
+                      <span className="profile-stat-value">{learningTime}</span>
+                      <span className="profile-stat-label">Time</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Profile Details */}
+                <div className="profile-details-section">
+                  <div className="profile-detail-row">
+                    <span className="profile-detail-icon">📛</span>
+                    <div className="profile-detail-info">
+                      <span className="profile-detail-label">Name</span>
+                      <span className="profile-detail-value">{profile?.name || 'Explorer'}</span>
+                    </div>
+                  </div>
+
+                  <div className="profile-detail-row">
+                    <span className="profile-detail-icon">🎂</span>
+                    <div className="profile-detail-info">
+                      <span className="profile-detail-label">Age Group</span>
+                      <span className="profile-detail-value">
+                        {profile?.age_group ? `Age ${profile.age_group}` : 'Not set'}
+                        {profile?.age_months && ` (${profile.age_months} months)`}
+                      </span>
+                    </div>
+                  </div>
+
+                  {profile?.date_of_birth && (
+                    <div className="profile-detail-row">
+                      <span className="profile-detail-icon">📅</span>
+                      <div className="profile-detail-info">
+                        <span className="profile-detail-label">Date of Birth</span>
+                        <span className="profile-detail-value">
+                          {new Date(profile.date_of_birth).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="profile-detail-row">
+                    <span className="profile-detail-icon">🎓</span>
+                    <div className="profile-detail-info">
+                      <span className="profile-detail-label">Current Level</span>
+                      <span className="profile-detail-value">
+                        Level {profile?.milestone_level ?? profile?.level ?? 1}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="profile-detail-row">
+                    <span className="profile-detail-icon">🏅</span>
+                    <div className="profile-detail-info">
+                      <span className="profile-detail-label">Achievements</span>
+                      <span className="profile-detail-value">
+                        {profile?.badges?.length ?? 0} Badges
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="profile-detail-row">
+                    <span className="profile-detail-icon">🪙</span>
+                    <div className="profile-detail-info">
+                      <span className="profile-detail-label">Coins</span>
+                      <span className="profile-detail-value">
+                        {profile?.coin_count ?? 0} coins
+                      </span>
+                    </div>
+                  </div>
+
+                  {profile?.parent_uid && (
+                    <div className="profile-detail-row">
+                      <span className="profile-detail-icon">👪</span>
+                      <div className="profile-detail-info">
+                        <span className="profile-detail-label">Parent Account</span>
+                        <span className="profile-detail-value">
+                          Connected
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {profile?.created_at && (
+                    <div className="profile-detail-row">
+                      <span className="profile-detail-icon">🌟</span>
+                      <div className="profile-detail-info">
+                        <span className="profile-detail-label">Member Since</span>
+                        <span className="profile-detail-value">
+                          {new Date(profile.created_at.toDate ? profile.created_at.toDate() : profile.created_at).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short'
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

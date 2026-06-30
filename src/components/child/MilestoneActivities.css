@@ -1,0 +1,588 @@
+/* Milestone Activities Section */
+.milestone-activities-section {
+  margin: 32px 0;
+  padding: 0;
+}
+
+.milestone-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 50%, #F67280 100%);
+  border-radius: 16px;
+  color: white;
+}
+
+.milestone-header-collapsible {
+  margin-bottom: 0;
+  transition: all 0.3s ease;
+}
+
+.milestone-header-collapsible:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+}
+
+.milestone-content-wrapper {
+  padding: 24px 0;
+  animation: expandDown 0.3s ease;
+}
+
+.milestone-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.milestone-icon {
+  font-size: 2rem;
+}
+
+.milestone-subtitle {
+  font-size: 0.95rem;
+  margin: 0;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+/* Skills Section */
+.milestone-skills {
+  margin-bottom: 32px;
+}
+
+.skills-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skills-icon {
+  font-size: 1.5rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.skill-card {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFE5B4 100%);
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #FFD700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+}
+
+.skill-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #D97706;
+  margin: 0 0 8px 0;
+}
+
+.skill-description {
+  font-size: 0.9rem;
+  color: #78350F;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Activities List */
+.milestone-activities-list {
+  margin-bottom: 32px;
+}
+
+.activities-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.activities-icon {
+  font-size: 1.5rem;
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.activity-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #E5E7EB;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: #6FBF73;
+}
+
+.activity-card-header {
+  margin-bottom: 16px;
+}
+
+.activity-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 8px 0;
+}
+
+.activity-category-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #6FBF73, #4E9F52);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.activity-preview {
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.activity-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.activity-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.activity-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.activity-objective-preview {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.activity-view-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #4FC3F7, #2196F3);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activity-view-btn:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+}
+
+/* Activity Modal */
+.activity-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.activity-modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.activity-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.activity-modal-close:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transform: rotate(90deg);
+}
+
+.activity-modal-header {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  color: white;
+  padding: 32px 24px 24px;
+  border-radius: 16px 16px 0 0;
+}
+
+.activity-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+}
+
+.activity-modal-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-category,
+.badge-age {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.activity-modal-content {
+  padding: 24px;
+}
+
+.activity-section {
+  margin-bottom: 24px;
+}
+
+.activity-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-content {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.materials-list,
+.research-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.material-item,
+.research-item {
+  background: #F9FAFB;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border-left: 3px solid #6FBF73;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.research-item {
+  border-left-color: #7C4DFF;
+  font-style: italic;
+}
+
+.activity-modal-footer {
+  padding: 24px;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-start-activity,
+.btn-bookmark {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-start-activity {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: white;
+}
+
+.btn-start-activity:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btn-bookmark {
+  background: #F3F4F6;
+  color: var(--color-text);
+  border: 2px solid #E5E7EB;
+}
+
+.btn-bookmark:hover {
+  background: #E5E7EB;
+  border-color: #D1D5DB;
+}
+
+/* All Milestones Section */
+.all-milestones-section {
+  margin-top: 40px;
+  padding: 24px;
+  background: #F9FAFB;
+  border-radius: 12px;
+}
+
+.all-milestones-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.milestones-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.milestone-accordion-item {
+  background: white;
+  border-radius: 10px;
+  border: 2px solid #E5E7EB;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.milestone-accordion-item:hover {
+  border-color: #D1D5DB;
+}
+
+.milestone-accordion-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
+
+.milestone-accordion-btn:hover {
+  background: #F9FAFB;
+}
+
+.milestone-accordion-btn.active {
+  background: #F3F4F6;
+}
+
+.milestone-age-range {
+  flex: 1;
+  text-align: left;
+  font-size: 1.05rem;
+}
+
+.milestone-activity-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-right: 12px;
+}
+
+.accordion-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.milestone-accordion-content {
+  padding: 20px;
+  border-top: 1px solid #E5E7EB;
+  animation: expandDown 0.3s ease;
+}
+
+@keyframes expandDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+.accordion-skills,
+.accordion-activities {
+  margin-bottom: 16px;
+}
+
+.accordion-skills h4,
+.accordion-activities h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 12px 0;
+}
+
+.accordion-skills-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.accordion-skill-tag {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  color: #92400E;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.accordion-activities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion-activity-item {
+  padding: 8px 12px;
+  background: #F9FAFB;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  border-left: 3px solid #4FC3F7;
+}
+
+.accordion-activity-item strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .milestone-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skills-grid,
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-modal {
+    max-height: 95vh;
+    margin: 10px;
+  }
+
+  .activity-modal-footer {
+    flex-direction: column;
+  }
+
+  .btn-start-activity,
+  .btn-bookmark {
+    width: 100%;
+  }
+}
