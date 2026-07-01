@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useUser } from '../../context/UserContext';
 import { awardProgress } from '../../firebase/services';
 import './MilestoneActivities.css';
 
 // Import the milestone data
-import milestonesData from '../../data/milestones_0_3.json';
+import rawMilestonesData from '../../data/milestones_0_3.json';
+import { MILESTONE_ACTIVITIES_CATALOG } from '../../data/milestoneActivitiesCatalog';
 
 export default function MilestoneActivities() {
   const { profile, refreshProfile } = useUser();
@@ -478,15 +479,60 @@ export default function MilestoneActivities() {
   console.log('Full Profile:', profile);
   console.log('================================');
   
-  // TEMPORARY: Show for ALL users for testing/demo purposes
-  // TODO: In production, uncomment the age_group check below
-  
-  // For testing/demo: Show for age group 1-3 even if age_months is not set
-  // In production, this should only show when age_months is properly set
-  // if (profile?.age_group !== '1-3' && (childAge === undefined || childAge === null || childAge > 36)) {
-  //   console.log('MilestoneActivities - Not displaying (not age group 1-3 or age out of range)');
-  //   return null;
-  // }
+  // Group raw milestones and catalog activities into levels matching user age
+  const processedMilestones = useMemo(() => {
+    const levels = [
+      { key: "0-6", rangeName: "0-6 months", levelNum: 1 },
+      { key: "6-12", rangeName: "6-12 months", levelNum: 2 },
+      { key: "12-18", rangeName: "12-18 months", levelNum: 3 },
+      { key: "18-24", rangeName: "18-24 months", levelNum: 4 },
+      { key: "24-30", rangeName: "24-30 months", levelNum: 5 },
+      { key: "30-36", rangeName: "30-36 months", levelNum: 6 }
+    ];
+
+    return levels.map(levelInfo => {
+      const catalogEntry = MILESTONE_ACTIVITIES_CATALOG[levelInfo.key];
+      const activities = [];
+      if (catalogEntry) {
+        Object.entries(catalogEntry.domains).forEach(([domain, list]) => {
+          list.forEach(act => {
+            activities.push({
+              ...act,
+              category: domain.charAt(0).toUpperCase() + domain.slice(1) + ' Development',
+              ageGroup: levelInfo.key
+            });
+          });
+        });
+      }
+
+      const filtered = rawMilestonesData.filter(m => m.level === levelInfo.levelNum);
+      const uniqueSkillsMap = new Map();
+      filtered.forEach(m => {
+        if (m.skill && !uniqueSkillsMap.has(m.skill)) {
+          uniqueSkillsMap.set(m.skill, {
+            skill: m.skill,
+            description: m.milestone
+          });
+        }
+      });
+      const skills = Array.from(uniqueSkillsMap.values());
+
+      return {
+        ageRange: levelInfo.rangeName,
+        level: levelInfo.levelNum,
+        skills: skills,
+        activities: activities
+      };
+    });
+  }, [rawMilestonesData]);
+
+  // Show for children aged 0-36 months OR age_group "1-3"
+  const shouldShow = (childAge >= 0 && childAge <= 36) || profile?.age_group === '1-3';
+
+  if (!shouldShow) {
+    console.log('MilestoneActivities: Not showing. age_months:', childAge, 'age_group:', profile?.age_group);
+    return null;
+  }
   
   // If age_months is not set but age_group is 1-3, default to 12 months for demo
   const effectiveAge = childAge === null || childAge === undefined ? 12 : (childAge === 0 ? 1 : childAge);
@@ -495,15 +541,16 @@ export default function MilestoneActivities() {
   
   // Find the appropriate milestone data based on age
   const getCurrentMilestone = () => {
-    if (effectiveAge <= 3) return milestonesData.find(m => m.ageRange === "0-3 months");
-    if (effectiveAge <= 6) return milestonesData.find(m => m.ageRange === "3-6 months");
-    if (effectiveAge <= 9) return milestonesData.find(m => m.ageRange === "6-9 months");
-    if (effectiveAge <= 12) return milestonesData.find(m => m.ageRange === "9-12 months");
-    if (effectiveAge <= 18) return milestonesData.find(m => m.ageRange === "12-18 months");
-    if (effectiveAge <= 24) return milestonesData.find(m => m.ageRange === "18-24 months");
-    if (effectiveAge <= 30) return milestonesData.find(m => m.ageRange === "24-30 months");
-    if (effectiveAge <= 36) return milestonesData.find(m => m.ageRange === "30-36 months");
-    return null;
+    let levelNum;
+    if (effectiveAge <= 6) levelNum = 1;
+    else if (effectiveAge <= 12) levelNum = 2;
+    else if (effectiveAge <= 18) levelNum = 3;
+    else if (effectiveAge <= 24) levelNum = 4;
+    else if (effectiveAge <= 30) levelNum = 5;
+    else if (effectiveAge <= 36) levelNum = 6;
+    else return null;
+
+    return processedMilestones.find(m => m.level === levelNum);
   };
 
   const currentMilestone = getCurrentMilestone();
@@ -617,7 +664,7 @@ export default function MilestoneActivities() {
               View All Milestone Groups
             </h3>
             <div className="milestones-accordion">
-              {milestonesData.map((milestone, index) => (
+              {processedMilestones.map((milestone, index) => (
                 <div key={index} className="milestone-accordion-item">
                   <button
                     className={`milestone-accordion-btn ${expandedMilestone === index ? 'active' : ''}`}

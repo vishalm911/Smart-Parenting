@@ -80,7 +80,7 @@ export default function Home() {
       let totalMs = 0;
       const now = Date.now();
       for (const s of sessions) {
-        const login  = s.login_time?.toDate?.() ?? null;
+        const login = s.login_time?.toDate?.() ?? null;
         const logout = s.logout_time?.toDate?.() ?? null;
         if (login && logout) {
           totalMs += logout - login;           // completed session
@@ -96,7 +96,7 @@ export default function Home() {
         const m = totalMin % 60;
         setLearningTime(m > 0 ? `${h}h ${m}m` : `${h}h`);
       }
-    }).catch(() => {});
+    }).catch(() => { });
   }, [user?.uid]);
 
   const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
@@ -133,19 +133,19 @@ export default function Home() {
 
   const MODULES = useMemo(() => {
     return [
-      { id: 'assessment-module',    title: getTranslation('Skill Assessment', currentLang),     path: '/child/assessment?start=true', emoji: '🎯', progress: profile?.assessmentCompleted ? 100 : 0, total: 3, done: profile?.assessmentCompleted ? 3 : 0 },
-      { id: 'math-world',           title: getTranslation('Math World', currentLang),           path: '/math-world',                  emoji: '🔢', progress: Math.min(100, Math.floor((profile?.progress?.mathWorld ?? 0) / 3)),           total: 8, done: Math.min(8, Math.floor((profile?.progress?.mathWorld ?? 0) / 40)) },
-      { id: 'puzzle-world',         title: getTranslation('Puzzle World', currentLang),         path: '/puzzle-world',                emoji: '🧩', progress: Math.min(100, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 3)),         total: 8, done: Math.min(8, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 40)) },
-      { id: 'number-adventure',     title: getTranslation('Number Adventure', currentLang),     path: '/number-adventure',            emoji: '🗺️', progress: Math.min(100, Math.floor((profile?.progress?.numberAdventure ?? 0) / 3)),     total: 6, done: Math.min(6, Math.floor((profile?.progress?.numberAdventure ?? 0) / 50)) },
-      { id: 'logic-island',         title: getTranslation('Logic Island', currentLang),         path: '/logic-island',                emoji: '🧠', progress: Math.min(100, Math.floor((profile?.progress?.logicIsland ?? 0) / 3)),         total: 6, done: Math.min(6, Math.floor((profile?.progress?.logicIsland ?? 0) / 50)) },
-      { id: 'reading-world',        title: getTranslation('Reading World', currentLang),        path: '/child/reading-world',         emoji: '📖', progress: Math.min(100, Math.floor((profile?.progress?.readingWorld ?? 0) / 3)),        total: 8, done: Math.min(8, Math.floor((profile?.progress?.readingWorld ?? 0) / 40)) },
-      { id: 'story-world',          title: getTranslation('Story World', currentLang),          path: '/child/story-world',           emoji: '🌟', progress: Math.min(100, Math.floor((profile?.progress?.storyWorld ?? 0) / 3)),          total: 6, done: Math.min(6, Math.floor((profile?.progress?.storyWorld ?? 0) / 50)) },
-      { id: 'vocabulary-zone',      title: getTranslation('Vocabulary Zone', currentLang),      path: '/child/vocabulary-zone',       emoji: '🔤', progress: Math.min(100, Math.floor((profile?.progress?.vocabularyZone ?? 0) / 3)),      total: 8, done: Math.min(8, Math.floor((profile?.progress?.vocabularyZone ?? 0) / 40)) },
-      { id: 'language-challenges',  title: getTranslation('Language Challenges', currentLang),  path: '/child/language-challenges',   emoji: '🎯', progress: Math.min(100, Math.floor((profile?.progress?.languageChallenges ?? 0) / 3)),  total: 6, done: Math.min(6, Math.floor((profile?.progress?.languageChallenges ?? 0) / 50)) },
-      { id: 'brain-world',          title: getTranslation('Brain World', currentLang),          path: '/child/brain-world',           emoji: '🧠', progress: 25, total: 4, done: 1 },
-      { id: 'emotion-world',        title: getTranslation('Emotion World', currentLang),        path: '/child/emotion-world',         emoji: '❤️', progress: 20, total: 5, done: 1 },
-      { id: 'creativity-world',     title: getTranslation('Creativity World', currentLang),     path: '/child/creativity-world',      emoji: '🎨', progress: 0,  total: 4, done: 0 },
-      { id: 'story-choice-world',   title: getTranslation('Story Choice', currentLang),         path: '/child/story-choice-world',    emoji: '🎭', progress: 50, total: 2, done: 1 },
+      { id: 'assessment-module', title: getTranslation('Skill Assessment', currentLang), path: '/child/assessment?start=true', emoji: '🎯', progress: profile?.assessmentCompleted ? 100 : 0, total: 3, done: profile?.assessmentCompleted ? 3 : 0 },
+      { id: 'math-world', title: getTranslation('Math World', currentLang), path: '/math-world', emoji: '🔢', progress: Math.min(100, Math.floor((profile?.progress?.mathWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.mathWorld ?? 0) / 40)) },
+      { id: 'puzzle-world', title: getTranslation('Puzzle World', currentLang), path: '/puzzle-world', emoji: '🧩', progress: Math.min(100, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 40)) },
+      { id: 'number-adventure', title: getTranslation('Number Adventure', currentLang), path: '/number-adventure', emoji: '🗺️', progress: Math.min(100, Math.floor((profile?.progress?.numberAdventure ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.numberAdventure ?? 0) / 50)) },
+      { id: 'logic-island', title: getTranslation('Logic Island', currentLang), path: '/logic-island', emoji: '🧠', progress: Math.min(100, Math.floor((profile?.progress?.logicIsland ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.logicIsland ?? 0) / 50)) },
+      { id: 'reading-world', title: getTranslation('Reading World', currentLang), path: '/child/reading-world', emoji: '📖', progress: Math.min(100, Math.floor((profile?.progress?.readingWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.readingWorld ?? 0) / 40)) },
+      { id: 'story-world', title: getTranslation('Story World', currentLang), path: '/child/story-world', emoji: '🌟', progress: Math.min(100, Math.floor((profile?.progress?.storyWorld ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.storyWorld ?? 0) / 50)) },
+      { id: 'vocabulary-zone', title: getTranslation('Vocabulary Zone', currentLang), path: '/child/vocabulary-zone', emoji: '🔤', progress: Math.min(100, Math.floor((profile?.progress?.vocabularyZone ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.vocabularyZone ?? 0) / 40)) },
+      { id: 'language-challenges', title: getTranslation('Language Challenges', currentLang), path: '/child/language-challenges', emoji: '🎯', progress: Math.min(100, Math.floor((profile?.progress?.languageChallenges ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.languageChallenges ?? 0) / 50)) },
+      { id: 'brain-world', title: getTranslation('Brain World', currentLang), path: '/child/brain-world', emoji: '🧠', progress: 25, total: 4, done: 1 },
+      { id: 'emotion-world', title: getTranslation('Emotion World', currentLang), path: '/child/emotion-world', emoji: '❤️', progress: 20, total: 5, done: 1 },
+      { id: 'creativity-world', title: getTranslation('Creativity World', currentLang), path: '/child/creativity-world', emoji: '🎨', progress: 0, total: 4, done: 0 },
+      { id: 'story-choice-world', title: getTranslation('Story Choice', currentLang), path: '/child/story-choice-world', emoji: '🎭', progress: 50, total: 2, done: 1 },
     ];
   }, [profile?.progress, profile?.assessmentCompleted, currentLang]);
 
@@ -202,8 +202,8 @@ export default function Home() {
             <span className="stat-value">{animateXP}</span>
             <span className="stat-label">{getTranslation('XP', currentLang)}</span>
           </div>
-          <button 
-            className="topnav-profile-btn" 
+          <button
+            className="topnav-profile-btn"
             onClick={() => setShowProfileModal(true)}
             title={getTranslation('My Profile', currentLang)}
           >
@@ -399,7 +399,7 @@ export default function Home() {
 
             <div className="profile-modal-content">
               <h2 className="profile-modal-title">👤 {getTranslation('My Profile', currentLang)}</h2>
-              
+
               <div className="profile-content">
                 {/* Avatar Section */}
                 <div className="profile-avatar-section">
@@ -412,7 +412,7 @@ export default function Home() {
                         </span>
                       )}
                     </div>
-                    <button 
+                    <button
                       className="profile-edit-avatar-btn"
                       onClick={() => {
                         setShowProfileModal(false);

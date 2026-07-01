@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import StoryCard from '../../components/literacy/StoryCard';
 import StoryReader from '../../components/literacy/StoryReader';
-import MilestoneActivities from '../../components/child/MilestoneActivities';
 import MilestoneCatalogActivities from '../../components/child/MilestoneCatalogActivities';
 import { getStories } from '../../firebase/literacyService';
 import { storiesData as defaultStories } from '../../data/storiesData';
@@ -22,7 +21,7 @@ function setProgress(storyId, data) {
 export default function StoryWorldPage() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [active, setActive]   = useState(null);
+  const [active, setActive] = useState(null);
   const [activeStartPage, setActiveStartPage] = useState(0);
   const [progress, setProgressState] = useState(getProgress());
 
@@ -119,74 +118,71 @@ export default function StoryWorldPage() {
       {/* Content Area */}
       <div style={{ flex: 1, padding: '28px 32px 40px', display: 'flex', flexDirection: 'column' }}>
 
-      {/* Milestone Activities Section - Only for age 0-3 */}
-      <MilestoneActivities />
+        {/* Milestone Catalog Activities - Comprehensive catalog for ages 0-36 months */}
+        <MilestoneCatalogActivities />
 
-      {/* Milestone Catalog Activities - Comprehensive catalog for ages 0-36 months */}
-      <MilestoneCatalogActivities />
+        {/* Continue Reading */}
+        {inProgressStory && (() => {
+          const p = prog[inProgressStory.id];
+          const resumePage = p?.page || 0;
+          const total = inProgressStory.pages?.length || 1;
+          const pct = Math.round(((resumePage) / total) * 100);
+          return (
+            <>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span>▶️</span> Continue Reading
+              </h2>
+              <div className={s.continueCard}>
+                <div className={s.continueCover} style={{ background: inProgressStory.cover_gradient }}>
+                  {inProgressStory.emoji}
+                </div>
+                <div className={s.continueInfo}>
+                  <h3>{inProgressStory.title}</h3>
+                  <p>{total} pages · Age {inProgressStory.age_group} · {inProgressStory.difficulty}</p>
+                  <div className={s.progWrap}>
+                    <div className={s.progBar} style={{ width: `${pct}%` }} />
+                  </div>
+                  <p className={s.progLabel}>{pct}% completed · Page {resumePage + 1} of {total}</p>
+                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
+                    <button className="btn btn-primary" onClick={() => openStory(inProgressStory, resumePage)}>
+                      ▶ Continue
+                    </button>
+                    <button className="btn btn-ghost" onClick={() => openStory(inProgressStory, 0)}>
+                      🔄 Restart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          );
+        })()}
 
-      {/* Continue Reading */}
-      {inProgressStory && (() => {
-        const p = prog[inProgressStory.id];
-        const resumePage = p?.page || 0;
-        const total = inProgressStory.pages?.length || 1;
-        const pct = Math.round(((resumePage) / total) * 100);
-        return (
+        {/* Completed Stories */}
+        {completedStories.length > 0 && (
           <>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span>▶️</span> Continue Reading
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginTop: 32, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span>🏆</span> Completed Stories
             </h2>
-            <div className={s.continueCard}>
-              <div className={s.continueCover} style={{ background: inProgressStory.cover_gradient }}>
-                {inProgressStory.emoji}
-              </div>
-              <div className={s.continueInfo}>
-                <h3>{inProgressStory.title}</h3>
-                <p>{total} pages · Age {inProgressStory.age_group} · {inProgressStory.difficulty}</p>
-                <div className={s.progWrap}>
-                  <div className={s.progBar} style={{ width:`${pct}%` }} />
+            <div className={s.grid}>
+              {completedStories.map(story => (
+                <div key={story.id} style={{ position: "relative" }}>
+                  <StoryCard story={story} onClick={() => openStory(story, 0)} />
+                  <div className={s.completedBadge}>✅ Completed</div>
                 </div>
-                <p className={s.progLabel}>{pct}% completed · Page {resumePage + 1} of {total}</p>
-                <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginTop:4 }}>
-                  <button className="btn btn-primary" onClick={() => openStory(inProgressStory, resumePage)}>
-                    ▶ Continue
-                  </button>
-                  <button className="btn btn-ghost" onClick={() => openStory(inProgressStory, 0)}>
-                    🔄 Restart
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
           </>
-        );
-      })()}
+        )}
 
-      {/* Completed Stories */}
-      {completedStories.length > 0 && (
-        <>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginTop: 32, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>🏆</span> Completed Stories
-          </h2>
-          <div className={s.grid}>
-            {completedStories.map(story => (
-              <div key={story.id} style={{ position:"relative" }}>
-                <StoryCard story={story} onClick={() => openStory(story, 0)} />
-                <div className={s.completedBadge}>✅ Completed</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-
-      {/* All Stories */}
-      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginTop: 32, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span>📚</span> All Stories
-      </h2>
-      <div className={s.grid}>
-        {allStories.map(story => (
-          <StoryCard key={story.id} story={story} onClick={() => openStory(story, 0)} />
-        ))}
-      </div>
+        {/* All Stories */}
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text)', marginTop: 32, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span>📚</span> All Stories
+        </h2>
+        <div className={s.grid}>
+          {allStories.map(story => (
+            <StoryCard key={story.id} story={story} onClick={() => openStory(story, 0)} />
+          ))}
+        </div>
 
       </div>
 
