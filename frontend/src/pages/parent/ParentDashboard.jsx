@@ -158,7 +158,7 @@ const ParentDashboard = () => {
                 {displayProfiles.map((child, i) => {
                   const levelStyle = LEVEL_COLORS[child.level] || LEVEL_COLORS.Explorer;
                   return (
-                    <Grid size={{ xs: 12, sm: 4 }} key={child.id} sx={{ display: 'flex' }}>
+                    <Grid size={{ xs: 12, sm: 4 }} key={child._id || child.id} sx={{ display: 'flex' }}>
                       <Card
                         onClick={() => navigate('/parent/children')}
                         elevation={0}
