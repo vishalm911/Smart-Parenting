@@ -1,8 +1,11 @@
 import client from '../api/client';
 
 const getAll  = (endpoint, params = {}) =>
-  client.get(endpoint, { params }).then(r => ({ data: r.data, error: null }))
-        .catch(e => ({ data: [], error: e.response?.data?.error || e.message }));
+  client.get(endpoint, { params }).then(r => r.data || [])
+        .catch(e => {
+          console.error(e);
+          return [];
+        });
 
 const create  = (endpoint, payload) =>
   client.post(endpoint, payload).then(r => ({ data: r.data, error: null }))

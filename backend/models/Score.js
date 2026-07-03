@@ -61,7 +61,7 @@ const MathGameSchema = new mongoose.Schema(
     age_group:   { type: String },
     is_active:   { type: Boolean, default: true },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Numeracy: Puzzle Games ─────────────────────────────────────────────────
@@ -74,7 +74,7 @@ const PuzzleGameSchema = new mongoose.Schema(
     age_group:  { type: String },
     is_active:  { type: Boolean, default: true },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Numeracy: Logic Games ──────────────────────────────────────────────────
@@ -87,7 +87,7 @@ const LogicGameSchema = new mongoose.Schema(
     age_group:  { type: String },
     is_active:  { type: Boolean, default: true },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 module.exports = {

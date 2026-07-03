@@ -5,9 +5,10 @@ export const getMathGames = async (difficulty = null) => {
   try {
     const params = difficulty ? { difficulty } : {};
     const { data } = await client.get('/numeracy/math', { params });
-    return { data: data.data, error: null };
+    return data.data || [];
   } catch (e) {
-    return { data: [], error: e.response?.data?.error || e.message };
+    console.error(e);
+    return [];
   }
 };
 
@@ -43,9 +44,10 @@ export const getPuzzleGames = async (difficulty = null) => {
   try {
     const params = difficulty ? { difficulty } : {};
     const { data } = await client.get('/numeracy/puzzles', { params });
-    return { data: data.data, error: null };
+    return data.data || [];
   } catch (e) {
-    return { data: [], error: e.response?.data?.error || e.message };
+    console.error(e);
+    return [];
   }
 };
 
@@ -81,9 +83,10 @@ export const getLogicGames = async (difficulty = null) => {
   try {
     const params = difficulty ? { difficulty } : {};
     const { data } = await client.get('/numeracy/logic', { params });
-    return { data: data.data, error: null };
+    return data.data || [];
   } catch (e) {
-    return { data: [], error: e.response?.data?.error || e.message };
+    console.error(e);
+    return [];
   }
 };
 

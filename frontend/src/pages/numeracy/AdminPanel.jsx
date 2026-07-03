@@ -63,9 +63,9 @@ export default function AdminPanel() {
   };
 
   /* ── Fetch helpers ── */
-  const fetchMath   = async () => { const { data } = await getMathGames();   setMathGames(data || []); };
-  const fetchPuzzle = async () => { const { data } = await getPuzzleGames(); setPuzzleGames(data || []); };
-  const fetchLogic  = async () => { const { data } = await getLogicGames();  setLogicGames(data || []); };
+  const fetchMath   = async () => { const data = await getMathGames();   setMathGames(data || []); };
+  const fetchPuzzle = async () => { const data = await getPuzzleGames(); setPuzzleGames(data || []); };
+  const fetchLogic  = async () => { const data = await getLogicGames();  setLogicGames(data || []); };
   const fetchScores = async () => { const { data } = await getNumeracyScores(); setScores(data || []); };
 
   useEffect(() => {

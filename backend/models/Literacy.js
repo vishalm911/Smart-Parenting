@@ -20,7 +20,7 @@ const StorySchema = new mongoose.Schema(
     tags:      [String],
     is_active: { type: Boolean, default: true },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Vocabulary Games ───────────────────────────────────────────────────────
@@ -33,7 +33,7 @@ const VocabularyGameSchema = new mongoose.Schema(
     age_group:   { type: String },
     difficulty:  { type: String, enum: ['easy', 'medium', 'hard'], default: 'easy' },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Word Builder ───────────────────────────────────────────────────────────
@@ -45,7 +45,7 @@ const WordBuilderSchema = new mongoose.Schema(
     image_url: { type: String },
     age_group: { type: String },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Picture Match ──────────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ const PictureMatchSchema = new mongoose.Schema(
     options:   [String],
     age_group: { type: String },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Sound Match ────────────────────────────────────────────────────────────
@@ -67,7 +67,7 @@ const SoundMatchSchema = new mongoose.Schema(
     options:   [String],
     age_group: { type: String },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Object Recognition ─────────────────────────────────────────────────────
@@ -78,7 +78,7 @@ const ObjectRecognitionSchema = new mongoose.Schema(
     options:     [String],
     age_group:   { type: String },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Fluency Passages ───────────────────────────────────────────────────────
@@ -90,7 +90,7 @@ const FluencyPassageSchema = new mongoose.Schema(
     age_group: { type: String },
     level:     { type: String },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Phonics Words ──────────────────────────────────────────────────────────
@@ -102,7 +102,7 @@ const PhonicsWordSchema = new mongoose.Schema(
     image_url:  { type: String },
     age_group:  { type: String },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Challenges ─────────────────────────────────────────────────────────────
@@ -116,7 +116,7 @@ const ChallengeSchema = new mongoose.Schema(
     points:      { type: Number, default: 10 },
     is_active:   { type: Boolean, default: true },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 // ── Reading Activities ─────────────────────────────────────────────────────
@@ -130,7 +130,7 @@ const ReadingActivitySchema = new mongoose.Schema(
     content:     { type: mongoose.Schema.Types.Mixed },
     is_active:   { type: Boolean, default: true },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+  { strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 module.exports = {
