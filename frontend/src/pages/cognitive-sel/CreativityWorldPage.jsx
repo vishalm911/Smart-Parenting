@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useUser } from '../../context/UserContext';
 import FloatingElements from '../../components/animations/FloatingElements';
 import ConfettiEffect from '../../components/animations/ConfettiEffect';
+import { getTranslation } from '../../utils/translations';
 import './BrainWorldPage.css';
 
 const staggerContainer = {
@@ -515,6 +517,8 @@ const MascotCompanion = () => {
    ============================================================ */
 const CreativityWorldHome = () => {
   const navigate = useNavigate();
+  const { profile } = useUser();
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
 
   const activities = [
     { id: 'drawing-pad',     title: 'Drawing Pad',    description: 'Create your own masterpiece with digital canvas', emoji: '🖌️', color: '#F2A100' },
@@ -531,9 +535,9 @@ const CreativityWorldHome = () => {
       <motion.section initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="brain-header">
         <motion.span className="text-6xl inline-block mb-3" animate={{ rotate: [0, 12, -12, 0] }} transition={{ duration: 3, repeat: Infinity }}>🎨</motion.span>
         <h1 className="brain-title" style={{ background: 'linear-gradient(135deg, #F2A100 0%, #EC4899 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          Creativity World
+          {getTranslation('Creativity World', currentLang)}
         </h1>
-        <p className="brain-subtitle">Express yourself through digital art and magic imagination! 🌈</p>
+        <p className="brain-subtitle">{getTranslation('Express yourself through digital art and magic imagination! 🌈', currentLang)}</p>
       </motion.section>
 
       {/* Two column layout to utilise side blank space */}
@@ -556,8 +560,8 @@ const CreativityWorldHome = () => {
                   {act.emoji}
                 </div>
                 <div className="brain-card-info">
-                  <h3 className="brain-card-title">{act.title}</h3>
-                  <p className="brain-card-desc">{act.description}</p>
+                  <h3 className="brain-card-title">{getTranslation(act.title, currentLang)}</h3>
+                  <p className="brain-card-desc">{getTranslation(act.description, currentLang)}</p>
                 </div>
                 <span style={{ fontSize: '1.25rem' }}>🚀</span>
               </motion.div>
@@ -573,8 +577,8 @@ const CreativityWorldHome = () => {
             style={{ background: 'linear-gradient(135deg, #FFF7ED 0%, #FFF0F6 100%)', borderColor: '#FED7AA' }}
           >
             <div style={{ fontSize: '2.5rem' }}>✨🎨🌈</div>
-            <h3 className="brain-active-title">Your Imagination Has No Limits!</h3>
-            <p className="brain-active-desc">Every drawing, colored shape, and comic panel you design is a unique masterpiece. Keep making, dreaming, and sharing!</p>
+            <h3 className="brain-active-title">{getTranslation('Your Imagination Has No Limits!', currentLang)}</h3>
+            <p className="brain-active-desc">{getTranslation('Every drawing, colored shape, and comic panel you design is a unique masterpiece. Keep making, dreaming, and sharing!', currentLang)}</p>
           </motion.div>
         </div>
 

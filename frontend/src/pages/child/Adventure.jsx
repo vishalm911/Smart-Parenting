@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUser } from '../../context/UserContext';
 import FloatingElements from '../../components/animations/FloatingElements';
+import { getTranslation } from '../../utils/translations';
 import '../cognitive-sel/BrainWorldPage.css';
 
 const ZONES = [
@@ -75,6 +76,7 @@ export default function Adventure() {
   const navigate = useNavigate();
   const { profile } = useUser();
   const playerXp = profile?.xp ?? 180;
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
 
   return (
     <div className="relative min-h-screen pb-12">
@@ -120,7 +122,7 @@ export default function Adventure() {
         <div className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-3.5 py-1.5 rounded-full shadow-md">
           <span className="text-base animate-bounce">👑</span>
           <span className="font-black text-sm tracking-wide" style={{ fontFamily: 'var(--font-display)' }}>
-            Level {profile?.level ?? 2}
+            {getTranslation('Level', currentLang)} {profile?.level ?? 2}
           </span>
         </div>
         
@@ -138,7 +140,7 @@ export default function Adventure() {
         </div>
         
         <span className="text-sm font-black text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/45 px-3 py-1 rounded-full border border-violet-100 dark:border-violet-900/50">
-          {playerXp} / 500 XP
+          {playerXp} / 500 {getTranslation('XP', currentLang)}
         </span>
       </div>
 
@@ -174,7 +176,7 @@ export default function Adventure() {
               className="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-400 drop-shadow-lg"
               style={{ fontFamily: 'var(--font-display)', textShadow: '0 0 10px rgba(253, 224, 71, 0.2)' }}
             >
-              ADVENTURE ISLAND
+              {getTranslation('ADVENTURE ISLAND', currentLang)}
             </h2>
             <span className="text-2xl animate-pulse">🏝️</span>
           </div>
@@ -325,13 +327,13 @@ export default function Adventure() {
                       }`}
                     >
                       <p className="text-xs font-black tracking-wide truncate" style={{ fontFamily: 'var(--font-display)', color: unlocked ? 'var(--text-primary)' : 'rgba(255,255,255,0.4)' }}>
-                        {zone.name}
+                        {getTranslation(zone.name, currentLang)}
                       </p>
                       <p className="text-[10px] font-bold mt-0.5">
                         {unlocked ? (
-                          <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{zone.done}/{zone.total} Done</span>
+                          <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{zone.done}/{zone.total} {getTranslation('Done', currentLang)}</span>
                         ) : (
-                          <span className="text-amber-500 font-black tracking-wide">{zone.xpRequired} XP</span>
+                          <span className="text-amber-500 font-black tracking-wide">{zone.xpRequired} {getTranslation('XP', currentLang)}</span>
                         )}
                       </p>
                     </div>
@@ -344,7 +346,7 @@ export default function Adventure() {
 
         {/* Zone list */}
         <h3 className="font-black text-xl mb-5 flex items-center gap-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
-          <span>🗺️</span> Learning Zones Explorer
+          <span>🗺️</span> {getTranslation('Learning Zones Explorer', currentLang)}
         </h3>
         <div className="space-y-4">
           {ZONES.map((zone, i) => {
@@ -378,21 +380,21 @@ export default function Adventure() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2.5 mb-1.5">
                     <h4 className="font-extrabold text-base" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>
-                      {zone.name}
+                      {getTranslation(zone.name, currentLang)}
                     </h4>
                     {!unlocked && (
                       <span className="text-[10px] font-black text-amber-600 bg-amber-500/10 border border-amber-500/20 rounded-full px-2.5 py-0.5 flex items-center gap-1 shadow-sm">
-                        🔒 Lock • {zone.xpRequired} XP required
+                        🔒 {getTranslation('Lock', currentLang)} • {zone.xpRequired} {getTranslation('XP required', currentLang)}
                       </span>
                     )}
                     {unlocked && (
                       <span className="text-[10px] font-extrabold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-0.5 shadow-sm">
-                        Active
+                        {getTranslation('Active', currentLang)}
                       </span>
                     )}
                   </div>
                   <p className="text-xs mb-3 text-slate-500 dark:text-slate-400 font-medium" style={{ color: 'var(--text-muted)' }}>
-                    {zone.description}
+                    {getTranslation(zone.description, currentLang)}
                   </p>
                   
                   <div className="flex items-center gap-3">

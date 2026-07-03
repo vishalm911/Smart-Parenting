@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUser } from '../../context/UserContext';
 import { getUnlockedAchievements } from '../../api/services';
+import { getTranslation } from '../../utils/translations';
 import './Awards.css';
 
 const CATEGORIES = ['All', 'Literacy', 'Math', 'Creative', 'Emotion', 'Brain', 'Science'];
@@ -32,7 +33,8 @@ const BADGES = [
 ];
 
 export default function Awards() {
-  const { user } = useUser();
+  const { user, profile } = useUser();
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
   const [activeCategory, setActiveCategory] = useState('All');
   const [unlockedIds, setUnlockedIds] = useState([]);
 
@@ -79,15 +81,15 @@ export default function Awards() {
         className="awards-header"
       >
         <h1 className="awards-title">
-          My Awards 🏆
+          {getTranslation('My Awards', currentLang)} 🏆
         </h1>
         <p className="awards-subtitle">
-          Play games, read stories and complete challenges to unlock badges!
+          {getTranslation('Play games, read stories and complete challenges to unlock badges!', currentLang)}
         </p>
         
         <div className="awards-progress-box">
           <span style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--color-text-secondary)' }}>
-            🎉 {totalUnlocked} of {badges.length} Badges Unlocked ({percentage}%)
+            🎉 {totalUnlocked} {getTranslation('of', currentLang)} {badges.length} {getTranslation('Badges Unlocked', currentLang)} ({percentage}%)
           </span>
           <div className="progress-track-large">
             <div 
@@ -106,7 +108,7 @@ export default function Awards() {
         className="trophy-section"
       >
         <h2 className="section-title">
-          <span>✨</span> My Trophy Shelf
+          <span>✨</span> {getTranslation('My Trophy Shelf', currentLang)}
         </h2>
         <div className="shelf-wrapper">
           <div className="trophy-grid">
@@ -125,7 +127,7 @@ export default function Awards() {
                   )}
                 </div>
                 <span className="trophy-label">
-                  {t.label}
+                  {getTranslation(t.label, currentLang)}
                 </span>
               </motion.div>
             ))}
@@ -143,7 +145,7 @@ export default function Awards() {
             onClick={() => setActiveCategory(cat)}
             className={`award-filter-btn ${activeCategory === cat ? 'active' : ''}`}
           >
-            {cat === 'All' ? '⭐ All Badges' : cat}
+            {cat === 'All' ? '⭐ ' + getTranslation('All Badges', currentLang) : getTranslation(cat, currentLang)}
           </button>
         ))}
       </div>
@@ -171,10 +173,10 @@ export default function Awards() {
               </div>
 
               <h4 className="badge-card-title">
-                {badge.title}
+                {getTranslation(badge.title, currentLang)}
               </h4>
               <p className="badge-card-desc">
-                {badge.desc}
+                {getTranslation(badge.desc, currentLang)}
               </p>
 
               <span 
@@ -184,7 +186,7 @@ export default function Awards() {
                   background: badge.locked ? 'var(--color-border)' : `${badge.color}15` 
                 }}
               >
-                {badge.cat}
+                {getTranslation(badge.cat, currentLang)}
               </span>
             </motion.div>
           ))}

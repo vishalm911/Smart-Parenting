@@ -1,8 +1,10 @@
 import { useState, useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useUser } from '../../context/UserContext';
 import FloatingElements from '../../components/animations/FloatingElements';
 import ConfettiEffect from '../../components/animations/ConfettiEffect';
+import { getTranslation } from '../../utils/translations';
 import './BrainWorldPage.css';
 
 const staggerContainer = {
@@ -609,6 +611,8 @@ const MascotCompanion = () => {
    ============================================================ */
 const EmotionWorldHome = () => {
   const navigate = useNavigate();
+  const { profile } = useUser();
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
 
   const activities = [
     { id: 'emotion-checkin',      title: 'Emotion Check-In',    description: 'How are you feeling today?',             emoji: '😊', color: '#F59E0B' },
@@ -626,9 +630,9 @@ const EmotionWorldHome = () => {
       <motion.section initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="brain-header">
         <motion.span className="text-6xl inline-block mb-3" animate={{ scale: [1, 1.12, 1] }} transition={{ duration: 3, repeat: Infinity }}>❤️</motion.span>
         <h1 className="brain-title" style={{ background: 'linear-gradient(135deg, #EC4899 0%, #EF4444 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          Emotion World
+          {getTranslation('Emotion World', currentLang)}
         </h1>
-        <p className="brain-subtitle">Explore feelings, empathy, decision skills, and kindness! 🌈</p>
+        <p className="brain-subtitle">{getTranslation('Explore feelings, empathy, decision skills, and kindness! 🌈', currentLang)}</p>
       </motion.section>
 
       {/* Two column layout to utilise side blank space */}
@@ -651,8 +655,8 @@ const EmotionWorldHome = () => {
                   {act.emoji}
                 </div>
                 <div className="brain-card-info">
-                  <h3 className="brain-card-title">{act.title}</h3>
-                  <p className="brain-card-desc">{act.description}</p>
+                  <h3 className="brain-card-title">{getTranslation(act.title, currentLang)}</h3>
+                  <p className="brain-card-desc">{getTranslation(act.description, currentLang)}</p>
                 </div>
                 <span style={{ fontSize: '1.25rem' }}>🚀</span>
               </motion.div>
@@ -668,8 +672,8 @@ const EmotionWorldHome = () => {
             style={{ background: 'linear-gradient(135deg, #FFF0F6 0%, #EDE9FE 100%)', borderColor: '#FBCFE8' }}
           >
             <div style={{ fontSize: '2.5rem' }}>💙🌟🤗</div>
-            <h3 className="brain-active-title">Feelings Matter!</h3>
-            <p className="brain-active-desc">Understanding emotions helps you make great friends and spread kindness. Practice everyday choices to grow stronger!</p>
+            <h3 className="brain-active-title">{getTranslation('Feelings Matter!', currentLang)}</h3>
+            <p className="brain-active-desc">{getTranslation('Understanding emotions helps you make great friends and spread kindness. Practice everyday choices to grow stronger!', currentLang)}</p>
           </motion.div>
         </div>
 

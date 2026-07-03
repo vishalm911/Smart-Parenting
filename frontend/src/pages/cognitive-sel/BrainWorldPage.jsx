@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useUser } from '../../context/UserContext';
 import FloatingElements from '../../components/animations/FloatingElements';
 import ConfettiEffect from '../../components/animations/ConfettiEffect';
+import { getTranslation } from '../../utils/translations';
 import './BrainWorldPage.css';
 
 /* ─── Animation variants ─── */
@@ -527,6 +529,8 @@ const MascotCompanion = () => {
    ============================================================ */
 const BrainWorldHome = () => {
   const navigate = useNavigate();
+  const { profile } = useUser();
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
 
   const activities = [
     { id: 'memory-match',      title: 'Memory Match',      description: 'Flip cards and find matching pairs', emoji: '🃏', color: '#3B82F6' },
@@ -543,9 +547,9 @@ const BrainWorldHome = () => {
       <motion.section initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="brain-header">
         <motion.span className="text-6xl inline-block mb-3" animate={{ scale: [1, 1.12, 1] }} transition={{ duration: 3, repeat: Infinity }}>🧠</motion.span>
         <h1 className="brain-title">
-          Brain World
+          {getTranslation('Brain World', currentLang)}
         </h1>
-        <p className="brain-subtitle">Boost your cognitive skills with fun, interactive quests! 💪</p>
+        <p className="brain-subtitle">{getTranslation('Boost your cognitive skills with fun, interactive quests! 💪', currentLang)}</p>
       </motion.section>
 
       {/* Two column layout to utilise side blank space */}
@@ -568,8 +572,8 @@ const BrainWorldHome = () => {
                   {act.emoji}
                 </div>
                 <div className="brain-card-info">
-                  <h3 className="brain-card-title">{act.title}</h3>
-                  <p className="brain-card-desc">{act.description}</p>
+                  <h3 className="brain-card-title">{getTranslation(act.title, currentLang)}</h3>
+                  <p className="brain-card-desc">{getTranslation(act.description, currentLang)}</p>
                 </div>
                 <span style={{ fontSize: '1.25rem' }}>🚀</span>
               </motion.div>
@@ -584,8 +588,8 @@ const BrainWorldHome = () => {
             className="brain-active-box"
           >
             <div style={{ fontSize: '2.5rem' }}>🧠✨🌟</div>
-            <h3 className="brain-active-title">Keep Your Brain Active!</h3>
-            <p className="brain-active-desc">Play daily to improve memory recall, spatial focus, matching speed, and logic problem-solving skills.</p>
+            <h3 className="brain-active-title">{getTranslation('Keep Your Brain Active!', currentLang)}</h3>
+            <p className="brain-active-desc">{getTranslation('Play daily to improve memory recall, spatial focus, matching speed, and logic problem-solving skills.', currentLang)}</p>
           </motion.div>
         </div>
 

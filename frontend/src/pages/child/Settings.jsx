@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 import { useUser } from '../../context/UserContext';
 import { updateUserProfile, logout } from '../../api/services';
+import { getTranslation } from '../../utils/translations';
 import './Settings.css';
 
 const LANGUAGES = [
@@ -22,6 +23,7 @@ const MASCOTS = [
 export default function Settings() {
   const { themeMode, setMode, seasonal, setSeasonalTheme } = useTheme();
   const { user, profile, setProfile, markLoggedOut } = useUser();
+  const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
   
   // Custom Settings States
   const [language, setLanguage] = useState('English');
@@ -97,7 +99,7 @@ export default function Settings() {
           animate={{ opacity: 1, y: 0 }}
           className="settings-title"
         >
-          My Settings ⚙️
+          {getTranslation('Settings', currentLang)} ⚙️
         </motion.h1>
       </div>
 
@@ -109,7 +111,7 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>🗣️</span> Select Language
+          <span>🗣️</span> {getTranslation('Select Language', currentLang)}
         </h2>
         <div className="choice-grid">
           {LANGUAGES.map((lang) => (
@@ -133,7 +135,7 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>🦁</span> Companion Mascot
+          <span>🦁</span> {getTranslation('Companion Mascot', currentLang)}
         </h2>
         <div className="choice-grid">
           {MASCOTS.map((m) => (
@@ -143,7 +145,7 @@ export default function Settings() {
               className={`choice-btn ${selectedMascot === m.id ? 'active' : ''}`}
             >
               <span className="choice-icon">{m.icon}</span>
-              <span className="choice-label">{m.label}</span>
+              <span className="choice-label">{getTranslation(m.label, currentLang)}</span>
             </button>
           ))}
         </div>
@@ -157,7 +159,7 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>🎨</span> Portal Theme
+          <span>🎨</span> {getTranslation('Portal Theme', currentLang)}
         </h2>
         <div className="choice-grid">
           {[
@@ -171,7 +173,7 @@ export default function Settings() {
               className={`choice-btn ${themeMode === mode.id ? 'active' : ''}`}
             >
               <span className="choice-icon">{mode.icon}</span>
-              <span className="choice-label">{mode.label}</span>
+              <span className="choice-label">{getTranslation(mode.label, currentLang)}</span>
             </button>
           ))}
         </div>
@@ -185,7 +187,7 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>🎯</span> Learning Challenge Level
+          <span>🎯</span> {getTranslation('Learning Challenge Level', currentLang)}
         </h2>
         <div className="choice-grid">
           {[
@@ -199,7 +201,7 @@ export default function Settings() {
               className={`choice-btn ${difficulty === lvl.id ? 'active' : ''}`}
             >
               <span className="choice-icon">{lvl.icon}</span>
-              <span className="choice-label">{lvl.label}</span>
+              <span className="choice-label">{getTranslation(lvl.label, currentLang)}</span>
             </button>
           ))}
         </div>
@@ -213,10 +215,10 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>🔊</span> Audio & Sound Settings
+          <span>🔊</span> {getTranslation('Audio & Sound Settings', currentLang)}
         </h2>
         <div className="settings-row">
-          <span className="settings-row-label">🔊 Game Sound Effects</span>
+          <span className="settings-row-label">🔊 {getTranslation('Game Sound Effects', currentLang)}</span>
           <button
             onClick={() => setSfxEnabled(!sfxEnabled)}
             className={`toggle-switch ${sfxEnabled ? 'active' : ''}`}
@@ -225,7 +227,7 @@ export default function Settings() {
           </button>
         </div>
         <div className="settings-row">
-          <span className="settings-row-label">🎵 Ambient Background Music</span>
+          <span className="settings-row-label">🎵 {getTranslation('Ambient Background Music', currentLang)}</span>
           <button
             onClick={() => setBgmEnabled(!bgmEnabled)}
             className={`toggle-switch ${bgmEnabled ? 'active' : ''}`}
@@ -243,7 +245,7 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>✨</span> Festive Season Decor
+          <span>✨</span> {getTranslation('Festive Season Decor', currentLang)}
         </h2>
         <div className="choice-grid">
           {[
@@ -257,7 +259,7 @@ export default function Settings() {
               className={`choice-btn ${seasonal === theme.id ? 'active' : ''}`}
             >
               <span className="choice-icon">{theme.icon}</span>
-              <span className="choice-label">{theme.label}</span>
+              <span className="choice-label">{getTranslation(theme.label, currentLang)}</span>
             </button>
           ))}
         </div>
@@ -271,10 +273,12 @@ export default function Settings() {
         className="settings-section"
       >
         <h2 className="section-title">
-          <span>👤</span> Account Actions
+          <span>👤</span> {getTranslation('Account Actions', currentLang)}
         </h2>
         <p className="settings-row-label" style={{ marginBottom: '16px', fontSize: '0.85rem' }}>
-          {user?.isAnonymous ? 'Logged in as guest child profile' : `Parent Account: ${user?.email ?? ''}`}
+          {user?.isAnonymous
+            ? getTranslation('Logged in as guest child profile', currentLang)
+            : `${getTranslation('Parent Account', currentLang)}: ${user?.email ?? ''}`}
         </p>
 
         {saveSuccess && (
@@ -295,7 +299,7 @@ export default function Settings() {
               maxWidth: '380px'
             }}
           >
-            🎉 Settings Saved Successfully!
+            🎉 {getTranslation('Settings Saved Successfully!', currentLang)}
           </motion.div>
         )}
 
@@ -305,14 +309,14 @@ export default function Settings() {
             disabled={saving}
             className="settings-btn-save"
           >
-            <span>{saving ? '⏳ Saving...' : '💾 Save Settings'}</span>
+            <span>{saving ? `⏳ ${getTranslation('Saving...', currentLang)}` : `💾 ${getTranslation('Save Settings', currentLang)}`}</span>
           </button>
           <button
             onClick={handleLogout}
             disabled={signingOut}
             className="settings-btn-logout"
           >
-            <span>{signingOut ? '🚪 Leaving...' : '🚪 Sign Out'}</span>
+            <span>{signingOut ? `🚪 ${getTranslation('Leaving...', currentLang)}` : `🚪 ${getTranslation('Sign Out', currentLang)}`}</span>
           </button>
         </div>
       </motion.section>
