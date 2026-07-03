@@ -837,7 +837,7 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ selectedChild }) => {
 
       // Group by childId, exclude current child
       const byChild: Record<string, MilestoneAssessment[]> = {};
-      allAssessments.forEach(d => {
+      allAssessments.forEach((d: any) => {
         const id = d._id || d.id;
         const data = { ...d, id } as MilestoneAssessment;
         if (data.childId === childId) return;
@@ -1192,7 +1192,7 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ selectedChild }) => {
             <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', padding: '4px', borderRadius: '10px', gap: '4px', marginBottom: '16px' }} className="print-hide">
               {(['1-3', '4-6', '7-10'] as const).map(grp => {
                 const isActive = milestoneAgeGroup === grp;
-                const matchesChild = (grp === '1-3' && selectedChild.age <= 3) || (grp === '4-6' && selectedChild.age > 3 && selectedChild.age <= 6) || (grp === '7-10' && selectedChild.age > 6);
+                const matchesChild = (grp === '1-3' && (selectedChild.age ?? 0) <= 3) || (grp === '4-6' && (selectedChild.age ?? 0) > 3 && (selectedChild.age ?? 0) <= 6) || (grp === '7-10' && (selectedChild.age ?? 0) > 6);
                 return <button key={grp} onClick={() => setMilestoneAgeGroup(grp)} style={{ flex: 1, padding: '8px 0', borderRadius: '8px', border: 'none', background: isActive ? 'var(--primary)' : 'transparent', color: isActive ? 'white' : 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', transition: 'all 0.2s ease' }}>Ages {grp}{matchesChild && <span style={{ fontSize: '0.65rem', background: 'rgba(255,255,255,0.2)', padding: '1px 5px', borderRadius: '4px' }}>Child</span>}</button>;
               })}
             </div>
