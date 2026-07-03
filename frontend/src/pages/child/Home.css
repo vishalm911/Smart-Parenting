@@ -306,6 +306,15 @@
 
 /* ---- Learning Journey Map ---- */
 .journey-map { grid-column: span 2; }
+.journey-empty-state {
+  margin-bottom: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(255, 248, 230, 0.9), rgba(255, 255, 255, 0.8));
+  border: 2px dashed rgba(245, 166, 35, 0.45);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+}
 .journey-path { display: flex; flex-direction: column; gap: var(--space-5); }
 .journey-step { display: flex; align-items: center; gap: var(--space-4); position: relative; }
 
@@ -321,6 +330,7 @@
   flex-shrink: 0;
   border: 3px solid white;
 }
+.step-node[role="button"] { cursor: pointer; }
 .step-node.unlocked {
   background: var(--gradient-nature);
   box-shadow: 0 6px 20px rgba(111, 191, 115, 0.45);

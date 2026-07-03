@@ -9,11 +9,16 @@ import MilestoneCatalogActivities from '../../components/child/MilestoneCatalogA
 import { getTranslation } from '../../utils/translations';
 import './Home.css';
 
-const LEARNING_PATH = [
-  { id: 'counting', name: 'Counting Garden', icon: '🌻', status: 'unlocked', progress: 100 },
-  { id: 'addition', name: 'Addition Valley', icon: '➕', status: 'current', progress: 35 },
-  { id: 'shapes', name: 'Shape Kingdom', icon: '🔷', status: 'locked', progress: 0 },
-  { id: 'patterns', name: 'Pattern Palace', icon: '🎨', status: 'locked', progress: 0 },
+const LEARNING_JOURNEY_ROADMAP = [
+  { id: 'assessment-module', name: 'Skill Assessment', icon: '🎯', path: '/child/assessment?start=true', progressKey: 'assessmentCompleted' },
+  { id: 'math-world', name: 'Math World', icon: '🔢', path: '/math-world', progressKey: 'mathWorld' },
+  { id: 'puzzle-world', name: 'Puzzle World', icon: '🧩', path: '/puzzle-world', progressKey: 'puzzleWorld' },
+  { id: 'number-adventure', name: 'Number Adventure', icon: '🗺️', path: '/number-adventure', progressKey: 'numberAdventure' },
+  { id: 'logic-island', name: 'Logic Island', icon: '🧠', path: '/logic-island', progressKey: 'logicIsland' },
+  { id: 'reading-world', name: 'Reading World', icon: '📖', path: '/child/reading-world', progressKey: 'readingWorld' },
+  { id: 'story-world', name: 'Story World', icon: '🌟', path: '/child/story-world', progressKey: 'storyWorld' },
+  { id: 'vocabulary-zone', name: 'Vocabulary Zone', icon: '🔤', path: '/child/vocabulary-zone', progressKey: 'vocabularyZone' },
+  { id: 'language-challenges', name: 'Language Challenges', icon: '🎯', path: '/child/language-challenges', progressKey: 'languageChallenges' },
 ];
 
 const ACCESSORIES = {
@@ -38,6 +43,34 @@ function getGreeting() {
   if (h < 12) return 'Good Morning';
   if (h < 18) return 'Good Afternoon';
   return 'Good Evening';
+}
+
+function getJourneyProgress(profile, step) {
+  if (step.progressKey === 'assessmentCompleted') {
+    return profile?.assessmentCompleted ? 100 : 0;
+  }
+
+  const rawProgress = profile?.progress?.[step.progressKey];
+  if (typeof rawProgress !== 'number' || Number.isNaN(rawProgress)) {
+    return 0;
+  }
+
+  return Math.max(0, Math.min(100, Math.floor(rawProgress)));
+}
+
+function buildLearningJourney(profile) {
+  const steps = LEARNING_JOURNEY_ROADMAP.map((step) => ({
+    ...step,
+    progress: getJourneyProgress(profile, step),
+  }));
+
+  const currentIndex = steps.findIndex((step) => step.progress < 100);
+  const activeIndex = currentIndex === -1 ? steps.length - 1 : currentIndex;
+
+  return steps.map((step, index) => ({
+    ...step,
+    status: index < activeIndex ? 'unlocked' : index === activeIndex ? 'current' : 'locked',
+  }));
 }
 
 export default function Home() {
@@ -271,6 +304,7 @@ export default function Home() {
   const translatedGreeting = getTranslation(greeting, currentLang);
   const dayStreak = profile?.dayStreak ?? 0;
   const badgeCount = profile?.badges ? (Array.isArray(profile.badges) ? profile.badges.length : Number(profile.badges) || 0) : 0;
+  const learningJourney = useMemo(() => buildLearningJourney(profile), [profile]);
 
   useEffect(() => {
     if (!profile) return;
@@ -423,10 +457,21 @@ export default function Home() {
           {/* Learning Journey Map */}
           <div className="dash-card journey-map">
             <h3 className="card-title">🗺️ {getTranslation('Learning Journey', currentLang)}</h3>
+            {!profile && (
+              <div className="journey-empty-state">
+                {getTranslation('Loading your journey...', currentLang)}
+              </div>
+            )}
             <div className="journey-path">
-              {LEARNING_PATH.map((step, index) => (
+              {learningJourney.map((step, index) => (
                 <div key={step.id} className="journey-step">
-                  <div className={`step-node ${step.status}`}>
+                  <div
+                    className={`step-node ${step.status}`}
+                    onClick={() => step.path && navigate(step.path)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && step.path && navigate(step.path)}
+                  >
                     <span className="step-icon">{step.icon}</span>
                     {step.status === 'unlocked' && <span className="step-check">✓</span>}
                     {step.status === 'current' && <div className="step-pulse"></div>}
@@ -435,7 +480,7 @@ export default function Home() {
                     <span className="step-name">{getTranslation(step.name, currentLang)}</span>
                     {step.status !== 'locked' && <span className="step-progress">{step.progress}%</span>}
                   </div>
-                  {index < LEARNING_PATH.length - 1 && (
+                  {index < learningJourney.length - 1 && (
                     <div className={`step-connector ${step.status === 'unlocked' ? 'completed' : ''}`}></div>
                   )}
                 </div>
