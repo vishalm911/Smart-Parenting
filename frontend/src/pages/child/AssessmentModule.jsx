@@ -4,7 +4,7 @@
  * Detects the child's age group from their profile (date_of_birth → months,
  * or falls back to age_group string). Pulls 7 randomized questions from the
  * correct pool, excludes already-seen questions, and saves seen-IDs to
- * Firestore after completion.
+ * database after completion.
  *
  * Supported question types:
  *   caregiver  — Yes/No caregiver-observed (0–12 months)

@@ -11,7 +11,7 @@
  *  - Renders nothing if no assessment has been completed yet.
  *  - Shows shimmer skeleton while loading.
  *
- * Props: { childId: string }  — the Firestore child profile ID
+ * Props: { childId: string }  — the database child profile ID
  *
  * No auth, no routing, no context writes. Pure read + display.
  */

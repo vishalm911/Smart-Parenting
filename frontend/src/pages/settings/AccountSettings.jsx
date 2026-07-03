@@ -54,7 +54,7 @@ const AccountSettings = () => {
   const [verificationSending, setVerificationSending] = useState(false);
   const [reloading, setReloading] = useState(false);
 
-  // Sync notifPrefs when userAccount arrives from Firestore
+  // Sync notifPrefs when userAccount arrives from database
   useEffect(() => {
     if (userAccount?.notifPrefs) {
       setNotifPrefs((prev) => ({ ...prev, ...userAccount.notifPrefs }));

@@ -87,9 +87,9 @@ function FlashcardsAdmin() {
     try {
       if (editId) {
         if (DEFAULT_VOCAB_IDS.has(editId)) {
-          // Default item — save as new custom entry in Firestore
+          // Default item — save as new custom entry in database
           await addVocabGame(form);
-          showToast("✅ Default card customised & Firestore mein save ho gaya!");
+          showToast("✅ Default card customised & Database mein save ho gaya!");
         } else {
           await updateVocabGame(editId, form);
           showToast("✅ Vocabulary card update ho gaya!");

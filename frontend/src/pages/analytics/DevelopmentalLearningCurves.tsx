@@ -115,7 +115,7 @@ function effectiveScore(a: MilestoneAssessment): number {
 }
 
 /**
- * Shapes raw Firestore documents into Recharts line chart data points.
+ * Shapes raw database documents into Recharts line chart data points.
  */
 export function shapeChartData(assessments: MilestoneAssessment[]): ChartPoint[] {
   const sorted = [...assessments].sort((a, b) => {

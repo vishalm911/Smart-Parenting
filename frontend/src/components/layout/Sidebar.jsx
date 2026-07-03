@@ -44,7 +44,7 @@ export default function Sidebar({ isOpen, onClose }) {
     try {
       await updateUserProfile(user.uid, { language: langLabel });
     } catch (e) {
-      console.warn('Failed to update language in Firestore:', e);
+      console.warn('Failed to update language in database:', e);
     }
   };
 

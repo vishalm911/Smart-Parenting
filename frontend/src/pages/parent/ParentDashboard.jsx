@@ -26,7 +26,7 @@ const recentActivities = [
   { title: 'Color Splash',    description: 'Learning primary colors',       progress: 30,  image: '🎨', category: 'Art',     coins: 60,  difficulty: 'Easy'   },
 ];
 
-// No hardcoded child data — all profiles come from Firestore via ChildProfileContext.
+// No hardcoded child data — all profiles come from database via ChildProfileContext.
 
 const LEVEL_COLORS = {
   Seedling:     { color: '#22C55E', bg: '#F0FFF4', border: 'rgba(74,222,128,0.4)'   },
@@ -43,7 +43,7 @@ const ParentDashboard = () => {
 
   const greeting     = getGreeting();
   const displayName  = currentUser?.displayName || userAccount?.displayName || 'Parent';
-  // Always use real Firestore profiles — never merge or fall back to fake data.
+  // Always use real database profiles — never merge or fall back to fake data.
   const displayProfiles = childProfiles;
 
   const statItems = [
@@ -120,7 +120,7 @@ const ParentDashboard = () => {
             </Box>
 
             {displayProfiles.length === 0 ? (
-              /* ── Empty state — no Firestore profiles yet ── */
+              /* ── Empty state — no database profiles yet ── */
               <Box
                 sx={{
                   textAlign: 'center', py: 5, px: 2,

@@ -48,7 +48,7 @@ export default function Settings() {
     try {
       await updateUserProfile(user.uid, { language });
     } catch (e) {
-      console.warn('Failed to update language in Firestore:', e);
+      console.warn('Failed to update language in database:', e);
     }
     setSaving(false);
   };

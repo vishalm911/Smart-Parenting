@@ -113,7 +113,7 @@ const PrivacyPolicy = () => {
             • **Update/Modify**: Parents can change nicknames or avatar selections at any time.
           </Typography>
           <Typography variant="body2" color="text.secondary" paragraph sx={{ lineHeight: 1.6, fontWeight: 500 }}>
-            • **Complete Erasure**: Parents can permanently delete any child profile in the **Child Profiles Manager**. Deletion instantly wipes the child's profile, rewards history, and game metrics from our Firestore database databases.
+            • **Complete Erasure**: Parents can permanently delete any child profile in the **Child Profiles Manager**. Deletion instantly wipes the child's profile, rewards history, and game metrics from our databases.
           </Typography>
         </Box>
 

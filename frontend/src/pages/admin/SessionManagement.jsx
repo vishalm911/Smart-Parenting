@@ -71,7 +71,7 @@ const SessionManagement = () => {
 
       const sessionPromises = slicedUsers.map((u) =>
         getUserSessions(u.id).then(({ data, error: sessErr }) => {
-          // ── TRACE 3: Raw sessions per user from Firestore (logged inside getUserSessions too) ──
+          // ── TRACE 3: Raw sessions per user from database (logged inside getUserSessions too) ──
           if (sessErr) console.warn(`[LoginHistory] TRACE 3 — getUserSessions error for uid=${u.id}:`, sessErr);
           const mapped = (data || []).map((s) => ({
             ...s,

@@ -104,7 +104,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onRefresh }) => {
   const handleTriggerReport = async () => {
     await generateWeeklyReport(reportChildId);
     const childName = children.find(c => c.id === reportChildId)?.name || 'Child';
-    setReportSuccessMsg(`Weekly Report generated for ${childName}! Written to Firestore.`);
+    setReportSuccessMsg(`Weekly Report generated for ${childName}! Written to Database.`);
     setTimeout(() => setReportSuccessMsg(''), 3000);
     onRefresh();
   };
@@ -113,7 +113,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onRefresh }) => {
     if (window.confirm('Are you sure you want to reset the database to default pre-populated data? All custom entries will be cleared.')) {
       await initializeDatabase(true);
       onRefresh();
-      alert('Firestore database reset successfully!');
+      alert('Database reset successfully!');
       window.location.reload();
     }
   };
@@ -125,7 +125,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onRefresh }) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <h2 style={{ fontSize: '1.8rem', display: 'flex', alignItems: 'center', gap: '10px' }}><Settings size={28} color="#f59e0b" />Platform Admin Console</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>Adjust rule thresholds, simulate Cloud Functions, trigger assessments, and inspect Firestore collections.</p>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>Adjust rule thresholds, trigger assessments, and inspect database collections.</p>
         </div>
         <button className="btn btn-danger" onClick={handleResetDb}><RotateCcw size={16} />Reset Database</button>
       </div>
@@ -188,14 +188,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onRefresh }) => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}><label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Attempts:</label><input type="number" min="1" max="5" value={attempts} onChange={e => setAttempts(parseInt(e.target.value))} className="input-field" style={{ padding: '6px' }} required /></div>
             </div>
             {assessmentSuccessMsg && <div style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: 'var(--color-success)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.8rem' }}>{assessmentSuccessMsg}</div>}
-            <div style={{ marginTop: '6px' }}><button type="submit" className="btn" style={{ width: '100%' }}><Plus size={16} />Write to Firestore & Audit Gaps</button></div>
+            <div style={{ marginTop: '6px' }}><button type="submit" className="btn" style={{ width: '100%' }}><Plus size={16} />Write to Database & Audit Gaps</button></div>
           </form>
         </div>
       </div>
 
       <div className="glass-card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Database size={22} color="var(--primary)" /><h3>Firestore Collection Inspector</h3></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Database size={22} color="var(--primary)" /><h3>Database Collection Inspector</h3></div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <div style={{ position: 'relative' }}>
               <input type="text" placeholder="Search collection JSON..." value={dbSearch} onChange={e => setDbSearch(e.target.value)} className="input-field" style={{ padding: '6px 12px 6px 32px', fontSize: '0.8rem', width: '180px' }} />

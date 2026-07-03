@@ -14,7 +14,7 @@ export const useApp = () => {
   return context;
 };
 
-// Default values used until Firestore responds or if no document exists yet
+// Default values used until database responds or if no document exists yet
 const DEFAULT_FLAGS = {
   enableChildDashboard: true,
   enableTeacherDashboard: true,
@@ -31,14 +31,14 @@ const AppStateProvider = ({ children }) => {
   const [flagsLoaded, setFlagsLoaded] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // Subscribe to feature flags from Firestore in real-time
+  // Subscribe to feature flags in real-time
   useEffect(() => {
     const unsubscribe = subscribeToFeatureFlags((remoteFlags) => {
       // Merge remote flags over defaults so any new default keys are preserved
       setFeatureFlags((prev) => ({ ...DEFAULT_FLAGS, ...remoteFlags }));
       setFlagsLoaded(true);
     });
-    // Mark as loaded (with defaults) even if Firestore never fires (e.g., offline)
+    // Mark as loaded (with defaults) even if database subscription fails
     const fallbackTimer = setTimeout(() => setFlagsLoaded(true), 3000);
     return () => {
       unsubscribe();
@@ -49,12 +49,12 @@ const AppStateProvider = ({ children }) => {
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
 
   /**
-   * Update a single feature flag and persist to Firestore
+   * Update a single feature flag and persist to database
    */
   const updateFeatureFlag = async (flag, value) => {
     const updated = { ...featureFlags, [flag]: value };
     setFeatureFlags(updated);
-    // Persist to Firestore (strip internal fields)
+    // Persist to database (strip internal fields)
     const { updated_at, ...flagsToSave } = updated;
     await saveFeatureFlags(flagsToSave);
   };

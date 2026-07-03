@@ -291,7 +291,7 @@ const ReportCard: React.FC<{
   );
 };
 
-// "?"?"? Assessment History Section (Firestore) "?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?
+// "?"?"? Assessment History Section (Database) "?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?
 
 interface AssessmentHistorySectionProps {
   selectedChild: { id: string; name: string };
@@ -736,13 +736,13 @@ const getDomainNote = (domain: string, status: 'above' | 'ontrack' | 'needs') =>
 
 // "?"?"? ReportsPage (main export) "?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?"?
 
-// Use a broad interface so both the real Firestore activeChild and the simulator
+// Use a broad interface so both the activeChild and the simulator
 // Child type are accepted. The real child profile uses age_group (string) not age (number).
 interface RealChild {
   id: string;
   name: string;
   age?: number;         // simulator Child has this
-  age_group?: string;   // real Firestore child_profiles has this
+  age_group?: string;   // child_profiles has this
   [key: string]: any;
 }
 
@@ -798,7 +798,7 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ selectedChild }) => {
     return () => { cancelled = true; };
   }, [childId]);
 
-  // Real child averages from Firestore milestone_assessments
+  // Real child averages from database milestone_assessments
   const realChildAverages = useMemo(() => {
     const result: Record<string, number> = {};
     if (milestoneAssessments.length === 0) return result;
@@ -815,7 +815,7 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ selectedChild }) => {
     return result;
   }, [milestoneAssessments]);
 
-  // Age-Group Average from real Firestore data using 2-step formula
+  // Age-Group Average from real database data using 2-step formula
   useEffect(() => {
     setLoading(true);
     Promise.all([
@@ -1030,7 +1030,7 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ selectedChild }) => {
         </div>
       )}
 
-      {/* "?"? Assessment History (real Firestore data) "?"? */}
+      {/* "?"? Assessment History (real database data) "?"? */}
       <AssessmentHistorySection
         selectedChild={selectedChild}
         milestoneAssessments={milestoneAssessments}

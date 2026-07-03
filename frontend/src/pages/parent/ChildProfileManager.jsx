@@ -82,15 +82,14 @@ const ChildProfileManager = () => {
   const [loading,          setLoading]          = useState(false);
   const [formData,         setFormData]         = useState({ name: '', avatar: 'avatar1', age_group: '', date_of_birth: '' });
 
-  // Always use real Firestore profiles — never fall back to fake IDs.
+  // Always use real database profiles — never fall back to fake IDs.
   // The placeholder fallback (id: '1', '2', '3') was the root cause of
-  // "No document to update: child_profiles/1" because those IDs don't
-  // exist in Firestore.
+  // errors because those IDs don't exist in the database.
   const displayProfiles = childProfiles;
 
   console.log(
-    '[ChildProfileManager] Child profiles loaded from Firestore:',
-    childProfiles.map((p) => ({ firestoreDocId: p._id || p.id, name: p.name, age_group: p.age_group }))
+    '[ChildProfileManager] Child profiles loaded from database:',
+    childProfiles.map((p) => ({ dbDocId: p._id || p.id, name: p.name, age_group: p.age_group }))
   );
 
   const handleOpenCreate = () => {
@@ -100,7 +99,7 @@ const ChildProfileManager = () => {
   };
 
   const handleOpenEdit = (profile) => {
-    console.log('[ChildProfileManager] Edit clicked — Firestore document ID used for update:', profile._id || profile.id, '| Profile:', profile.name);
+    console.log('[ChildProfileManager] Edit clicked — database document ID used for update:', profile._id || profile.id, '| Profile:', profile.name);
     setEditingProfile(profile);
     setFormData({
       name: profile.name,
@@ -162,7 +161,7 @@ const ChildProfileManager = () => {
     setLoading(true); setError('');
     const targetId = editingProfile?._id || editingProfile?.id;
     if (editingProfile) {
-      console.log('[ChildProfileManager] Calling updateChildProfile with Firestore doc ID:', targetId, '| Data:', payload);
+      console.log('[ChildProfileManager] Calling updateChildProfile with database doc ID:', targetId, '| Data:', payload);
     } else {
       console.log('[ChildProfileManager] Calling createChildProfile with data:', payload);
     }
@@ -181,7 +180,7 @@ const ChildProfileManager = () => {
 
   const handleDelete = async () => {
     if (deleteTarget) {
-      console.log('[ChildProfileManager] Delete clicked — Firestore document ID used for deleteDoc:', deleteTarget._id || deleteTarget.id, '| Profile:', deleteTarget.name);
+      console.log('[ChildProfileManager] Delete clicked — database document ID used for deleteDoc:', deleteTarget._id || deleteTarget.id, '| Profile:', deleteTarget.name);
       const result = await deleteChildProfile(deleteTarget._id || deleteTarget.id);
       if (result?.error) {
         console.error('[ChildProfileManager] Delete failed:', result.error);
@@ -211,7 +210,7 @@ const ChildProfileManager = () => {
         </Button>
       </Box>
 
-      {/* Show skeleton cards while profiles are loading from Firestore */}
+      {/* Show skeleton cards while profiles are loading from database */}
       {profilesLoading ? (
         <SkeletonLoader variant="card" count={3} />
       ) : (

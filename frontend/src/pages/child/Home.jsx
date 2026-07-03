@@ -58,7 +58,7 @@ export default function Home() {
   const [learningTime, setLearningTime] = useState('0m');
   const [showProfileModal, setShowProfileModal] = useState(false);
 
-  // ── Assessment scheduling: show first-time or weekly popup via Firestore ──
+  // ── Assessment scheduling: show first-time or weekly popup via database ──
   useEffect(() => {
     if (!user?.uid) return;
     checkAssessmentSchedule(user.uid).then(({ status }) => {

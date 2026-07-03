@@ -79,16 +79,16 @@ function adaptMilestoneItem(item) {
 
 /* ──────────────────────────────────────────────────────
    AGE GROUP DETECTION
-   Primary source: profile.date_of_birth (Firestore Timestamp or ISO string)
+   Primary source: profile.date_of_birth (Date object or ISO string)
    Fallback:       profile.age_group broad string ('1-3', '4-6', '7-10')
 ────────────────────────────────────────────────────── */
 
 /**
- * Convert a Firestore Timestamp, Date, or ISO string to a JS Date.
+ * Convert a Date, Timestamp, or ISO string to a JS Date.
  */
 function toDate(value) {
   if (!value) return null;
-  if (value?.toDate) return value.toDate();           // Firestore Timestamp
+  if (value?.toDate) return value.toDate();           // Legacy Timestamp
   if (value instanceof Date) return value;
   const d = new Date(value);
   return isNaN(d.getTime()) ? null : d;

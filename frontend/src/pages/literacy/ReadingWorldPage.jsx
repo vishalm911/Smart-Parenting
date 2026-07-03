@@ -37,7 +37,7 @@ export default function ReadingWorldPage() {
 
   const todayIdx = (new Date().getDay() + 6) % 7;
 
-  // Load stories from Firestore (same source as Story World)
+  // Load stories from database (same source as Story World)
   useEffect(() => {
     getStories().then(fs => {
       setStories(fs.length ? fs : defaultStories);

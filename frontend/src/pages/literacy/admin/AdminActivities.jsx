@@ -59,7 +59,7 @@ function SoundMatchAdmin() {
     setBusy(true);
     try {
       if (editId && !editIsDefault) {
-        // Real Firestore item — update it
+        // Real database item — update it
         await updateSoundMatch(editId, form);
         showToast("✅ Updated!");
       } else {
@@ -442,7 +442,7 @@ function FluencyPassagesAdmin() {
       <div className={s.section}>
         <h2 className={s.sectionTitle}>📋 All Passages ({items.length})</h2>
         <p style={{fontSize:13,color:"var(--color-text-secondary)",marginBottom:12}}>
-          🔒 Default passages can be edited — clicking Edit saves a customised version to Firestore.
+          🔒 Default passages can be edited — clicking Edit saves a customised version to the database.
         </p>
         <div className={s.tableWrap}>
           <table className={s.table}>

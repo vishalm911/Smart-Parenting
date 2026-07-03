@@ -15,7 +15,7 @@ import {
   toggleNotificationTemplate,
 } from '../../api/userService';
 
-// ── Seed templates written to Firestore when the collection is empty ──────────
+// ── Seed templates written to database when the collection is empty ──────────
 const SEED_TEMPLATES = [
   { title: 'Activity Completed', message: '{child_name} completed {activity_name}! 🎉', type: 'achievement', active: true  },
   { title: 'Coins Earned',        message: '{child_name} earned {amount} coins! 🪙',    type: 'reward',      active: true  },
@@ -44,7 +44,7 @@ const NotificationManager = () => {
   const [editTemplate, setEditTemplate] = useState(null);
   const [formData,     setFormData]     = useState(EMPTY_FORM);
 
-  // ── Load templates from Firestore on mount ────────────────────────────────
+  // ── Load templates from database on mount ────────────────────────────────
   const loadTemplates = async () => {
     setLoading(true); setError('');
     const { data, error: fetchErr } = await getNotificationTemplates();
@@ -56,7 +56,7 @@ const NotificationManager = () => {
     if (data && data.length > 0) {
       setTemplates(data);
     } else {
-      // Seed Firestore with default templates if the collection is empty
+      // Seed database with default templates if the collection is empty
       const seeded = await Promise.all(
         SEED_TEMPLATES.map((t) => saveNotificationTemplate(t).then(({ id }) => ({ id, ...t })))
       );
@@ -290,7 +290,7 @@ const NotificationManager = () => {
         open={deleteDialog.open}
         onClose={() => setDeleteDialog({ open: false, id: null })}
         title="Delete Template?"
-        message="This action cannot be undone. The template will be permanently removed from Firestore."
+        message="This action cannot be undone. The template will be permanently removed from the database."
         type="error"
         confirmText="Delete"
         cancelText="Cancel"

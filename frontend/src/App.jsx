@@ -103,7 +103,7 @@ function NavigationSetter() {
  * MaintenanceGate
  * Must live INSIDE PlatformProvider so it can read useApp().
  * Blocks all non-admin users when maintenanceMode is ON.
- * While flags are still loading from Firestore, shows a spinner to
+ * While flags are still loading from the database, shows a spinner to
  * prevent a flash of the maintenance page on first load.
  */
 function MaintenanceGate({ children }) {

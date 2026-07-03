@@ -10,7 +10,7 @@ import useGameState from '../../hooks/useGameState';
 import { getMathGames, saveNumeracyScore, awardProgress } from '../../api/services';
 import ThreeDAbacus from '../../components/three/ThreeDAbacus';
 
-/* ─── Fallback static data if Firestore empty ─── */
+/* ─── Fallback static data if database empty ─── */
 const FALLBACK_MATH_GAMES = [
   { id: 'counting-1-3',   title: 'Counting Fun',      description: 'Count colourful objects and learn numbers 1–10!', emoji: '🐻', ageRange: '1–3', difficulty: 'Easy',   gradient: 'bg-gradient-to-br from-[#FF9A56] via-[#F5A623] to-[#FFCC02]', type: 'counting' },
   { id: 'shape-numbers',  title: 'Shape Numbers',     description: 'Count the sides and corners of shapes!',        emoji: '🔷', ageRange: '1–3', difficulty: 'Easy',   gradient: 'bg-gradient-to-br from-[#4FC3F7] to-[#7C4DFF]',                type: 'counting' },
