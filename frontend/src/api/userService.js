@@ -303,3 +303,21 @@ export const changePassword = async (currentPassword, newPassword) => {
     return { message: null, error: e.response?.data?.error || e.message };
   }
 };
+
+export const getSystemStatus = async () => {
+  try {
+    const { data } = await client.get('/users/system-status');
+    return { data: data.data, error: null };
+  } catch (e) {
+    return { data: null, error: e.response?.data?.error || e.message };
+  }
+};
+
+export const getAllNotifications = async () => {
+  try {
+    const { data } = await client.get('/notifications?userId=all');
+    return { data: data.data || [], error: null };
+  } catch (e) {
+    return { data: [], error: e.response?.data?.error || e.message };
+  }
+};

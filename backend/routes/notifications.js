@@ -68,20 +68,21 @@ router.put('/templates/:id/toggle', verifyToken, async (req, res) => {
 
 // ── NOTIFICATIONS ENDPOINTS ──────────────────────────────────────────────────
 
-// GET notifications for child or parent
+// GET notifications for child or parent, or all if userId === 'all'
 router.get('/', async (req, res) => {
   try {
     const { userId, field } = req.query;
-    if (!userId) return res.status(400).json({ data: [], error: 'userId is required' });
 
     const query = {};
-    if (field === 'child_id' || req.query.child_id) {
-      query.child_id = userId;
-    } else if (field === 'parent_id' || req.query.parent_id) {
-      query.parent_id = userId;
-    } else {
-      // Fallback: match either
-      query.$or = [{ child_id: userId }, { parent_id: userId }];
+    if (userId && userId !== 'all') {
+      if (field === 'child_id' || req.query.child_id) {
+        query.child_id = userId;
+      } else if (field === 'parent_id' || req.query.parent_id) {
+        query.parent_id = userId;
+      } else {
+        // Fallback: match either
+        query.$or = [{ child_id: userId }, { parent_id: userId }];
+      }
     }
 
     const notifications = await Notification.find(query).sort({ created_at: -1 }).limit(50);

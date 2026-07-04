@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../context/NotificationContext';
 import { useChildProfile } from '../../context/ChildProfileContext';
-import { getInitials } from '../../utils/helpers';
+import { getInitials, formatDateTime } from '../../utils/helpers';
 import { DRAWER_WIDTH } from './PortalSidebar';
 import SpacECELogo from '../shared/SpacECELogo';
 
@@ -181,8 +181,8 @@ const TopNavbar = ({ onMenuClick }) => {
                     <ListItemText
                       primary={typeof notif.message === 'string' ? notif.message : JSON.stringify(notif.message)}
                       secondary={
-                        notif.created_at?.toDate
-                          ? new Date(notif.created_at.toDate()).toLocaleString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+                        notif.created_at
+                          ? formatDateTime(notif.created_at)
                           : 'Just now'
                       }
                       primaryTypographyProps={{ variant: 'body2', fontWeight: notif.read_status ? 500 : 700 }}

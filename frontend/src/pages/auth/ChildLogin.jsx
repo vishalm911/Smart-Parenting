@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Box, Typography, Button, Grid, CircularProgress, Link } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -39,6 +39,14 @@ const ChildLogin = () => {
   const { childProfiles, loading } = useChildProfile();
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [loggingIn, setLoggingIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user  = JSON.parse(localStorage.getItem('user') || 'null');
+    if (token && user?.role === 'child') {
+      navigate('/child/dashboard', { replace: true });
+    }
+  }, [navigate]);
 
   const handleProfileClick = async (profile) => {
     if (loggingIn) return;

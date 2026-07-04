@@ -8,8 +8,8 @@ import {
   TrendingUp as TrendingIcon, Notifications as NotifIcon,
   CheckCircle as CheckIcon, Circle as CircleIcon,
 } from '@mui/icons-material';
-import { getAllUsers, getActiveSessions } from '../../api/userService';
-import { useNotifications } from '../../context/NotificationContext';
+import { getAllUsers, getActiveSessions, getSystemStatus, getAllNotifications } from '../../api/userService';
+import { useApp } from '../../context/AppContext';
 import { timeAgo } from '../../utils/helpers';
 import SkeletonLoader from '../../components/shared/SkeletonLoader';
 
@@ -22,26 +22,54 @@ const NOTIF_TYPE_ICONS = {
 };
 
 const AdminDashboard = () => {
-  const { notifications } = useNotifications();
+  const { featureFlags } = useApp();
+  const isMaintenanceOn = !!featureFlags?.maintenanceMode;
+
   const [stats, setStats] = useState({
     totalUsers: '—', activeSessions: '—', newSignups: '—', pending: '—',
   });
+  const [systemStatus, setSystemStatus] = useState({
+    statusItems: [
+      { label: 'JWT & Session Auth', status: 'Connected',  ok: true  },
+      { label: 'MongoDB Atlas',      status: 'Connected',  ok: true  },
+      { label: 'Email Service',      status: 'Active (Stub)', ok: true  },
+      { label: 'Local Storage',      status: 'Active',     ok: true  },
+    ],
+    metrics: [
+      { label: 'User Retention', value: 87, color: '#3B82F6' },
+      { label: 'Activity Rate',  value: 73, color: '#22C55E' },
+      { label: 'Badge Unlocks',  value: 94, color: '#D97706' },
+    ]
+  });
+  const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadStats = async () => {
       setLoading(true);
       try {
-        const [usersResult, sessionsResult] = await Promise.all([getAllUsers(), getActiveSessions()]);
+        const [usersResult, sessionsResult, statusResult, notifsResult] = await Promise.all([
+          getAllUsers(),
+          getActiveSessions(),
+          getSystemStatus(),
+          getAllNotifications()
+        ]);
         const users    = usersResult.data    || [];
         const sessions = sessionsResult.data || [];
         const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
         const newSignups = users.filter((u) => {
-          const ts = u.created_at?.seconds ? u.created_at.seconds * 1000 : 0;
+          const ts = u.created_at ? new Date(u.created_at).getTime() : 0;
           return ts > oneWeekAgo;
         }).length;
         const pending = users.filter((u) => !u.is_active).length;
         setStats({ totalUsers: users.length.toLocaleString(), activeSessions: sessions.length, newSignups, pending });
+        
+        if (statusResult.data) {
+          setSystemStatus(statusResult.data);
+        }
+        if (notifsResult.data) {
+          setNotifications(notifsResult.data);
+        }
       } catch (err) {
         console.error('AdminDashboard stats error:', err);
       }
@@ -57,12 +85,9 @@ const AdminDashboard = () => {
     { label: 'Inactive Users',   value: stats.pending,        icon: '⚠️', color: '#9F7AEA', bg: '#F5F3FF', border: 'rgba(139,92,246,0.2)'  },
   ];
 
-  const statusItems = [
-    { label: 'JWT & Session Auth', status: 'Connected',  ok: true  },
-    { label: 'MongoDB Atlas',      status: 'Connected',  ok: true  },
-    { label: 'Email Service',      status: 'Active',     ok: true  },
-    { label: 'Local Storage',      status: 'Active',     ok: true  },
-    { label: 'Maintenance Mode',    status: 'Off',        ok: true  },
+  const displayedStatusItems = [
+    ...(systemStatus.statusItems || []),
+    { label: 'Maintenance Mode', status: isMaintenanceOn ? 'ON' : 'Off', ok: !isMaintenanceOn },
   ];
 
   const recentNotifications = notifications.slice(0, 6);
@@ -192,11 +217,11 @@ const AdminDashboard = () => {
           <Paper elevation={0} sx={{ p: 3.5, borderRadius: '24px', border: '1.5px solid rgba(0,0,0,0.055)', boxShadow: '0 4px 20px rgba(31,58,104,0.07)' }}>
             <Typography variant="h6" fontWeight={900} sx={{ mb: 2.5, fontFamily: '"Nunito", sans-serif', letterSpacing: '-0.01em' }}>⚙️ System Status</Typography>
 
-            {statusItems.map((item, i) => (
+            {displayedStatusItems.map((item, i) => (
               <Box key={item.label} sx={{
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 py: 1.5,
-                borderBottom: i < statusItems.length - 1 ? '1px solid rgba(255,255,255,0.6)' : 'none',
+                borderBottom: i < displayedStatusItems.length - 1 ? '1px solid rgba(255,255,255,0.6)' : 'none',
               }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                   {/* Pulsing dot */}
@@ -250,11 +275,7 @@ const AdminDashboard = () => {
           {/* Quick stats */}
           <Paper elevation={0} sx={{ p: 3.5, borderRadius: '24px', mt: 3, border: '1.5px solid rgba(0,0,0,0.055)', boxShadow: '0 4px 20px rgba(31,58,104,0.07)' }}>
             <Typography variant="h6" fontWeight={900} sx={{ mb: 2.5, fontFamily: '"Nunito", sans-serif', letterSpacing: '-0.01em' }}>📊 Platform Health</Typography>
-            {[
-              { label: 'User Retention', value: 87, color: '#3B82F6' },
-              { label: 'Activity Rate',  value: 73, color: '#22C55E' },
-              { label: 'Badge Unlocks',  value: 94, color: '#D97706' },
-            ].map((metric) => (
+            {(systemStatus.metrics || []).map((metric) => (
               <Box key={metric.label} sx={{ mb: 2 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.6 }}>
                   <Typography variant="caption" fontWeight={800} sx={{ fontSize: '0.78rem' }}>{metric.label}</Typography>

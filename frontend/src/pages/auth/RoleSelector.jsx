@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography, Button, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -76,6 +76,23 @@ const RoleSelector = () => {
   const [hovering, setHovering] = useState(null);
   const [started, setStarted] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user  = JSON.parse(localStorage.getItem('user') || 'null');
+    if (token && user?.role) {
+      const dashboards = {
+        parent:  '/parent/dashboard',
+        teacher: '/teacher/dashboard',
+        admin:   '/admin/dashboard',
+        child:   '/child/dashboard',
+      };
+      const dest = dashboards[user.role];
+      if (dest) {
+        navigate(dest, { replace: true });
+      }
+    }
+  }, [navigate]);
 
   const handleContinue = () => {
     if (selected) navigate(selected.path);
