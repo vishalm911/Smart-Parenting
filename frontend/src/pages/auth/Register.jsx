@@ -70,6 +70,13 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+    const usernameRegex = /^[a-zA-Z]+[0-9]*$/;
+    if (!usernameRegex.test(formData.fullName)) {
+      setError('Username must start with alphabetic characters and can only contain letters followed by numbers.');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match.');
       return;

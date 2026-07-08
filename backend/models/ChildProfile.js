@@ -28,6 +28,23 @@ const ChildProfileSchema = new mongoose.Schema(
     level:             { type: Number, default: 1 },
     badges:            [{ type: String }],
     assessmentSeenIds: [{ type: String }],
+    
+    // Assessment status
+    assessmentCompleted: { type: Boolean, default: false },
+    assessmentScore:     { type: Number, default: 0 },
+    assessmentAgeGroup:  { type: String, default: '' },
+
+    // Track module progress
+    progress: {
+      mathWorld:          { type: Number, default: 0 },
+      puzzleWorld:        { type: Number, default: 0 },
+      numberAdventure:    { type: Number, default: 0 },
+      logicIsland:        { type: Number, default: 0 },
+      readingWorld:       { type: Number, default: 0 },
+      storyWorld:         { type: Number, default: 0 },
+      vocabularyZone:     { type: Number, default: 0 },
+      languageChallenges: { type: Number, default: 0 },
+    },
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );

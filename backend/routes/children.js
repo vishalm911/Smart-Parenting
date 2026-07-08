@@ -72,7 +72,48 @@ router.post('/', verifyToken, async (req, res) => {
 // PUT update child profile
 router.put('/:id', verifyToken, async (req, res) => {
   try {
-    const profile = await ChildProfile.findByIdAndUpdate(req.params.id, req.body, {
+    const update = { ...req.body };
+    const inc = {};
+    
+    // Separate xp, stars, coins to increment instead of overwriting
+    if (typeof update.xp === 'number') {
+      inc.xp = update.xp;
+      delete update.xp;
+    }
+    if (typeof update.stars === 'number') {
+      inc.stars = update.stars;
+      delete update.stars;
+    }
+    if (typeof update.coins === 'number') {
+      inc.coins = update.coins;
+      delete update.coins;
+    }
+
+    // Handle module progress increment
+    const moduleIncrements = {
+      mathWorld: 40,
+      puzzleWorld: 40,
+      readingWorld: 40,
+      vocabularyZone: 40,
+      numberAdventure: 50,
+      logicIsland: 50,
+      storyWorld: 50,
+      languageChallenges: 50
+    };
+    if (update.module && moduleIncrements[update.module]) {
+      inc[`progress.${update.module}`] = moduleIncrements[update.module];
+    }
+    delete update.module;
+
+    const query = {};
+    if (Object.keys(update).length > 0) {
+      query.$set = update;
+    }
+    if (Object.keys(inc).length > 0) {
+      query.$inc = inc;
+    }
+
+    const profile = await ChildProfile.findByIdAndUpdate(req.params.id, query, {
       new: true, runValidators: true,
     });
     if (!profile) return res.status(404).json({ data: null, error: 'Child profile not found.' });

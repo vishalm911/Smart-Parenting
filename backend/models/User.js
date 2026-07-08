@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema(
     displayName: { type: String, default: '' },
     role:        { type: String, enum: ['parent', 'teacher', 'admin', 'child'], required: true },
     is_active:   { type: Boolean, default: true },
+    emailVerified: { type: Boolean, default: false },
     linked_child_profiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ChildProfile' }],
 
     // Password reset support (replaces Firebase sendPasswordResetEmail)
@@ -49,6 +50,7 @@ UserSchema.methods.toPublic = function () {
     displayName: this.displayName,
     role:        this.role,
     is_active:   this.is_active,
+    emailVerified: this.emailVerified,
     linked_child_profiles: this.linked_child_profiles,
     created_at:  this.created_at,
     updated_at:  this.updated_at,

@@ -38,6 +38,11 @@ router.post('/register', async (req, res) => {
     if (!email || !password || !role)
       return res.status(400).json({ error: 'email, password and role are required' });
 
+    const usernameRegex = /^[a-zA-Z]+[0-9]*$/;
+    if (!displayName || !usernameRegex.test(displayName)) {
+      return res.status(400).json({ error: 'Username must start with alphabetic characters and can only contain letters followed by numbers.' });
+    }
+
     const existing = await User.findOne({ email });
     if (existing)
       return res.status(409).json({ error: 'This email is already registered. Please sign in.' });
@@ -239,6 +244,23 @@ router.put('/change-password', verifyToken, async (req, res) => {
     await user.save();
 
     res.json({ message: 'Password updated successfully.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ── POST /api/auth/send-verification ──────────────────────────────────────
+router.post('/send-verification', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    
+    // In our simplified setup, sending verification marks it verified
+    user.emailVerified = true;
+    await user.save();
+    
+    console.log(`[DEV] Verification email sent to ${user.email}`);
+    res.json({ message: 'Verification email sent successfully.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -747,7 +747,22 @@ function TimesTablesGame({ onBack }) {
 
 /* ══════════════════════════════════════════════════════════════
    MATH WORLD HUB
-══════════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════ */
+const getGameSlug = (game) => {
+  if (!game) return '';
+  const title = game.title.toLowerCase();
+  if (title.includes('counting')) return 'counting-1-3';
+  if (title.includes('shape')) return 'shape-numbers';
+  if (title.includes('size')) return 'size-compare';
+  if (title.includes('match')) return 'number-match';
+  if (title.includes('order')) return 'number-order';
+  if (title.includes('story')) return 'math-story';
+  if (title.includes('abacus')) return 'abacus-simulation';
+  if (title.includes('add') || title.includes('subtract')) return 'add-sub';
+  if (title.includes('table') || title.includes('times')) return 'times-tables';
+  return game.id || game._id || '';
+};
+
 const GAME_ROUTER = {
   'counting-1-3':   (back) => <CountingGame onBack={back} />,
   'shape-numbers':  (back) => <ShapeNumbersGame onBack={back} />,
@@ -781,7 +796,12 @@ export default function MathWorld() {
     if (activeGame === 'abacus-simulation') {
       return <ThreeDAbacus user={user} refreshProfile={refreshProfile} onBack={() => setActiveGame(null)} />;
     }
-    const renderer = GAME_ROUTER[activeGame];
+    const selectedGameObject = games.find(g => (g.id || g._id) === activeGame);
+    const slug = getGameSlug(selectedGameObject);
+    if (slug === 'abacus-simulation') {
+      return <ThreeDAbacus user={user} refreshProfile={refreshProfile} onBack={() => setActiveGame(null)} />;
+    }
+    const renderer = GAME_ROUTER[slug];
     if (renderer) return renderer(() => setActiveGame(null));
     // Fallback
     return <CountingGame onBack={() => setActiveGame(null)} />;
@@ -818,9 +838,9 @@ export default function MathWorld() {
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <AnimatePresence mode="popLayout">
               {filteredGames.map((game, i) => (
-                <GameCard key={game.id} title={game.title} description={game.description} emoji={game.emoji}
+                <GameCard key={game.id || game._id} title={game.title} description={game.description} emoji={game.emoji}
                   ageRange={game.ageRange} difficulty={game.difficulty} gradient={game.gradient}
-                  stars={game.stars ?? 0} index={i} onClick={() => setActiveGame(game.id)}
+                  stars={game.stars ?? 0} index={i} onClick={() => setActiveGame(game.id || game._id)}
                 />
               ))}
             </AnimatePresence>

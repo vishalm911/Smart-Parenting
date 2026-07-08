@@ -641,6 +641,15 @@ function LogicChallengesGame({ onBack, timerMode }) {
 /* ══════════════════════════════════════════════════════════════
    MAIN PUZZLE WORLD DASHBOARD
    ══════════════════════════════════════════════════════════════ */
+const getPuzzleSlug = (game) => {
+  if (!game) return '';
+  const title = game.title.toLowerCase();
+  if (title.includes('shape') || title.includes('shadow')) return 'shape-match';
+  if (title.includes('jigsaw') || title.includes('drag') || title.includes('drop')) return 'jigsaw';
+  if (title.includes('logic') || title.includes('challenge') || title.includes('pattern') || title.includes('color') || title.includes('sort')) return 'logic-puzzles';
+  return game.id || game._id || '';
+};
+
 export default function PuzzleWorld() {
   const { user, refreshProfile } = useUser();
   const [activeGame, setActiveGame] = useState(null);
@@ -654,10 +663,12 @@ export default function PuzzleWorld() {
 
   // Page Routing
   if (activeGame) {
-    if (activeGame === 'jigsaw' || activeGame === 'drag-puzzle') {
+    const selectedGameObject = games.find(g => (g.id || g._id) === activeGame);
+    const slug = getPuzzleSlug(selectedGameObject);
+    if (slug === 'jigsaw' || slug === 'drag-puzzle') {
       return <JigsawPuzzleGame timerMode={timerMode} onBack={() => setActiveGame(null)} />;
     }
-    if (activeGame === 'logic-puzzles') {
+    if (slug === 'logic-puzzles') {
       return <LogicChallengesGame timerMode={timerMode} onBack={() => setActiveGame(null)} />;
     }
     return <ShapeMatchGame timerMode={timerMode} onBack={() => setActiveGame(null)} />;
@@ -700,9 +711,9 @@ export default function PuzzleWorld() {
         ) : (
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {games.map((game, i) => (
-              <GameCard key={game.id} title={game.title} description={game.description} emoji={game.emoji}
+              <GameCard key={game.id || game._id} title={game.title} description={game.description} emoji={game.emoji}
                 ageRange={game.ageRange} difficulty={game.difficulty} gradient={game.gradient}
-                stars={game.stars ?? 0} index={i} onClick={() => setActiveGame(game.id)}
+                stars={game.stars ?? 0} index={i} onClick={() => setActiveGame(game.id || game._id)}
               />
             ))}
           </motion.div>

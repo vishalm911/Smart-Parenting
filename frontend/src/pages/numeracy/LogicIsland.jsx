@@ -431,10 +431,19 @@ function WordProblemsGame({ onBack }) {
   );
 }
 
+const getLogicSlug = (game) => {
+  if (!game) return '';
+  const title = game.title.toLowerCase();
+  if (title.includes('multiplication')) return 'multiplication-quest';
+  if (title.includes('maze')) return 'maze-challenge';
+  if (title.includes('pattern') || title.includes('sequence')) return 'sequence-complete';
+  if (title.includes('odd')) return 'odd-one-out';
+  if (title.includes('word')) return 'word-problems';
+  return game.id || game._id || '';
+};
+
 export default function LogicIsland() {
-
   const [activeGame, setActiveGame] = useState(null); // 'pattern' | 'multiplication'
-
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [games, setGames] = useState(FALLBACK_LOGIC_GAMES);
   const [loading, setLoading] = useState(true);
@@ -446,12 +455,17 @@ export default function LogicIsland() {
     getLogicGames().then((data) => { if (data.length > 0) setGames(data); }).finally(() => setLoading(false));
   }, []);
 
-  if (activeGame === 'multiplication-quest') return <MultiplicationQuestGame onBack={() => setActiveGame(null)} onScoreUpdate={(s, l) => console.log('mult score:', s, l)} />;
-  if (activeGame === 'maze-challenge') return <MazeGame onBack={() => setActiveGame(null)} />;
-  if (activeGame === 'sequence-complete') return <PatternGame onBack={() => setActiveGame(null)} />;
-  if (activeGame === 'odd-one-out') return <OddOneOutGame onBack={() => setActiveGame(null)} />;
-  if (activeGame === 'word-problems') return <WordProblemsGame onBack={() => setActiveGame(null)} />;
-  if (activeGame) return <PatternGame onBack={() => setActiveGame(null)} />;
+  // Page Routing
+  if (activeGame) {
+    const selectedGameObject = games.find(g => (g.id || g._id) === activeGame);
+    const slug = getLogicSlug(selectedGameObject);
+    if (slug === 'multiplication-quest') return <MultiplicationQuestGame onBack={() => setActiveGame(null)} onScoreUpdate={(s, l) => console.log('mult score:', s, l)} />;
+    if (slug === 'maze-challenge') return <MazeGame onBack={() => setActiveGame(null)} />;
+    if (slug === 'sequence-complete') return <PatternGame onBack={() => setActiveGame(null)} />;
+    if (slug === 'odd-one-out') return <OddOneOutGame onBack={() => setActiveGame(null)} />;
+    if (slug === 'word-problems') return <WordProblemsGame onBack={() => setActiveGame(null)} />;
+    return <PatternGame onBack={() => setActiveGame(null)} />;
+  }
 
   return (
     <div className="relative" style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column' }}>
@@ -507,9 +521,9 @@ export default function LogicIsland() {
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7" style={{ flex: 1 }}>
             <AnimatePresence mode="popLayout">
               {filteredGames.map((game, i) => (
-                <GameCard key={game.id} title={game.title} description={game.description} emoji={game.emoji}
+                <GameCard key={game.id || game._id} title={game.title} description={game.description} emoji={game.emoji}
                   ageRange={game.ageRange} difficulty={game.difficulty} gradient={game.gradient}
-                  stars={game.stars ?? 0} index={i} onClick={() => setActiveGame(game.id)}
+                  stars={game.stars ?? 0} index={i} onClick={() => setActiveGame(game.id || game._id)}
                 />
               ))}
             </AnimatePresence>

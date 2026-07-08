@@ -27,28 +27,30 @@ const PasswordField = ({
       error={error}
       helperText={helperText}
       fullWidth={fullWidth}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <LockOutlinedIcon sx={{ color: 'text.secondary', fontSize: 20 }} />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              onClick={() => setShowPassword(!showPassword)}
-              edge="end"
-              size="small"
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-            >
-              {showPassword ? (
-                <VisibilityOffIcon sx={{ fontSize: 20 }} />
-              ) : (
-                <VisibilityIcon sx={{ fontSize: 20 }} />
-              )}
-            </IconButton>
-          </InputAdornment>
-        ),
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <LockOutlinedIcon sx={{ color: 'text.secondary', fontSize: 20 }} />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+                size="small"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? (
+                  <VisibilityOffIcon sx={{ fontSize: 20 }} />
+                ) : (
+                  <VisibilityIcon sx={{ fontSize: 20 }} />
+                )}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }
       }}
       {...props}
     />

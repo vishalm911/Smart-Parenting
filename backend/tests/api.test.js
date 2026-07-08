@@ -25,7 +25,7 @@
 
 const http = require('http');
 
-const BASE = `http://localhost:${process.env.PORT || 5000}`;
+const BASE = `http://127.0.0.1:${process.env.PORT || 5000}`;
 let token  = '';
 let userId = '';
 let childId = '';
@@ -80,7 +80,7 @@ const assert = (condition, label) => {
   // ── Register ──────────────────────────────────────────────────────────────
   {
     const r = await req('POST', '/api/auth/register', {
-      email: testEmail, password: testPassword, displayName: 'Test Parent', role: 'parent',
+      email: testEmail, password: testPassword, displayName: 'TestParent', role: 'parent',
     });
     assert(r.status === 201, 'POST /api/auth/register → 201');
     assert(!!r.body.token, 'Register returns token');
@@ -92,7 +92,7 @@ const assert = (condition, label) => {
   // ── Duplicate register ─────────────────────────────────────────────────
   {
     const r = await req('POST', '/api/auth/register', {
-      email: testEmail, password: testPassword, role: 'parent',
+      email: testEmail, password: testPassword, displayName: 'TestParent', role: 'parent',
     });
     assert(r.status === 409, 'Duplicate register → 409 Conflict');
   }

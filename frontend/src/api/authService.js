@@ -21,8 +21,8 @@ export const registerUser = async (email, password, displayName = '', role = 'pa
   }
 };
 
-export const registerWithEmail = async (email, password, displayName) => {
-  return registerUser(email, password, displayName, 'parent');
+export const registerWithEmail = async (email, password, displayName, role = 'parent') => {
+  return registerUser(email, password, displayName, role);
 };
 
 // ── Login ──────────────────────────────────────────────────────────────────
@@ -178,7 +178,28 @@ export const changePassword = async (currentPassword, newPassword) => {
   }
 };
 
-// ── Stubs ──────────────────────────────────────────────────────────────────
-export const sendVerificationEmail = async () => ({ message: 'Managed server-side.', error: null });
-export const reloadUser            = async () => ({ error: null });
+// ── Verification & Stubs ───────────────────────────────────────────────────
+export const sendVerificationEmail = async () => {
+  try {
+    const { data } = await client.post('/auth/send-verification');
+    return { message: data.message, error: null };
+  } catch (err) {
+    return { message: null, error: err.response?.data?.error || err.message };
+  }
+};
+
+export const reloadUser = async () => {
+  try {
+    const { data } = await client.get('/auth/me');
+    const user = data.user;
+    if (user && data.role) {
+      user.role = data.role;
+    }
+    localStorage.setItem('user', JSON.stringify(user));
+    return { user, error: null };
+  } catch (err) {
+    return { user: null, error: err.response?.data?.error || err.message };
+  }
+};
+
 export const changeEmail           = async () => ({ message: 'Contact support to change email.', error: null });

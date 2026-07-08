@@ -47,10 +47,10 @@ const UserManagement = () => {
   });
 
   const handleToggleActive = async (user) => {
-    setActionLoading(user.id);
+    setActionLoading(user.uid);
     const fn = user.is_active ? deactivateUser : activateUser;
-    const result = await fn(user.id);
-    if (!result.error) setUsers((prev) => prev.map((u) => u.id === user.id ? { ...u, is_active: !u.is_active } : u));
+    const result = await fn(user.uid);
+    if (!result.error) setUsers((prev) => prev.map((u) => u.uid === user.uid ? { ...u, is_active: !u.is_active } : u));
     else setError('Action failed: ' + result.error);
     setActionLoading(null);
   };
@@ -58,7 +58,7 @@ const UserManagement = () => {
   const handleChangeRole = async (uid, newRole) => {
     setActionLoading(uid);
     const result = await changeUserRole(uid, newRole);
-    if (!result.error) setUsers((prev) => prev.map((u) => u.id === uid ? { ...u, role: newRole } : u));
+    if (!result.error) setUsers((prev) => prev.map((u) => u.uid === uid ? { ...u, role: newRole } : u));
     else setError('Role change failed: ' + result.error);
     setActionLoading(null);
   };
@@ -138,7 +138,7 @@ const UserManagement = () => {
                     filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
                       const rc = ROLE_CHIPS[user.role] || ROLE_CHIPS.parent;
                       return (
-                        <TableRow key={user.id}>
+                        <TableRow key={user.uid}>
                           <TableCell>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                               <Avatar sx={{
@@ -157,8 +157,8 @@ const UserManagement = () => {
                           <TableCell>
                             <Select
                               value={user.role || 'parent'} size="small" variant="standard"
-                              disabled={actionLoading === user.id}
-                              onChange={(e) => handleChangeRole(user.id, e.target.value)}
+                              disabled={actionLoading === user.uid}
+                              onChange={(e) => handleChangeRole(user.uid, e.target.value)}
                               sx={{ fontSize: '0.82rem', fontWeight: 700 }}
                             >
                               <MenuItem value="parent">Parent</MenuItem>
@@ -170,7 +170,7 @@ const UserManagement = () => {
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                               <Switch
                                 checked={!!user.is_active} size="small"
-                                disabled={actionLoading === user.id}
+                                disabled={actionLoading === user.uid}
                                 onChange={() => handleToggleActive(user)}
                               />
                               <Chip
@@ -189,7 +189,7 @@ const UserManagement = () => {
                             </Typography>
                           </TableCell>
                           <TableCell align="center">
-                            {actionLoading === user.id ? (
+                            {actionLoading === user.uid ? (
                               <CircularProgress size={16} sx={{ color: '#F5A623' }} />
                             ) : (
                               <IconButton size="small" onClick={() => setDetailDialog(user)}

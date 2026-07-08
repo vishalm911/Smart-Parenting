@@ -206,9 +206,13 @@ export default function Home() {
 
     try {
       const data = JSON.parse(stored);
+      const missionToAward = missions.find(m => m.id === missionId && m.current >= m.target && !m.rewardClaimed);
+      if (missionToAward) {
+        await awardProgress(childId, { xp: missionToAward.xp });
+      }
+
       const updatedMissions = missions.map(m => {
         if (m.id === missionId && m.current >= m.target && !m.rewardClaimed) {
-          awardProgress(childId, { xp: m.xp });
           return { ...m, rewardClaimed: true };
         }
         return m;
@@ -216,7 +220,7 @@ export default function Home() {
       const updatedData = { ...data, items: updatedMissions };
       localStorage.setItem(missionKey, JSON.stringify(updatedData));
       setMissions(updatedMissions);
-      if (refreshProfile) refreshProfile();
+      if (refreshProfile) await refreshProfile();
     } catch {}
   };
 
@@ -520,12 +524,6 @@ export default function Home() {
                           >
                             Play 🚀
                           </button>
-                          <span
-                            style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', cursor: 'pointer', textDecoration: 'underline' }}
-                            onClick={() => handleSimulateMission(mission.id)}
-                          >
-                            Simulate 🧪
-                          </span>
                         </div>
                       )}
 

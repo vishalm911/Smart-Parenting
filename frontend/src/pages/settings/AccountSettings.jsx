@@ -6,7 +6,7 @@ import {
 import { Save as SaveIcon, Person as PersonIcon, VerifiedUser as VerifiedIcon, Warning as WarningIcon } from '@mui/icons-material';
 import PasswordField from '../../components/auth/PasswordField';
 import { useAuth } from '../../context/AuthContext';
-import { changePassword, sendPasswordReset } from '../../api/authService';
+import { changePassword, sendPasswordReset, sendVerificationEmail, reloadUser } from '../../api/authService';
 import { updateUserAccount } from '../../api/userService';
 import { getInitials } from '../../utils/helpers';
 
@@ -75,26 +75,38 @@ const AccountSettings = () => {
   };
 
   const handleSendVerification = async () => {
+    if (verificationSending) return;
     setVerificationSending(true);
-    const result = await sendVerificationEmail();
-    setVerificationSending(false);
-    if (result.error) {
-      showFeedback(result.error, true);
-    } else {
-      showFeedback('Verification email sent! Check your inbox. ✅');
+    try {
+      const result = await sendVerificationEmail();
+      if (result.error) {
+        showFeedback(result.error, true);
+      } else {
+        showFeedback('Verification email sent! Check your inbox. ✅');
+      }
+    } catch (err) {
+      showFeedback(err.message || 'Failed to send verification email.', true);
+    } finally {
+      setVerificationSending(false);
     }
   };
 
   const handleReloadUser = async () => {
+    if (reloading) return;
     setReloading(true);
-    const result = await reloadUser();
-    setReloading(false);
-    if (!result.error && result.user?.emailVerified) {
-      showFeedback('Email verified successfully! ✅');
-      // Force a re-render by refreshing the page to update currentUser.emailVerified
-      window.location.reload();
-    } else {
-      showFeedback('Email not yet verified. Please click the link in your email first.', true);
+    try {
+      const result = await reloadUser();
+      if (!result.error && result.user?.emailVerified) {
+        showFeedback('Email verified successfully! ✅');
+        // Force a re-render by refreshing the page to update currentUser.emailVerified
+        window.location.reload();
+      } else {
+        showFeedback('Email not yet verified. Please click the link in your email first.', true);
+      }
+    } catch (err) {
+      showFeedback(err.message || 'Failed to check verification status.', true);
+    } finally {
+      setReloading(false);
     }
   };
 

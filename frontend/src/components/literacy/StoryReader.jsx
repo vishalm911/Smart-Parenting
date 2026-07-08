@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useUser } from '../../context/UserContext';
 import { saveLanguageScore, getStories } from '../../api/literacyService';
+import { awardProgress } from '../../api/services';
 import { storiesData as defaultStories } from '../../data/storiesData';
 import s from "./StoryReader.module.css";
 
@@ -102,12 +103,30 @@ export default function StoryReader({ story, startPage = 0, onPageChange, onComp
         setStars(earnedStars);
 
         if (user && !saved) {
+          const child_id = user._id || user.id || user.uid;
           const timeTaken = Math.round((Date.now()-startTime.current)/1000);
-          await saveLanguageScore(user.uid, story.id, {
-            score: pct, accuracy: pct===100?1:0, time_taken: timeTaken,
-            username: user.displayName || null,
+          
+          await saveLanguageScore({
+            child_id,
+            activity_id: story._id || story.id,
+            score: pct,
+            accuracy: pct,
+            time_spent: timeTaken,
+            username: user.username || user.name || null,
+            display_name: user.displayName || user.name || null,
           });
+
+          await awardProgress(child_id, {
+            xp: Math.max(10, Math.floor(pct / 5)), // e.g. 20 XP for 100%
+            stars: earnedStars,
+            coins: 5,
+            module: 'readingWorld'
+          });
+
           setSaved(true);
+          if (refreshProfile) {
+            await refreshProfile();
+          }
         }
         onComplete?.();
         setShowComplete(true);
