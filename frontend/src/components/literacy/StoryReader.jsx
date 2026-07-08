@@ -106,26 +106,39 @@ export default function StoryReader({ story, startPage = 0, onPageChange, onComp
           const child_id = user._id || user.id || user.uid;
           const timeTaken = Math.round((Date.now()-startTime.current)/1000);
           
-          await saveLanguageScore({
-            child_id,
-            activity_id: story._id || story.id,
-            score: pct,
-            accuracy: pct,
-            time_spent: timeTaken,
-            username: user.username || user.name || null,
-            display_name: user.displayName || user.name || null,
-          });
+          try {
+            await saveLanguageScore({
+              child_id,
+              activity_id: story._id || story.id,
+              activity_type: 'story',
+              score: pct,
+              accuracy: pct,
+              time_spent: timeTaken,
+              username: user.username || user.name || null,
+              display_name: user.displayName || user.name || null,
+            });
+          } catch (err) {
+            console.error("saveLanguageScore failed:", err);
+          }
 
-          await awardProgress(child_id, {
-            xp: Math.max(10, Math.floor(pct / 5)), // e.g. 20 XP for 100%
-            stars: earnedStars,
-            coins: 5,
-            module: 'readingWorld'
-          });
+          try {
+            await awardProgress(child_id, {
+              xp: Math.max(10, Math.floor(pct / 5)), // e.g. 20 XP for 100%
+              stars: earnedStars,
+              coins: 5,
+              module: 'readingWorld'
+            });
+          } catch (err) {
+            console.error("awardProgress failed:", err);
+          }
 
           setSaved(true);
-          if (refreshProfile) {
-            await refreshProfile();
+          try {
+            if (refreshProfile) {
+              await refreshProfile();
+            }
+          } catch (err) {
+            console.error("refreshProfile failed:", err);
           }
         }
         onComplete?.();

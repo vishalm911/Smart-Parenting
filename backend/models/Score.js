@@ -13,11 +13,11 @@ const mongoose = require('mongoose');
 const ActivityScoreSchema = new mongoose.Schema(
   {
     child_id:      { type: mongoose.Schema.Types.ObjectId, ref: 'ChildProfile', required: true },
-    activity_id:   { type: mongoose.Schema.Types.ObjectId },
+    activity_id:   { type: String },
     activity_type: {
       type: String,
       enum: ['story', 'picture_match', 'word_builder', 'flashcard',
-             'sound_match', 'phonics', 'fluency', 'numeracy', 'logic', 'puzzle'],
+             'sound_match', 'phonics', 'fluency', 'numeracy', 'logic', 'puzzle', 'literacy'],
     },
     score:         { type: Number, default: 0 },
     accuracy:      { type: Number, default: 0 },   // percentage 0-100

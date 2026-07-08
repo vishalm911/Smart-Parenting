@@ -210,12 +210,14 @@ export const logout = () => {
   window.location.href = '/login';
 };
 
-export const awardProgress = async (userId, { xp = 0, stars = 0, coins = 0 } = {}) => {
+export const awardProgress = async (userId, { xp = 0, stars = 0, coins = 0, module = null } = {}) => {
   try {
-    await client.put(`/children/${userId}`, { xp, stars, coins });
+    const payload = { xp, stars, coins };
+    if (module) payload.module = module;
+    await client.put(`/children/${userId}`, payload);
     return { error: null };
-  } catch {
-    return { error: null };
+  } catch (err) {
+    return { error: err.response?.data?.error || err.message };
   }
 };
 
