@@ -53,8 +53,8 @@ import { ParentDashboard as ParentAnalyticsDashboard } from './pages/analytics/P
 import { ReportsPage } from './pages/analytics/ReportsPage';
 
 // Teacher pages
-import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import TeacherProfile from './pages/teacher/TeacherProfile';
+import { TeacherDashboard } from './pages/analytics/TeacherDashboard';
 
 // Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -187,7 +187,11 @@ export default function App() {
 
                       {/* Protected Teacher Routes */}
                       <Route element={<ProtectedRoute><RoleRoute allowedRoles={['teacher']}><MainLayout /></RoleRoute></ProtectedRoute>}>
-                        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+                        <Route path="/teacher/dashboard" element={<TeacherDashboard onRefresh={() => {}} />} />
+                        <Route path="/teacher/roster"    element={<TeacherDashboard onRefresh={() => {}} />} />
+                        <Route path="/teacher/gaps"      element={<TeacherDashboard onRefresh={() => {}} />} />
+                        <Route path="/teacher/assign"    element={<TeacherDashboard onRefresh={() => {}} />} />
+                        <Route path="/teacher/activities" element={<TeacherDashboard onRefresh={() => {}} />} />
                         <Route path="/teacher/profile"   element={<TeacherProfile />} />
                         <Route path="/teacher/settings"  element={<AccountSettings />} />
                       </Route>

@@ -23,7 +23,7 @@ router.get('/', verifyToken, async (req, res) => {
     const query = {};
     if (parentUid) {
       query.parent_uid = parentUid;
-    } else if (req.user.role !== 'admin') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'teacher') {
       query.parent_uid = req.user.userId;
     }
     const profiles  = await ChildProfile.find(query);

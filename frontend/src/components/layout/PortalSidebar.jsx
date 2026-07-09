@@ -10,6 +10,7 @@ import {
   People as PeopleIcon, History as HistoryIcon, Notifications as NotificationsIcon,
   ToggleOn as ToggleIcon, Logout as LogoutIcon, ChevronLeft as ChevronLeftIcon,
   MonetizationOn as CoinIcon, MenuBook as MenuBookIcon, Calculate as CalculateIcon,
+  Warning as WarningIcon, Send as SendIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';
 import { useChildProfile } from '../../context/ChildProfileContext';
@@ -25,14 +26,20 @@ const iconMap = {
   Settings: SettingsIcon, Person: PersonIcon, People: PeopleIcon,
   History: HistoryIcon, Notifications: NotificationsIcon, ToggleOn: ToggleIcon,
   MenuBook: MenuBookIcon, Calculate: CalculateIcon,
+  Warning: WarningIcon, Send: SendIcon,
 };
 
 const EMOJI_ICONS = {
-  '/dashboard':    '🏠',
-  '/explore':      '📖',
-  '/achievements': '🏆',
-  '/avatar':       '👤',
-  '/settings':     '⚙️',
+  '/dashboard':          '🏠',
+  '/explore':            '📖',
+  '/achievements':       '🏆',
+  '/avatar':             '👤',
+  '/settings':           '⚙️',
+  '/teacher/dashboard':  '📊',
+  '/teacher/roster':     '🏫',
+  '/teacher/gaps':       '⚠️',
+  '/teacher/assign':     '📋',
+  '/teacher/activities': '⚡',
 };
 
 const ROLE_ACCENT = {

@@ -66,9 +66,13 @@ export const NAV_MENUS = {
     { label: 'Settings',     path: ROUTES.PARENT_SETTINGS,     icon: 'Settings'  },
   ],
   [ROLES.TEACHER]: [
-    { label: 'Dashboard', path: ROUTES.TEACHER_DASHBOARD, icon: 'Dashboard' },
-    { label: 'Profile',   path: ROUTES.TEACHER_PROFILE,   icon: 'Person'    },
-    { label: 'Settings',  path: ROUTES.TEACHER_SETTINGS,  icon: 'Settings'  },
+    { label: 'Class Overview',  path: '/teacher/dashboard',  icon: 'Dashboard' },
+    { label: 'Student Roster',  path: '/teacher/roster',     icon: 'People'    },
+    { label: 'Learning Gaps',   path: '/teacher/gaps',       icon: 'Warning'   },
+    { label: 'Assign Activity', path: '/teacher/assign',     icon: 'Send'      },
+    { label: 'Activity Logs',   path: '/teacher/activities', icon: 'History'   },
+    { label: 'Profile',         path: ROUTES.TEACHER_PROFILE,icon: 'Person'    },
+    { label: 'Settings',        path: ROUTES.TEACHER_SETTINGS,icon: 'Settings'  },
   ],
   [ROLES.ADMIN]: [
     { label: 'Dashboard',     path: ROUTES.ADMIN_DASHBOARD,     icon: 'Dashboard'     },

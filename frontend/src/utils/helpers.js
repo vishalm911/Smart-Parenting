@@ -128,3 +128,55 @@ export const getRandomBrandColor = () => {
   const colors = ['#1F3A68', '#F5A623', '#FFC107', '#48BB78', '#4299E1', '#9F7AEA'];
   return colors[Math.floor(Math.random() * colors.length)];
 };
+
+/**
+ * Speech synthesis speak helper with high-quality voice selection
+ */
+export const speakText = (text, options = {}) => {
+  if (!window.speechSynthesis) {
+    options.onEnd?.();
+    return;
+  }
+
+  // Cancel any ongoing speech
+  window.speechSynthesis.cancel();
+
+  // Strip HTML tags if any
+  const cleanText = text.replace(/<[^>]+>/g, "");
+  const utterance = new SpeechSynthesisUtterance(cleanText);
+
+  // Set default configurations
+  utterance.rate = options.rate ?? 0.85; // Slightly slower for kids
+  utterance.pitch = options.pitch ?? 1.1; // Warm, child-friendly pitch
+  utterance.lang = options.lang ?? "en-US";
+
+  // Select the highest quality voice
+  const voices = window.speechSynthesis.getVoices();
+  const bestVoice = voices.find(v => 
+    v.lang.startsWith('en') && 
+    (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premium'))
+  ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+
+  if (bestVoice) {
+    utterance.voice = bestVoice;
+  }
+
+  if (options.onEnd) {
+    utterance.onend = () => options.onEnd();
+  }
+  
+  if (options.onError) {
+    utterance.onerror = (e) => options.onError(e);
+  }
+
+  window.speechSynthesis.speak(utterance);
+};
+
+/**
+ * Cancel any current speech synthesis
+ */
+export const stopSpeech = () => {
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+};

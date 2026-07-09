@@ -10,6 +10,8 @@ import ScoreDisplay from '../../components/common/ScoreDisplay';
 import StarAnimation from '../../components/animations/StarAnimation';
 import { saveNumeracyScore, awardProgress } from '../../api/services';
 
+import { speakText } from '../../utils/helpers';
+
 const ZONES = [
   { id: 'counting-meadow', name: 'Counting Meadow', emoji: '🌸', description: 'Count flowers, bugs & butterflies!',  xpRequired: 0,   color: '#66BB6A', gradient: 'from-[#66BB6A] to-[#2EC4B6]', activities: ['Count Flowers', 'Bug Hunt', 'Butterfly Match'] },
   { id: 'number-forest',   name: 'Number Forest',   emoji: '🌲', description: 'Explore the forest of numbers!',       xpRequired: 50,  color: '#2EC4B6', gradient: 'from-[#2EC4B6] to-[#4FC3F7]', activities: ['Number Line Walk', 'Tree Counting', 'Forest Puzzle'] },
@@ -156,13 +158,7 @@ function CountToysGame({ onBack, zoneId }) {
   const q = useMemo(() => generateCountQuestion(round), [round]);
 
   const speakCount = (c) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(c.toString());
-      utterance.rate = 1.1;
-      utterance.pitch = 1.4; // Kid voice feel
-      window.speechSynthesis.speak(utterance);
-    }
+    speakText(c.toString(), { rate: 1.1, pitch: 1.4 });
   };
 
   const handleAnswer = (answer) => {

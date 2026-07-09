@@ -2,16 +2,11 @@
 import { useState, useCallback, useEffect } from "react";
 import { getVocabularyGames, getWordBuilderList, getPictureMatchItems } from '../../api/literacyService';
 import { vocabData as defaultVocab, wordBuilderList as defaultWB } from '../../data/storiesData';
+import { speakText } from '../../utils/helpers';
 import s from "./VocabularyZonePage.module.css";
 
 /* ── TTS ── */
-const speakWord = (word) => {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(word);
-  u.rate = 0.85; u.lang = "en-US";
-  window.speechSynthesis.speak(u);
-};
+const speakWord = (word) => speakText(word);
 
 /* ── DEFAULT PICTURE MATCH ITEMS ── */
 const DEFAULT_MATCH_ITEMS = [

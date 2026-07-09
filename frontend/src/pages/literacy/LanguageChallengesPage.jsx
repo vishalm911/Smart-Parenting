@@ -9,18 +9,14 @@ import {
   fluencyPassages as defaultPassages,
   challengesData as defaultChallenges,
 } from '../../data/storiesData';
+import { speakText, stopSpeech } from '../../utils/helpers';
 import s from "./LanguageChallengesPage.module.css";
 
 /* ── TTS with proper animal sound effect ── */
 const speak = (text, rate=0.75, onEnd) => {
-  if (!window.speechSynthesis) { onEnd?.(); return; }
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.rate = rate; u.lang = "en-US"; u.pitch = 1.1;
-  if (onEnd) u.onend = onEnd;
-  window.speechSynthesis.speak(u);
+  speakText(text, { rate, onEnd });
 };
-const stopSpeak = () => window.speechSynthesis?.cancel();
+const stopSpeak = () => stopSpeech();
 
 /* ── Animal sound: use pitch/rate tricks to make it sound more like the animal ── */
 const speakAnimalSound = (soundText, onEnd) => {
@@ -28,6 +24,15 @@ const speakAnimalSound = (soundText, onEnd) => {
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(soundText);
   u.lang = "en-US";
+  
+  // Select the highest quality voice
+  const voices = window.speechSynthesis.getVoices();
+  const bestVoice = voices.find(v => 
+    v.lang.startsWith('en') && 
+    (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premium'))
+  ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+  if (bestVoice) u.voice = bestVoice;
+
   // Adjust pitch/rate based on the sound type
   const low = soundText.toLowerCase();
   if (low.includes("moo"))    { u.pitch = 0.4; u.rate = 0.5; }

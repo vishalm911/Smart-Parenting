@@ -43,7 +43,7 @@ const MainLayout = () => {
     <Box sx={{
       display: 'flex',
       minHeight: '100vh',
-      bgcolor: '#FFF9F0',
+      bgcolor: 'var(--color-bg)',
       position: 'relative',
     }}>
       <FloatingStars />

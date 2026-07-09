@@ -7,18 +7,7 @@ import { awardProgress } from '../../api/services';
 import { storiesData as defaultStories } from '../../data/storiesData';
 import s from "./StoryReader.module.css";
 
-/* TTS helper */
-const speak = (text, onEnd) => {
-  if (!window.speechSynthesis) { onEnd?.(); return; }
-  window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g,""));
-  utt.rate  = 0.85;
-  utt.pitch = 1.1;
-  utt.lang  = "en-US";
-  utt.onend = () => onEnd?.();
-  window.speechSynthesis.speak(utt);
-};
-const stopSpeak = () => window.speechSynthesis?.cancel();
+import { speakText as speak, stopSpeech as stopSpeak } from '../../utils/helpers';
 
 export default function StoryReader({ story, startPage = 0, onPageChange, onComplete, onClose }) {
   const { user }     = useUser();

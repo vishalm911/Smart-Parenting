@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Settings, Globe, Sun, Sparkles, UserCheck } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 export const SettingsPage: React.FC = () => {
   const [lang, setLang] = useState<string>(localStorage.getItem('edu_lang') || 'en');
-  const [theme, setTheme] = useState<string>(localStorage.getItem('edu_theme') || 'light');
-  const [season, setSeason] = useState<string>(localStorage.getItem('edu_season') || 'none');
+  const { theme, setTheme, season, setSeason } = useTheme();
   const [showMascot, setShowMascot] = useState<boolean>(localStorage.getItem('edu_mascot') !== 'false');
 
   const handleLangChange = (newLang: string) => {
@@ -14,20 +14,10 @@ export const SettingsPage: React.FC = () => {
 
   const handleThemeChange = (newTheme: string) => {
     setTheme(newTheme);
-    localStorage.setItem('edu_theme', newTheme);
-    
-    if (newTheme === 'system') {
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme', newTheme);
-    }
   };
 
   const handleSeasonChange = (newSeason: string) => {
     setSeason(newSeason);
-    localStorage.setItem('edu_season', newSeason);
-    document.documentElement.setAttribute('data-season', newSeason);
   };
 
   const handleMascotToggle = (val: boolean) => {
