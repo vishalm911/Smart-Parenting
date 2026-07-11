@@ -7,6 +7,7 @@ import { awardProgress } from '../../api/services';
 import RecommendationPanel from '../../components/child/RecommendationPanel';
 import MilestoneCatalogActivities from '../../components/child/MilestoneCatalogActivities';
 import { getTranslation } from '../../utils/translations';
+import { useApp } from '../../context/AppContext';
 import './Home.css';
 
 const LEARNING_JOURNEY_ROADMAP = [
@@ -76,6 +77,7 @@ function buildLearningJourney(profile) {
 export default function Home() {
   const navigate = useNavigate();
   const { user, profile, refreshProfile } = useUser();
+  const { featureFlags } = useApp();
   const [animateStars, setAnimateStars] = useState(0);
   const [animateXP, setAnimateXP] = useState(0);
   // 'first-time' | 'weekly' | null
@@ -335,25 +337,26 @@ export default function Home() {
   }, [profile]);
 
   const MODULES = useMemo(() => {
+    const prog = profile?.progress || {};
     return [
       { id: 'assessment-module', title: getTranslation('Skill Assessment', currentLang), path: '/child/assessment?start=true', emoji: '🎯', progress: profile?.assessmentCompleted ? 100 : 0, total: 3, done: profile?.assessmentCompleted ? 3 : 0 },
-      { id: 'math-world', title: getTranslation('Math World', currentLang), path: '/math-world', emoji: '🔢', progress: Math.min(100, Math.floor((profile?.progress?.mathWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.mathWorld ?? 0) / 40)) },
-      { id: 'puzzle-world', title: getTranslation('Puzzle World', currentLang), path: '/puzzle-world', emoji: '🧩', progress: Math.min(100, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.puzzleWorld ?? 0) / 40)) },
-      { id: 'number-adventure', title: getTranslation('Number Adventure', currentLang), path: '/number-adventure', emoji: '🗺️', progress: Math.min(100, Math.floor((profile?.progress?.numberAdventure ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.numberAdventure ?? 0) / 50)) },
-      { id: 'logic-island', title: getTranslation('Logic Island', currentLang), path: '/logic-island', emoji: '🧠', progress: Math.min(100, Math.floor((profile?.progress?.logicIsland ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.logicIsland ?? 0) / 50)) },
-      { id: 'reading-world', title: getTranslation('Reading World', currentLang), path: '/child/reading-world', emoji: '📖', progress: Math.min(100, Math.floor((profile?.progress?.readingWorld ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.readingWorld ?? 0) / 40)) },
-      { id: 'story-world', title: getTranslation('Story World', currentLang), path: '/child/story-world', emoji: '🌟', progress: Math.min(100, Math.floor((profile?.progress?.storyWorld ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.storyWorld ?? 0) / 50)) },
-      { id: 'vocabulary-zone', title: getTranslation('Vocabulary Zone', currentLang), path: '/child/vocabulary-zone', emoji: '🔤', progress: Math.min(100, Math.floor((profile?.progress?.vocabularyZone ?? 0) / 3)), total: 8, done: Math.min(8, Math.floor((profile?.progress?.vocabularyZone ?? 0) / 40)) },
-      { id: 'language-challenges', title: getTranslation('Language Challenges', currentLang), path: '/child/language-challenges', emoji: '🎯', progress: Math.min(100, Math.floor((profile?.progress?.languageChallenges ?? 0) / 3)), total: 6, done: Math.min(6, Math.floor((profile?.progress?.languageChallenges ?? 0) / 50)) },
-      { id: 'brain-world', title: getTranslation('Brain World', currentLang), path: '/child/brain-world', emoji: '🧠', progress: 25, total: 4, done: 1 },
-      { id: 'emotion-world', title: getTranslation('Emotion World', currentLang), path: '/child/emotion-world', emoji: '❤️', progress: 20, total: 5, done: 1 },
+      { id: 'math-world', title: getTranslation('Math World', currentLang), path: '/math-world', emoji: '🔢', progress: Math.min(100, Math.floor(((prog.mathWorld ?? 0) / 320) * 100)), total: 8, done: Math.min(8, Math.floor((prog.mathWorld ?? 0) / 40)) },
+      { id: 'puzzle-world', title: getTranslation('Puzzle World', currentLang), path: '/puzzle-world', emoji: '🧩', progress: Math.min(100, Math.floor(((prog.puzzleWorld ?? 0) / 320) * 100)), total: 8, done: Math.min(8, Math.floor((prog.puzzleWorld ?? 0) / 40)) },
+      { id: 'number-adventure', title: getTranslation('Number Adventure', currentLang), path: '/number-adventure', emoji: '🗺️', progress: Math.min(100, Math.floor(((prog.numberAdventure ?? 0) / 300) * 100)), total: 6, done: Math.min(6, Math.floor((prog.numberAdventure ?? 0) / 50)) },
+      { id: 'logic-island', title: getTranslation('Logic Island', currentLang), path: '/logic-island', emoji: '🧠', progress: Math.min(100, Math.floor(((prog.logicIsland ?? 0) / 300) * 100)), total: 6, done: Math.min(6, Math.floor((prog.logicIsland ?? 0) / 50)) },
+      { id: 'reading-world', title: getTranslation('Reading World', currentLang), path: '/child/reading-world', emoji: '📖', progress: Math.min(100, Math.floor(((prog.readingWorld ?? 0) / 320) * 100)), total: 8, done: Math.min(8, Math.floor((prog.readingWorld ?? 0) / 40)) },
+      { id: 'story-world', title: getTranslation('Story World', currentLang), path: '/child/story-world', emoji: '🌟', progress: Math.min(100, Math.floor(((prog.storyWorld ?? 0) / 300) * 100)), total: 6, done: Math.min(6, Math.floor((prog.storyWorld ?? 0) / 50)) },
+      { id: 'vocabulary-zone', title: getTranslation('Vocabulary Zone', currentLang), path: '/child/vocabulary-zone', emoji: '🔤', progress: Math.min(100, Math.floor(((prog.vocabularyZone ?? 0) / 320) * 100)), total: 8, done: Math.min(8, Math.floor((prog.vocabularyZone ?? 0) / 40)) },
+      { id: 'language-challenges', title: getTranslation('Language Challenges', currentLang), path: '/child/language-challenges', emoji: '🎯', progress: Math.min(100, Math.floor(((prog.languageChallenges ?? 0) / 300) * 100)), total: 6, done: Math.min(6, Math.floor((prog.languageChallenges ?? 0) / 50)) },
+      { id: 'brain-world', title: getTranslation('Brain World', currentLang), path: '/child/brain-world', emoji: '🧠', progress: 0, total: 4, done: 0 },
+      { id: 'emotion-world', title: getTranslation('Emotion World', currentLang), path: '/child/emotion-world', emoji: '❤️', progress: 0, total: 5, done: 0 },
       { id: 'creativity-world', title: getTranslation('Creativity World', currentLang), path: '/child/creativity-world', emoji: '🎨', progress: 0, total: 4, done: 0 },
-      { id: 'story-choice-world', title: getTranslation('Story Choice', currentLang), path: '/child/story-choice-world', emoji: '🎭', progress: 50, total: 2, done: 1 },
+      { id: 'story-choice-world', title: getTranslation('Story Choice', currentLang), path: '/child/story-choice-world', emoji: '🎭', progress: 0, total: 2, done: 0 },
     ];
   }, [profile?.progress, profile?.assessmentCompleted, currentLang]);
 
   const recommendation = useMemo(() => {
-    if (!profile) return { title: getTranslation('Logic Island', currentLang), subtitle: getTranslation('Sharpen your brain with logic challenges!', currentLang), path: '/logic-island', emoji: '🧠' };
+    if (!profile) return { id: 'logic-island', title: getTranslation('Logic Island', currentLang), subtitle: getTranslation('Sharpen your brain with logic challenges!', currentLang), path: '/logic-island', emoji: '🧠' };
     const prog = profile.progress || {};
     const mw = prog.mathWorld ?? 0;
     const pw = prog.puzzleWorld ?? 0;
@@ -362,15 +365,24 @@ export default function Home() {
 
     const minVal = Math.min(mw, pw, na, li);
     if (minVal === mw) {
-      return { title: getTranslation('Math World', currentLang), subtitle: getTranslation('Learn numbers & simple counting!', currentLang), path: '/math-world', emoji: '🔢' };
+      return { id: 'math-world', title: getTranslation('Math World', currentLang), subtitle: getTranslation('Learn numbers & simple counting!', currentLang), path: '/math-world', emoji: '🔢' };
     } else if (minVal === pw) {
-      return { title: getTranslation('Puzzle World', currentLang), subtitle: getTranslation('Train your brain with 3D shapes!', currentLang), path: '/puzzle-world', emoji: '🧩' };
+      return { id: 'puzzle-world', title: getTranslation('Puzzle World', currentLang), subtitle: getTranslation('Train your brain with 3D shapes!', currentLang), path: '/puzzle-world', emoji: '🧩' };
     } else if (minVal === na) {
-      return { title: getTranslation('Number Adventure', currentLang), subtitle: getTranslation('Explore the map of numbers!', currentLang), path: '/number-adventure', emoji: '🗺️' };
+      return { id: 'number-adventure', title: getTranslation('Number Adventure', currentLang), subtitle: getTranslation('Explore the map of numbers!', currentLang), path: '/number-adventure', emoji: '🗺️' };
     } else {
-      return { title: getTranslation('Logic Island', currentLang), subtitle: getTranslation('Solve patterns and multiplication quests!', currentLang), path: '/logic-island', emoji: '🧠' };
+      return { id: 'logic-island', title: getTranslation('Logic Island', currentLang), subtitle: getTranslation('Solve patterns and multiplication quests!', currentLang), path: '/logic-island', emoji: '🧠' };
     }
   }, [profile, currentLang]);
+
+  const recommendedModule = useMemo(() => {
+    return MODULES.find(m => m.id === recommendation.id);
+  }, [MODULES, recommendation]);
+
+  const recProgress = recommendedModule ? recommendedModule.progress : 35;
+  const recDone = recommendedModule ? recommendedModule.done : 0;
+  const recTotal = recommendedModule ? recommendedModule.total : 8;
+  const recTimeRemaining = Math.max(0, (recTotal - recDone) * 5);
 
   return (
     <div className="dashboard-page">
@@ -433,13 +445,13 @@ export default function Home() {
               <p className="hero-subtitle">{recommendation.subtitle}</p>
               <div className="hero-progress">
                 <div className="hero-progress-bar">
-                  <div className="hero-progress-fill" style={{ width: '35%' }}>
+                  <div className="hero-progress-fill" style={{ width: `${recProgress}%` }}>
                     <span className="progress-glow"></span>
                   </div>
                 </div>
-                <span className="hero-progress-text">35% Complete</span>
+                <span className="hero-progress-text">{recProgress}% Complete</span>
               </div>
-              <p className="hero-time">⏱️ {getTranslation('Estimated Time', currentLang)}: 10 {getTranslation('minutes remaining', currentLang)}</p>
+              <p className="hero-time">⏱️ {getTranslation('Estimated Time', currentLang)}: {recTimeRemaining} {getTranslation('minutes remaining', currentLang)}</p>
               <button className="hero-btn">{getTranslation('Continue Journey →', currentLang)}</button>
             </div>
             <div className="hero-illustration">
@@ -714,15 +726,17 @@ export default function Home() {
                         </span>
                       )}
                     </div>
-                    <button
-                      className="profile-edit-avatar-btn"
-                      onClick={() => {
-                        setShowProfileModal(false);
-                        navigate('/child/avatar');
-                      }}
-                    >
-                      ✏️ {getTranslation('Customize Avatar', currentLang)}
-                    </button>
+                    {featureFlags?.enableAvatarCustomization !== false && (
+                      <button
+                        className="profile-edit-avatar-btn"
+                        onClick={() => {
+                          setShowProfileModal(false);
+                          navigate('/child/avatar');
+                        }}
+                      >
+                        ✏️ {getTranslation('Customize Avatar', currentLang)}
+                      </button>
+                    )}
                   </div>
 
                   {/* Quick Stats - Moved below Customize Avatar */}

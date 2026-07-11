@@ -6,6 +6,7 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import SpacECELogo from '../../components/shared/SpacECELogo';
 import logoImg from '../../assets/spaceece-logo.png';
 import LoadingScreen from './LoadingScreen';
+import { useApp } from '../../context/AppContext';
 
 const roles = [
   {
@@ -72,10 +73,17 @@ const roles = [
 
 const RoleSelector = () => {
   const navigate = useNavigate();
+  const { featureFlags } = useApp();
   const [selected, setSelected] = useState(null);
   const [hovering, setHovering] = useState(null);
   const [started, setStarted] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+
+  const availableRoles = roles.filter(role => {
+    if (role.key === 'child') return featureFlags?.enableChildDashboard !== false;
+    if (role.key === 'teacher') return featureFlags?.enableTeacherDashboard !== false;
+    return true;
+  });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -233,7 +241,7 @@ const RoleSelector = () => {
             gap: 2,
             mb: 3,
           }}>
-            {roles.map((role, index) => {
+            {availableRoles.map((role, index) => {
               const isSelected = selected?.key === role.key;
               const isHovered  = hovering === role.key;
 

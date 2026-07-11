@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   Box, Typography, Grid, Card, CardContent, Button, Avatar, Chip, LinearProgress,
   Paper, List, ListItem, ListItemButton, ListItemText,
@@ -45,6 +46,29 @@ const ParentDashboard = () => {
   const displayName  = currentUser?.displayName || userAccount?.displayName || 'Parent';
   // Always use real database profiles — never merge or fall back to fake data.
   const displayProfiles = childProfiles;
+
+  const familyProgress = useMemo(() => {
+    if (!childProfiles || childProfiles.length === 0) return 0;
+    
+    let totalProgress = 0;
+    childProfiles.forEach(child => {
+      const rawProgress = child.progress;
+      const progressValue = typeof rawProgress === 'number'
+        ? rawProgress
+        : (rawProgress && typeof rawProgress === 'object')
+          ? Math.min(100, Math.round(Object.values(rawProgress).filter(v => typeof v === 'number').reduce((a, b) => a + b, 0) / Math.max(1, Object.values(rawProgress).filter(v => typeof v === 'number').length)))
+          : 0;
+      totalProgress += progressValue;
+    });
+    return Math.round(totalProgress / childProfiles.length);
+  }, [childProfiles]);
+
+  const motivationalMessage = useMemo(() => {
+    if (familyProgress >= 80) return '🚀 Spectacular work! Keep reaching for the stars!';
+    if (familyProgress >= 50) return '🌟 Great progress this week! Keep it up!';
+    if (familyProgress > 0) return '🌱 Off to a good start! Every little bit counts!';
+    return '✨ Ready to begin? Start an adventure today!';
+  }, [familyProgress]);
 
   const statItems = [
     { label: 'Children',         value: childProfiles.length, icon: '👧',  color: '#3B82F6', bg: '#EFF6FF', border: 'rgba(59,130,246,0.2)'   },
@@ -307,10 +331,10 @@ const ParentDashboard = () => {
             <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ display: 'block', mb: 2 }}>
               Combined weekly learning goal
             </Typography>
-            <ProgressRing value={65} size={140} color="#3BB77E" />
-            <Typography variant="h6" fontWeight={900} sx={{ mt: 2, color: '#3BB77E' }}>65% Complete!</Typography>
+            <ProgressRing value={familyProgress} size={140} color="#3BB77E" />
+            <Typography variant="h6" fontWeight={900} sx={{ mt: 2, color: '#3BB77E' }}>{familyProgress}% Complete!</Typography>
             <Typography variant="caption" color="text.secondary" fontWeight={700}>
-              🚀 Great progress this week! Keep it up!
+              {motivationalMessage}
             </Typography>
           </Paper>
 

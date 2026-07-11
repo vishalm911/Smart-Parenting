@@ -12,6 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../context/NotificationContext';
 import { useChildProfile } from '../../context/ChildProfileContext';
+import { useApp } from '../../context/AppContext';
 import { getInitials, formatDateTime } from '../../utils/helpers';
 import { DRAWER_WIDTH } from './PortalSidebar';
 import SpacECELogo from '../shared/SpacECELogo';
@@ -65,6 +66,7 @@ const TopNavbar = ({ onMenuClick }) => {
   const { currentUser, userRole, logout } = useAuth();
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
   const { coinCount, activeChild } = useChildProfile();
+  const { featureFlags } = useApp();
 
   const [anchorEl,      setAnchorEl]      = useState(null);
   const [notifAnchorEl, setNotifAnchorEl] = useState(null);
@@ -117,19 +119,21 @@ const TopNavbar = ({ onMenuClick }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
 
           {/* Notification bell */}
-          <IconButton
-            onClick={handleNotifOpen}
-            sx={{ color: '#6B7280', bgcolor: '#F9FAFB', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.07)',
-                  '&:hover': { bgcolor: '#F3F4F6', color: '#1F3A68' } }}
-          >
-            <Badge
-              badgeContent={unreadCount}
-              color="error"
-              sx={{ '& .MuiBadge-badge': { fontSize: '0.6rem', fontWeight: 900, minWidth: 18, height: 18 } }}
+          {featureFlags?.enableNotifications !== false && (
+            <IconButton
+              onClick={handleNotifOpen}
+              sx={{ color: '#6B7280', bgcolor: '#F9FAFB', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.07)',
+                    '&:hover': { bgcolor: '#F3F4F6', color: '#1F3A68' } }}
             >
-              <NotificationsIcon sx={{ fontSize: 22 }} />
-            </Badge>
-          </IconButton>
+              <Badge
+                badgeContent={unreadCount}
+                color="error"
+                sx={{ '& .MuiBadge-badge': { fontSize: '0.6rem', fontWeight: 900, minWidth: 18, height: 18 } }}
+              >
+                <NotificationsIcon sx={{ fontSize: 22 }} />
+              </Badge>
+            </IconButton>
+          )}
 
           {/* Notification dropdown */}
           <Menu

@@ -5,6 +5,7 @@ import { useNotifications } from '../../context/NotificationContext';
 import { logout, updateUserProfile } from '../../api/services';
 import logoImg from '../../assets/logo.jpeg';
 import { getTranslation } from '../../utils/translations';
+import { useApp } from '../../context/AppContext';
 import './Sidebar.css';
 
 const NAV_ITEMS = [
@@ -43,9 +44,15 @@ export default function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
   const { profile, user, setProfile, refreshProfile, markLoggedOut } = useUser();
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
+  const { featureFlags } = useApp();
   const [showNotifs, setShowNotifs] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const navItems = NAV_ITEMS.filter(tab => {
+    if (tab.path === '/child/avatar') return featureFlags?.enableAvatarCustomization !== false;
+    return true;
+  });
 
   const handleLogout = async () => {
     try {
@@ -104,17 +111,19 @@ export default function Sidebar({ isOpen, onClose }) {
           </Link>
 
           <div className="navbar-actions" style={{ position: 'relative' }}>
-            <button
-              className="nav-action-btn"
-              title="Notifications"
-              onClick={() => setShowNotifs(!showNotifs)}
-              style={{ position: 'relative', zIndex: showNotifs ? 1001 : 1 }}
-            >
-              <span className="action-icon">🔔</span>
-              {unreadCount > 0 && (
-                <span className="notification-badge">{unreadCount}</span>
-              )}
-            </button>
+            {featureFlags?.enableNotifications !== false && (
+              <button
+                className="nav-action-btn"
+                title="Notifications"
+                onClick={() => setShowNotifs(!showNotifs)}
+                style={{ position: 'relative', zIndex: showNotifs ? 1001 : 1 }}
+              >
+                <span className="action-icon">🔔</span>
+                {unreadCount > 0 && (
+                  <span className="notification-badge">{unreadCount}</span>
+                )}
+              </button>
+            )}
 
             {showNotifs && (
               <div className="child-notification-dropdown" style={{ zIndex: 1001 }}>
@@ -200,7 +209,7 @@ export default function Sidebar({ isOpen, onClose }) {
         </div>
 
         <div className="navbar-tabs">
-          {NAV_ITEMS.map(tab => (
+          {navItems.map(tab => (
             <NavLink
               key={tab.path}
               to={tab.path}
