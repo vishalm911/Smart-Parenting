@@ -67,6 +67,32 @@ export const ChildProfileProvider = ({ children }) => {
     }
   }, [uid, userRole]); // uid is a string — stable reference
 
+  // Poll for fresh child data so progress/coins/streak on the parent
+  // dashboard update automatically as children complete activities,
+  // mirroring the interval-based pattern used elsewhere in the app
+  // (Firestore's onSnapshot has no direct REST equivalent).
+  const refreshProfiles = useCallback(async () => {
+    if (!uid || userRole !== 'parent') return;
+    try {
+      const { data, error } = await getChildProfiles(uid);
+      if (!error && data) {
+        setChildProfiles(data);
+        localStorage.setItem('spaceece_saved_child_profiles', JSON.stringify(data));
+        setActiveChild((prev) => {
+          if (!prev) return prev;
+          const updated = data.find(p => (p._id || p.id) === (prev._id || prev.id));
+          return updated ? { ...prev, ...updated } : prev;
+        });
+      }
+    } catch {}
+  }, [uid, userRole]);
+
+  useEffect(() => {
+    if (!uid || userRole !== 'parent') return;
+    const interval = setInterval(refreshProfiles, 15000);
+    return () => clearInterval(interval);
+  }, [uid, userRole, refreshProfiles]);
+
   // Child role — set active child from token
   useEffect(() => {
     if (userRole === 'child' && uid) {
@@ -133,14 +159,23 @@ export const ChildProfileProvider = ({ children }) => {
     }
   }, [childProfiles]);
 
+  // Total coin count — sum across all children for a parent, or the
+  // active child's own balance when logged in as a child. Consumed by
+  // PortalSidebar, PortalTopNavbar, and the Parent Dashboard stat cards.
+  const coinCount = userRole === 'child'
+    ? (activeChild?.coins || 0)
+    : childProfiles.reduce((sum, p) => sum + (p.coins || 0), 0);
+
   return (
     <ChildProfileContext.Provider value={{
       childProfiles,
       activeChild,
       loading,
+      coinCount,
       selectChild,
       switchChild,
       loadProfiles,
+      refreshProfiles,
       createChildProfile,
       updateChildProfile,
       deleteChildProfile,

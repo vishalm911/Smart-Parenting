@@ -17,7 +17,6 @@ const NAV_ITEMS = [
   { path: '/child/brain-world',        label: 'Brain',      icon: '🧠' },
   { path: '/child/emotion-world',      label: 'Emotions',   icon: '❤️' },
   { path: '/child/creativity-world',   label: 'Creativity', icon: '🎨' },
-  { path: '/child/story-choice-world', label: 'Stories',    icon: '🎭' },
   { path: '/child/awards',             label: 'Awards',     icon: '🏆' },
   { path: '/child/avatar',             label: 'Avatar',     icon: '👤' },
   { path: '/child/settings',           label: 'Settings',   icon: '⚙️' },

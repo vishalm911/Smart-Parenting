@@ -67,9 +67,9 @@ const ParentDashboard = () => {
       </Box>
 
       {/* ── Stat Cards ── */}
-      <Grid container spacing={2.5} sx={{ mb: 3.5 }}>
+      <Grid container spacing={2.5} sx={{ mb: 3.5 }} alignItems="stretch">
         {statItems.map((stat, i) => (
-          <Grid size={{ xs: 6, md: 3 }} key={stat.label}>
+          <Grid size={{ xs: 6, md: 3 }} key={stat.label} sx={{ display: 'flex' }}>
             <Box sx={{
               p: { xs: 2.5, sm: 3 }, borderRadius: '22px',
               bgcolor: stat.bg,
@@ -78,11 +78,20 @@ const ParentDashboard = () => {
               boxShadow: `0 4px 20px ${stat.border}, 0 1px 4px rgba(0,0,0,0.04)`,
               transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
               animation: `popIn 0.5s ease-out ${i * 0.08}s both`,
+              height: '100%', minHeight: 132, boxSizing: 'border-box',
+              display: 'flex', flexDirection: 'column', justifyContent: 'center',
               '&:hover': { transform: 'translateY(-6px)', boxShadow: `0 14px 36px ${stat.border}` },
             }}>
               <Typography sx={{ fontSize: { xs: '2rem', sm: '2.4rem' }, mb: 1, lineHeight: 1 }}>{stat.icon}</Typography>
-              <Typography variant="h3" fontWeight={900} sx={{ color: stat.color, lineHeight: 1, fontFamily: '"Nunito", sans-serif', fontSize: { xs: '1.8rem', sm: '2.2rem' } }}>
-                {stat.value}
+              <Typography
+                variant="h3" fontWeight={900}
+                sx={{
+                  color: stat.color, lineHeight: 1, fontFamily: '"Nunito", sans-serif',
+                  fontSize: { xs: '1.8rem', sm: '2.2rem' },
+                  whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                }}
+              >
+                {(stat.value ?? 0).toLocaleString?.() ?? stat.value ?? 0}
               </Typography>
               <Typography variant="caption" color="text.secondary" fontWeight={800} sx={{ fontSize: '0.72rem', mt: 0.5, display: 'block' }}>
                 {stat.label}
@@ -257,7 +266,7 @@ const ParentDashboard = () => {
                             }}>
                               <Typography sx={{ fontSize: '0.75rem' }}>🪙</Typography>
                               <Typography variant="caption" fontWeight={900} sx={{ color: '#D97706', fontSize: '0.65rem' }}>
-                                {child.coin_count || 0}
+                                {child.coins || 0}
                               </Typography>
                             </Box>
                             <Box sx={{
@@ -267,7 +276,7 @@ const ParentDashboard = () => {
                             }}>
                               <Typography sx={{ fontSize: '0.75rem' }}>🔥</Typography>
                               <Typography variant="caption" fontWeight={900} sx={{ color: '#DC2626', fontSize: '0.65rem' }}>
-                                {child.streak || 0}d
+                                {child.dayStreak || 0}d
                               </Typography>
                             </Box>
                           </Box>
