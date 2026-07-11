@@ -13,6 +13,7 @@ const router       = require('express').Router();
 const ChildProfile = require('../models/ChildProfile');
 const User         = require('../models/User');
 const { verifyToken } = require('../middleware/auth');
+const { createNotification } = require('../utils/notify');
 
 const MAX_PROFILES = 4;
 
@@ -118,6 +119,28 @@ router.put('/:id', verifyToken, async (req, res) => {
     });
     if (!profile) return res.status(404).json({ data: null, error: 'Child profile not found.' });
     res.json({ data: profile, error: null });
+
+    // Fire-and-forget: notify the parent about coins earned or a module milestone.
+    if (inc.coins) {
+      createNotification({
+        title: 'Coins earned! 🪙',
+        message: `${profile.name} just earned ${inc.coins} coins — now has ${profile.coins} total.`,
+        type: 'reward',
+        child_id: profile._id,
+        parent_id: profile.parent_uid,
+      });
+    }
+    const moduleKey = Object.keys(inc).find((k) => k.startsWith('progress.'));
+    if (moduleKey) {
+      const moduleName = moduleKey.split('.')[1];
+      createNotification({
+        title: 'Progress update! 📈',
+        message: `${profile.name} made progress in ${moduleName.replace(/([A-Z])/g, ' $1').trim()}.`,
+        type: 'achievement',
+        child_id: profile._id,
+        parent_id: profile.parent_uid,
+      });
+    }
   } catch (err) {
     res.status(400).json({ data: null, error: err.message });
   }

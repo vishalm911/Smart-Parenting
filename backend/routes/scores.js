@@ -11,13 +11,29 @@
 
 const router = require('express').Router();
 const { ActivityScore } = require('../models/Score');
+const ChildProfile = require('../models/ChildProfile');
 const { verifyToken, requireRole } = require('../middleware/auth');
+const { createNotification } = require('../utils/notify');
 
 // POST — save activity score
 router.post('/', verifyToken, async (req, res) => {
   try {
     const score = await ActivityScore.create(req.body);
     res.status(201).json({ data: score, error: null });
+
+    // Fire-and-forget: let the parent know their child finished an activity.
+    // Never blocks or fails the response above.
+    ChildProfile.findById(score.child_id).then((child) => {
+      if (!child) return;
+      const activityLabel = (score.activity_type || 'an activity').replace(/_/g, ' ');
+      createNotification({
+        title: 'Activity completed! 🎉',
+        message: `${child.name} finished a ${activityLabel} activity and scored ${score.score}${score.accuracy ? ` (${Math.round(score.accuracy)}% accuracy)` : ''}.`,
+        type: 'achievement',
+        child_id: child._id,
+        parent_id: child.parent_uid,
+      });
+    }).catch(() => {});
   } catch (err) {
     res.status(400).json({ data: null, error: err.message });
   }
