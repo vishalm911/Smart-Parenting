@@ -79,7 +79,7 @@ export default function Adventure() {
   const currentLang = profile?.language || localStorage.getItem('spaceece_language') || 'English';
 
   return (
-    <div className="relative min-h-screen pb-12">
+    <div className="relative min-h-screen pb-12 lg:pl-10">
       {/* Inject custom styled animations */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes travel-dash {
@@ -116,7 +116,7 @@ export default function Adventure() {
 
       {/* Level / XP Bar at top */}
       <div
-        className="sticky top-0 z-20 px-6 py-3.5 border-b flex items-center justify-between gap-4 backdrop-blur-md bg-white/80 dark:bg-[#1E2A3A]/80 shadow-sm"
+        className="sticky top-0 z-20 px-6 lg:pl-16 py-3.5 border-b flex items-center justify-between gap-4 backdrop-blur-md bg-white/80 dark:bg-[#1E2A3A]/80 shadow-sm"
         style={{ borderColor: 'var(--border-default)' }}
       >
         <div className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-3.5 py-1.5 rounded-full shadow-md">

@@ -36,9 +36,13 @@ const AccountSettings = () => {
   const [error,   setError]   = useState('');
   const [loading, setLoading] = useState('');
 
+<<<<<<< HEAD
     const [profileForm, setProfileForm] = useState({
   displayName: currentUser?.displayName || '',
 });
+=======
+  const [profileForm, setProfileForm] = useState({ displayName: currentUser?.displayName || '' });
+>>>>>>> c4747fb14d9bd909ffb929c91fd6b91b6f0e1fef
   const [emailForm, setEmailForm] = useState({ newEmail: '', currentPassword: '' });
   const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
 

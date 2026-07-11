@@ -76,12 +76,19 @@ router.get('/', async (req, res) => {
     const query = {};
     if (userId && userId !== 'all') {
       if (field === 'child_id' || req.query.child_id) {
-        query.child_id = userId;
+        query.$or = [{ child_id: userId }, { child_id: null }, { child_id: "" }];
       } else if (field === 'parent_id' || req.query.parent_id) {
-        query.parent_id = userId;
+        query.$or = [{ parent_id: userId }, { parent_id: null }, { parent_id: "" }];
       } else {
         // Fallback: match either
-        query.$or = [{ child_id: userId }, { parent_id: userId }];
+        query.$or = [
+          { child_id: userId },
+          { parent_id: userId },
+          { child_id: null },
+          { parent_id: null },
+          { child_id: "" },
+          { parent_id: "" }
+        ];
       }
     }
 
@@ -110,11 +117,18 @@ router.get('/unread/count', async (req, res) => {
 
     const query = { read_status: false };
     if (field === 'child_id') {
-      query.child_id = userId;
+      query.$or = [{ child_id: userId }, { child_id: null }, { child_id: "" }];
     } else if (field === 'parent_id') {
-      query.parent_id = userId;
+      query.$or = [{ parent_id: userId }, { parent_id: null }, { parent_id: "" }];
     } else {
-      query.$or = [{ child_id: userId }, { parent_id: userId }];
+      query.$or = [
+        { child_id: userId },
+        { parent_id: userId },
+        { child_id: null },
+        { parent_id: null },
+        { child_id: "" },
+        { parent_id: "" }
+      ];
     }
 
     const count = await Notification.countDocuments(query);

@@ -14,9 +14,10 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';
 import { useChildProfile } from '../../context/ChildProfileContext';
-import { NAV_MENUS } from '../../utils/constants';
+import { NAV_MENUS, ROUTES } from '../../utils/constants';
 import { getInitials } from '../../utils/helpers';
 import SpacECELogo from '../shared/SpacECELogo';
+import { useApp } from '../../context/AppContext';
 
 const DRAWER_WIDTH = 216;
 
@@ -56,10 +57,25 @@ const Sidebar = ({ open, onClose }) => {
   const location  = useLocation();
   const { userRole, currentUser, userAccount, logout } = useAuth();
   const { coinCount } = useChildProfile();
+  const { featureFlags } = useApp();
 
-  const menuItems = NAV_MENUS[userRole] || [];
+  let menuItems = NAV_MENUS[userRole] || [];
+  if (userRole === 'child') {
+    if (!featureFlags?.enableAvatarCustomization) {
+      menuItems = menuItems.filter(item => item.path !== ROUTES.CHILD_AVATAR);
+    }
+  } else if (userRole === 'parent') {
+    if (!featureFlags?.enableChildDashboard) {
+      menuItems = menuItems.filter(item => item.path !== ROUTES.LOGIN_CHILD && item.path !== ROUTES.PARENT_SWITCH_CHILD);
+    }
+  } else if (userRole === 'admin') {
+    if (!featureFlags?.enableNotifications) {
+      menuItems = menuItems.filter(item => item.path !== ROUTES.ADMIN_NOTIFICATIONS);
+    }
+  }
+
   const accent    = ROLE_ACCENT[userRole] || ROLE_ACCENT.parent;
-  const showCoins = userRole === 'child' || userRole === 'parent';
+  const showCoins = (userRole === 'child' || userRole === 'parent') && featureFlags?.enableCoinRewards !== false;
 
   const handleNavigation = (path) => { navigate(path); if (isMobile) onClose(); };
   const handleLogout = async () => { await logout(); navigate('/'); };

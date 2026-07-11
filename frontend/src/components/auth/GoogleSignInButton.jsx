@@ -11,9 +11,15 @@
 
 import { useState } from 'react';
 import { loginWithGoogle } from '../../api/authService';
+import { useApp } from '../../context/AppContext';
 
 export default function GoogleSignInButton({ role = 'parent', onSuccess, onError, label = 'Continue with Google' }) {
+  const { featureFlags } = useApp();
   const [loading, setLoading] = useState(false);
+
+  if (featureFlags && featureFlags.enableGoogleSignIn === false) {
+    return null;
+  }
 
   const handleGoogleLogin = async () => {
     setLoading(true);

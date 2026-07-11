@@ -123,6 +123,31 @@ function MaintenanceGate({ children }) {
   return children;
 }
 
+function ChildDashboardGuard({ children }) {
+  const { featureFlags } = useApp();
+  if (featureFlags?.enableChildDashboard === false) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+}
+
+function TeacherDashboardGuard({ children }) {
+  const { featureFlags } = useApp();
+  if (featureFlags?.enableTeacherDashboard === false) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+}
+
+function AvatarCustomizationGuard({ children }) {
+  const { featureFlags } = useApp();
+  if (featureFlags?.enableAvatarCustomization === false) {
+    return <Navigate to="/child/dashboard" replace />;
+  }
+  return children;
+}
+
+
 function ParentAnalyticsView() {
   const { activeChild, refreshProfiles } = useChildProfile();
   if (!activeChild) {
@@ -186,7 +211,7 @@ export default function App() {
                       </Route>
 
                       {/* Protected Teacher Routes */}
-                      <Route element={<ProtectedRoute><RoleRoute allowedRoles={['teacher']}><MainLayout /></RoleRoute></ProtectedRoute>}>
+                      <Route element={<ProtectedRoute><RoleRoute allowedRoles={['teacher']}><TeacherDashboardGuard><MainLayout /></TeacherDashboardGuard></RoleRoute></ProtectedRoute>}>
                         <Route path="/teacher/dashboard" element={<TeacherDashboard onRefresh={() => {}} />} />
                         <Route path="/teacher/roster"    element={<TeacherDashboard onRefresh={() => {}} />} />
                         <Route path="/teacher/gaps"      element={<TeacherDashboard onRefresh={() => {}} />} />
@@ -209,16 +234,16 @@ export default function App() {
                       </Route>
 
                       {/* Protected Child Assessment (standalone, no Layout shell) */}
-                      <Route element={<ProtectedRoute><RoleRoute allowedRoles={['child']}><Outlet /></RoleRoute></ProtectedRoute>}>
+                      <Route element={<ProtectedRoute><RoleRoute allowedRoles={['child']}><ChildDashboardGuard><Outlet /></ChildDashboardGuard></RoleRoute></ProtectedRoute>}>
                         <Route path="/child/assessment" element={<AssessmentModule />} />
                       </Route>
 
                       {/* Protected Child Routes */}
-                      <Route element={<ProtectedRoute><RoleRoute allowedRoles={['child']}><Layout /></RoleRoute></ProtectedRoute>}>
+                      <Route element={<ProtectedRoute><RoleRoute allowedRoles={['child']}><ChildDashboardGuard><Layout /></ChildDashboardGuard></RoleRoute></ProtectedRoute>}>
                         <Route path="/child/dashboard"   element={<Home />} />
                         <Route path="/child/explore"     element={<Adventure />} />
                         <Route path="/child/awards"      element={<Awards />} />
-                        <Route path="/child/avatar"      element={<AvatarPage />} />
+                        <Route path="/child/avatar"      element={<AvatarCustomizationGuard><AvatarPage /></AvatarCustomizationGuard>} />
                         <Route path="/child/settings"    element={<Settings />} />
 
                         <Route path="/math-world"       element={<MathWorld />} />
