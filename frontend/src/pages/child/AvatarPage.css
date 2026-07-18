@@ -1,0 +1,251 @@
+/* ============================================================
+   Child Avatar Customizer Page Stylesheet
+   ============================================================ */
+
+.avatar-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4) var(--space-16);
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.avatar-header {
+  text-align: center;
+}
+
+.avatar-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: var(--gradient-sunset);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.avatar-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Two-column layout grid */
+.avatar-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .avatar-layout {
+    grid-template-columns: 380px 1fr;
+  }
+}
+
+/* Left Column: Preview panel card */
+.avatar-preview-panel {
+  background: white;
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-6);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: sticky;
+  top: 100px;
+}
+
+[data-theme="dark"] .avatar-preview-panel {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.avatar-circle-preview {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8.5rem;
+  border: 8px solid white;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--space-6);
+  position: relative;
+  transition: background 0.3s;
+}
+
+[data-theme="dark"] .avatar-circle-preview {
+  border-color: #1e293b;
+}
+
+.avatar-name-label {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.avatar-accessory-floating {
+  position: absolute;
+  font-size: 6.5rem;
+  z-index: 10;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+}
+
+/* Right Column: Choices */
+.avatar-choices-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.avatar-choices-section {
+  background: white;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .avatar-choices-section {
+  background: rgba(30, 41, 59, 0.4);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.choices-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Character & Accessory grids with auto-fill to resolve spacing issues */
+.choices-grid-characters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.choices-grid-accessories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+}
+
+/* Buttons and cards */
+.char-card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2);
+  border-radius: var(--radius-xl);
+  border: 3px solid transparent;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s var(--ease-spring);
+}
+
+.char-card-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-md);
+}
+
+.char-card-btn.selected {
+  border-color: var(--color-primary);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px var(--color-primary-glow);
+}
+
+.char-card-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.char-card-name {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #1A1A1A;
+}
+
+/* Accessory buttons */
+.acc-card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2);
+  background: white;
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s var(--ease-spring);
+}
+
+[data-theme="dark"] .acc-card-btn {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.acc-card-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary-light);
+}
+
+.acc-card-btn.selected {
+  border-color: var(--color-primary);
+  background: var(--color-bg-elevated);
+  box-shadow: 0 8px 20px var(--color-primary-glow);
+}
+
+[data-theme="dark"] .acc-card-btn.selected {
+  background: rgba(244, 163, 0, 0.15);
+}
+
+.acc-card-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.acc-card-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* Alert saving banner */
+.save-alert-banner {
+  background: #E8F5E9;
+  color: #2E7D32;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: var(--radius-xl);
+  border: 2px solid #A5D6A7;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: var(--space-4);
+  width: 100%;
+}

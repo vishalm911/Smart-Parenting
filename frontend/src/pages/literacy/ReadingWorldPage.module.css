@@ -1,0 +1,254 @@
+/* ============================================================
+   Reading World Page — Complete Styles
+   ============================================================ */
+
+/* ── Streak Row ── */
+.streak {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl, 24px);
+  padding: 16px 24px;
+  margin-bottom: 28px;
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.streakLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  margin-right: 4px;
+}
+.day {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-elevated);
+  transition: all 0.3s ease;
+}
+.done {
+  background: var(--color-primary);
+  border-color: var(--color-primary-dark);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(244, 163, 0, 0.3);
+}
+.today {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary-dark);
+  color: #fff;
+  box-shadow: 0 0 0 3px var(--color-secondary-light);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+.future {
+  background: var(--color-success);
+  border-color: #4CAF50;
+  color: #fff;
+}
+.streakCount {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-left: auto;
+}
+
+/* ── Featured Carousel ── */
+.carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+.carousel::-webkit-scrollbar { height: 6px; }
+.carousel::-webkit-scrollbar-track { background: transparent; }
+.carousel::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 99px; }
+
+.featCard {
+  min-width: 220px;
+  max-width: 260px;
+  border-radius: var(--radius-xl, 24px);
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+}
+.featCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-secondary-light);
+}
+
+.featCover {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  position: relative;
+  background: linear-gradient(135deg, #E8F5E9, #B2DFDB) !important;
+}
+
+.bmBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.bmBtn:hover { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.bmActive { background: var(--color-primary-light) !important; }
+
+.featInfo {
+  padding: 14px 16px;
+}
+.featInfo h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+.author {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+.featTime {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* ── Search & Filters ── */
+.filterBox {
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl, 24px);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.searchInput {
+  width: 100%;
+  padding: 12px 18px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg, 20px);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-bg-elevated);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.searchInput:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(111, 191, 115, 0.15);
+}
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.filterLabel {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  min-width: 80px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.chip {
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-card);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.chip:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+}
+.chipActive {
+  background: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(111, 191, 115, 0.3);
+}
+
+/* ── Story Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+  margin-bottom: 32px;
+}
+
+/* ── Empty State ── */
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl, 24px);
+  border: 2px dashed var(--color-border);
+}
+.empty span {
+  font-size: 56px;
+  display: block;
+  margin-bottom: 16px;
+}
+.empty p {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .filterBox { padding: 16px; }
+  .filterLabel { min-width: auto; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+  .featCard { min-width: 180px; }
+  .streak { padding: 12px 16px; gap: 6px; }
+  .streakCount { font-size: 16px; }
+}

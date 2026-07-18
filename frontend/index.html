@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SpacECE Numeracy & Logical Thinking Universe — AI-powered educational games for children aged 1–10. Fun counting, puzzles, logic & math adventures!" />
+    <meta name="theme-color" content="#F5A623" />
+    <title>SpacECE — Learning World</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Automatically unregister any active service worker and clear browser cache in development mode
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          let unregistered = false;
+          registrations.forEach((r) => {
+            r.unregister().then((ok) => {
+              if (ok) {
+                console.log('Successfully unregistered stale service worker.');
+                unregistered = true;
+              }
+            });
+          });
+          if (unregistered) {
+            window.location.reload();
+          }
+        });
+        if (window.caches) {
+          caches.keys().then((keys) => {
+            keys.forEach((k) => {
+              caches.delete(k);
+            });
+          });
+        }
+      }
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

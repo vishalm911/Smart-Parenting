@@ -1,0 +1,1272 @@
+/* ============================================================
+   Assessment Module — Immersive Onboarding Experience
+   ============================================================ */
+
+.assessment-page {
+  min-height: 100dvh;
+  background: var(--gradient-sky);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+
+/* ─── Animated Background Decorations ─── */
+.assessment-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.assessment-bg-decor .bg-star {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.25;
+  animation: floatSlow 6s ease-in-out infinite;
+}
+.assessment-bg-decor .bg-star:nth-child(1) { top: 8%; left: 5%; animation-delay: 0s; font-size: 2rem; }
+.assessment-bg-decor .bg-star:nth-child(2) { top: 15%; right: 10%; animation-delay: 1.2s; }
+.assessment-bg-decor .bg-star:nth-child(3) { bottom: 20%; left: 12%; animation-delay: 0.6s; font-size: 1.8rem; }
+.assessment-bg-decor .bg-star:nth-child(4) { top: 40%; right: 5%; animation-delay: 2s; }
+.assessment-bg-decor .bg-star:nth-child(5) { bottom: 10%; right: 18%; animation-delay: 0.8s; font-size: 2.2rem; }
+.assessment-bg-decor .bg-star:nth-child(6) { top: 60%; left: 3%; animation-delay: 1.5s; }
+.assessment-bg-decor .bg-star:nth-child(7) { bottom: 35%; right: 3%; animation-delay: 2.5s; font-size: 1.4rem; }
+.assessment-bg-decor .bg-star:nth-child(8) { top: 5%; left: 45%; animation-delay: 3s; }
+
+/* ─── Main Card Container ─── */
+.assessment-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5);
+  text-align: center;
+  animation: bounceIn 0.6s var(--ease-spring);
+}
+
+/* ─── Progress Stepper ─── */
+.assessment-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: var(--space-8);
+}
+
+.stepper-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-divider);
+  border: 2px solid var(--color-border);
+  transition: all 0.4s var(--ease-bounce);
+}
+
+.stepper-dot.active {
+  width: 36px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-warm);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 12px var(--color-primary-glow);
+}
+
+.stepper-dot.completed {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  box-shadow: 0 2px 8px rgba(102, 187, 106, 0.4);
+}
+
+.stepper-connector {
+  width: 28px;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-divider);
+  transition: background 0.4s;
+}
+
+.stepper-connector.completed {
+  background: var(--color-success);
+}
+
+/* ─── Welcome Screen ─── */
+.assessment-welcome-emoji {
+  font-size: 4.5rem;
+  display: block;
+  margin-bottom: var(--space-4);
+  animation: rocketFloat 3s ease-in-out infinite;
+}
+
+.assessment-welcome-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.assessment-welcome-subtitle {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto var(--space-6);
+}
+
+.assessment-welcome-features {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.welcome-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-border);
+  min-width: 120px;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.welcome-feature:hover {
+  transform: translateY(-4px);
+}
+
+.welcome-feature-icon {
+  font-size: 2rem;
+}
+
+.welcome-feature-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+/* ─── Question Screens ─── */
+.assessment-question-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-4);
+}
+
+.assessment-question-label.numeracy {
+  background: rgba(244, 163, 0, 0.12);
+  color: var(--color-primary-dark);
+  border: 1.5px solid rgba(244, 163, 0, 0.3);
+}
+
+.assessment-question-label.logic {
+  background: rgba(124, 77, 255, 0.1);
+  color: var(--color-accent-purple);
+  border: 1.5px solid rgba(124, 77, 255, 0.25);
+}
+
+.assessment-question-label.literacy {
+  background: rgba(255, 107, 157, 0.1);
+  color: #D63384;
+  border: 1.5px solid rgba(255, 107, 157, 0.25);
+}
+
+.assessment-question-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.assessment-question-hint {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}
+
+/* ─── Visual Area (Floating Items) ─── */
+.assessment-visual-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  min-height: 100px;
+  padding: var(--space-6) var(--space-4);
+  margin-bottom: var(--space-6);
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--color-border);
+}
+
+.floating-item {
+  font-size: 2.6rem;
+  animation: float 3s ease-in-out infinite;
+  cursor: default;
+  transition: transform 0.2s;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.floating-item:nth-child(odd) { animation-delay: 0.3s; }
+.floating-item:nth-child(3n) { animation-delay: 0.7s; }
+.floating-item:nth-child(4n) { animation-delay: 1.1s; }
+
+/* Pattern items for Logic question */
+.pattern-item {
+  font-size: 2.8rem;
+  padding: var(--space-2);
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.pattern-item.mystery {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-cosmic);
+  border-radius: var(--radius-lg);
+  font-size: 1.6rem;
+  color: white;
+  box-shadow: var(--shadow-glow-purple);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Word visual for Literacy question */
+.word-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.word-visual-emoji {
+  font-size: 5rem;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+}
+
+.word-visual-text {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+}
+
+.word-visual-underline {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.word-visual-underline .highlight-letter {
+  color: var(--color-accent-pink);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--color-accent-pink);
+}
+
+.word-visual-underline .dim-letter {
+  color: var(--color-text-muted);
+}
+
+/* ─── Answer Options Grid ─── */
+.assessment-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--space-4);
+  max-width: 500px;
+  margin: 0 auto var(--space-6);
+}
+
+.option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  border: 2.5px solid var(--color-border);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-bounce);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 90px;
+}
+
+.option-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.option-card.selected {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(244, 163, 0, 0.08) 0%, rgba(255, 184, 77, 0.12) 100%);
+  box-shadow: 0 6px 24px var(--color-primary-glow);
+  transform: scale(1.05);
+}
+
+.option-card.correct {
+  border-color: var(--color-success);
+  background: linear-gradient(135deg, rgba(102, 187, 106, 0.1) 0%, rgba(102, 187, 106, 0.18) 100%);
+  box-shadow: 0 6px 24px rgba(102, 187, 106, 0.35);
+  animation: celebrationPop 0.5s var(--ease-spring);
+}
+
+.option-card.wrong {
+  border-color: var(--color-error);
+  background: linear-gradient(135deg, rgba(239, 83, 80, 0.08) 0%, rgba(239, 83, 80, 0.14) 100%);
+  animation: wiggle 0.5s ease-in-out;
+}
+
+.option-card-emoji {
+  font-size: 2rem;
+}
+
+.option-card-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* ─── Feedback Area ─── */
+.assessment-feedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  animation: bounceIn 0.4s var(--ease-spring);
+}
+
+.assessment-feedback.correct {
+  background: rgba(102, 187, 106, 0.12);
+  color: #2E7D32;
+  border: 1.5px solid rgba(102, 187, 106, 0.35);
+}
+
+.assessment-feedback.wrong {
+  background: rgba(239, 83, 80, 0.1);
+  color: #C62828;
+  border: 1.5px solid rgba(239, 83, 80, 0.3);
+}
+
+.assessment-feedback-icon {
+  font-size: 1.6rem;
+}
+
+/* ─── Action Buttons ─── */
+.assessment-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-10);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-bounce);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.assessment-btn.primary {
+  background: var(--gradient-warm);
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.assessment-btn.primary:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 36px rgba(244, 163, 0, 0.45);
+}
+
+.assessment-btn.primary:active {
+  transform: scale(0.96);
+}
+
+.assessment-btn.cosmic {
+  background: var(--gradient-cosmic);
+  color: white;
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.assessment-btn.cosmic:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 36px rgba(124, 77, 255, 0.45);
+}
+
+.assessment-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ─── Score / Celebration Screen ─── */
+.score-screen {
+  animation: bounceIn 0.6s var(--ease-spring);
+}
+
+.score-trophy {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: var(--space-4);
+  animation: celebrationPop 0.8s var(--ease-spring);
+}
+
+.score-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  background: var(--gradient-cosmic);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-2);
+}
+
+.score-subtitle {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}
+
+.score-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.score-ring {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.score-ring-bg {
+  fill: none;
+  stroke: var(--color-divider);
+  stroke-width: 8;
+}
+
+.score-ring-fill {
+  fill: none;
+  stroke: url(#scoreGradient);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s var(--ease-smooth);
+}
+
+.score-ring-value {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-text);
+}
+
+.score-ring-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.score-ring-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Score rewards summary */
+.score-rewards {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.reward-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  animation: bounceIn 0.5s var(--ease-spring);
+}
+
+.reward-chip:nth-child(1) { animation-delay: 0.3s; }
+.reward-chip:nth-child(2) { animation-delay: 0.5s; }
+.reward-chip:nth-child(3) { animation-delay: 0.7s; }
+
+.reward-chip.xp {
+  background: rgba(124, 77, 255, 0.1);
+  color: var(--color-accent-purple);
+  border: 1.5px solid rgba(124, 77, 255, 0.25);
+}
+
+.reward-chip.stars {
+  background: rgba(244, 163, 0, 0.1);
+  color: var(--color-primary-dark);
+  border: 1.5px solid rgba(244, 163, 0, 0.25);
+}
+
+.reward-chip.badge {
+  background: rgba(255, 107, 157, 0.1);
+  color: #D63384;
+  border: 1.5px solid rgba(255, 107, 157, 0.25);
+}
+
+.reward-chip-icon {
+  font-size: 1.3rem;
+}
+
+/* ════════════════════════════════════════════════════
+   QUESTION BREAKDOWN CARDS (Score Screen)
+════════════════════════════════════════════════════ */
+
+.score-breakdown {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.breakdown-heading {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: var(--space-2);
+  letter-spacing: -0.01em;
+}
+
+/* Individual card — pill style matching reward chips */
+.breakdown-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-elevated);
+  border: 1.5px solid var(--color-border);
+  animation: bounceIn 0.4s var(--ease-spring) both;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.breakdown-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+.breakdown-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+/* Left accent stripe colors */
+.breakdown-card.status-yes::before,
+.breakdown-card.status-correct::before {
+  background: linear-gradient(180deg, #22C55E, #10B981);
+}
+.breakdown-card.status-sometimes::before {
+  background: linear-gradient(180deg, #FBBF24, #F59E0B);
+}
+.breakdown-card.status-notyet::before {
+  background: linear-gradient(180deg, #A78BFA, #8B5CF6);
+}
+.breakdown-card.status-wrong::before {
+  background: linear-gradient(180deg, #FB7185, #EF4444);
+}
+
+/* Border color per status */
+.breakdown-card.status-yes,
+.breakdown-card.status-correct {
+  border-color: rgba(34, 197, 94, 0.25);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+.breakdown-card.status-sometimes {
+  border-color: rgba(251, 191, 36, 0.25);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+.breakdown-card.status-notyet {
+  border-color: rgba(167, 139, 250, 0.25);
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+.breakdown-card.status-wrong {
+  border-color: rgba(251, 113, 133, 0.25);
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.04) 0%, var(--color-bg-elevated) 100%);
+}
+
+/* Domain emoji */
+.breakdown-card-emoji {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 2rem;
+  text-align: center;
+}
+
+/* Question title */
+.breakdown-card-title {
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status badge (pill inside the card) */
+.breakdown-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px 3px 6px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.breakdown-badge-emoji {
+  font-size: 0.85rem;
+}
+
+/* Badge color variants */
+.breakdown-card-badge.status-yes,
+.breakdown-card-badge.status-correct {
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+.breakdown-card-badge.status-sometimes {
+  background: rgba(251, 191, 36, 0.12);
+  color: #92400E;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+.breakdown-card-badge.status-notyet {
+  background: rgba(167, 139, 250, 0.12);
+  color: #5B21B6;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+.breakdown-card-badge.status-wrong {
+  background: rgba(251, 113, 133, 0.12);
+  color: #9F1239;
+  border: 1px solid rgba(251, 113, 133, 0.2);
+}
+
+@media (max-width: 600px) {
+  .score-breakdown {
+    max-width: 100%;
+  }
+  .breakdown-card {
+    padding: var(--space-2) var(--space-3);
+  }
+  .breakdown-card-title {
+    font-size: 0.8rem;
+  }
+  .breakdown-card-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px 2px 4px;
+  }
+}
+
+/* ─── Domain-wise Development Summary (replaces per-question breakdown) ─── */
+.domain-summary {
+  margin-bottom: var(--space-8);
+  text-align: left;
+}
+
+.domain-summary-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.domain-summary-hint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+
+.domain-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* One domain row */
+.domain-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
+  transition: transform 0.2s var(--ease-bounce);
+}
+
+.domain-row:hover {
+  transform: translateX(3px);
+}
+
+.domain-row-emoji {
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.domain-row-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Progress bar */
+.domain-row-bar-wrap {
+  width: 80px;
+  height: 8px;
+  background: var(--color-divider);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.domain-row-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-warm);
+  transition: width 1s var(--ease-smooth);
+  min-width: 4px;
+}
+
+.domain-row-pct {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Status badges */
+.domain-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-excellent {
+  background: rgba(102, 187, 106, 0.12);
+  color: #2E7D32;
+  border: 1.5px solid rgba(102, 187, 106, 0.35);
+}
+
+.badge-developing {
+  background: rgba(244, 163, 0, 0.1);
+  color: var(--color-primary-dark);
+  border: 1.5px solid rgba(244, 163, 0, 0.3);
+}
+
+.badge-attention {
+  background: rgba(239, 83, 80, 0.09);
+  color: #C62828;
+  border: 1.5px solid rgba(239, 83, 80, 0.28);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .assessment-card {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-xl);
+  }
+
+  .assessment-welcome-title {
+    font-size: 1.5rem;
+  }
+
+  .assessment-welcome-features {
+    gap: var(--space-3);
+  }
+
+  .welcome-feature {
+    min-width: 90px;
+    padding: var(--space-3);
+  }
+
+  .assessment-question-title {
+    font-size: 1.3rem;
+  }
+
+  .assessment-options {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .floating-item {
+    font-size: 2rem;
+  }
+
+  .pattern-item {
+    font-size: 2.2rem;
+  }
+
+  .word-visual-emoji {
+    font-size: 3.5rem;
+  }
+
+  .word-visual-text,
+  .word-visual-underline {
+    font-size: 1.5rem;
+  }
+
+  .score-ring {
+    width: 110px;
+    height: 110px;
+  }
+
+  .score-title {
+    font-size: 1.5rem;
+  }
+
+  .score-rewards {
+    gap: var(--space-2);
+  }
+
+  .reward-chip {
+    font-size: 0.8rem;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* Domain summary — compact layout on mobile */
+  .domain-row {
+    grid-template-columns: 1.6rem 1fr auto;
+    gap: var(--space-2);
+  }
+
+  /* Hide progress bar and percentage on very small screens */
+  .domain-row-bar-wrap,
+  .domain-row-pct {
+    display: none;
+  }
+
+  .domain-row-name {
+    font-size: 0.82rem;
+  }
+
+  .domain-status-badge {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   NEW STYLES — Age-Based Assessment (added)
+════════════════════════════════════════════════════ */
+
+/* ─── Age Group Badge ─── */
+.age-group-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.1), rgba(255, 107, 157, 0.1));
+  border: 1.5px solid rgba(124, 77, 255, 0.25);
+  margin-bottom: var(--space-4);
+  animation: bounceIn 0.5s var(--ease-spring);
+}
+
+.age-group-badge-icon {
+  font-size: 1.1rem;
+}
+
+.age-group-badge-text {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-accent-purple);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.score-age-badge {
+  margin: 0 auto var(--space-4);
+}
+
+/* ─── Loading States ─── */
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 200px;
+}
+
+.loading-spinner {
+  font-size: 3rem;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+
+.loading-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-elevated);
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* ─── Question Label Types (extend existing) ─── */
+.assessment-question-label.caregiver {
+  background: rgba(102, 187, 106, 0.1);
+  color: #2E7D32;
+  border: 1.5px solid rgba(102, 187, 106, 0.3);
+}
+
+.assessment-question-label.emotion {
+  background: rgba(255, 107, 157, 0.1);
+  color: #D63384;
+  border: 1.5px solid rgba(255, 107, 157, 0.25);
+}
+
+.assessment-question-label.sort {
+  background: rgba(79, 195, 247, 0.1);
+  color: #0277BD;
+  border: 1.5px solid rgba(79, 195, 247, 0.3);
+}
+
+/* ─── Caregiver Question Visual ─── */
+.caregiver-visual {
+  min-height: 80px !important;
+  flex-direction: column;
+  padding: var(--space-6) var(--space-6) !important;
+}
+
+.caregiver-question-text {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.6;
+  text-align: center;
+  font-style: italic;
+  max-width: 480px;
+}
+
+/* Caregiver options: wide yes/no pills */
+.caregiver-options {
+  grid-template-columns: 1fr 1fr !important;
+  max-width: 340px !important;
+}
+
+.caregiver-options .option-card {
+  min-height: 70px !important;
+  font-size: 1.2rem;
+}
+
+/* ─── Emotion Question Visual ─── */
+.emotion-visual {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.emotion-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.emotion-big-icon {
+  font-size: 3.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.emotion-prompt-text {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* Emotion options: large emoji grid */
+.emotion-options {
+  grid-template-columns: repeat(2, 1fr) !important;
+  max-width: 400px !important;
+}
+
+.emotion-options .option-card-emoji {
+  font-size: 3rem !important;
+}
+
+/* ─── Sort Question Items Row ─── */
+.sort-items-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.sort-item {
+  font-size: 2.8rem;
+  transition: transform 0.3s var(--ease-bounce);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.sort-item-odd {
+  position: relative;
+  animation: pulse-glow 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(124, 77, 255, 0.4));
+  border-radius: var(--radius-lg);
+}
+
+/* ─── Correct Answer Hint (shown after wrong answer) ─── */
+.option-card.correct-hint {
+  border-color: var(--color-success);
+  background: linear-gradient(135deg, rgba(102,187,106,0.06) 0%, rgba(102,187,106,0.12) 100%);
+  opacity: 0.8;
+}
+
+/* ─── Responsive additions for new types ─── */
+@media (max-width: 600px) {
+  .caregiver-question-text {
+    font-size: 0.9rem;
+  }
+
+  .sort-item {
+    font-size: 2.2rem;
+  }
+
+  .emotion-options .option-card-emoji {
+    font-size: 2.2rem !important;
+  }
+
+  .emotion-options {
+    max-width: 320px !important;
+  }
+
+  .age-group-badge-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MILESTONE QUESTION TYPE (3–6 years observational)
+════════════════════════════════════════════════════ */
+
+/* Label badge */
+.assessment-question-label.milestone {
+  background: rgba(244, 163, 0, 0.1);
+  color: #E65100;
+  border: 1.5px solid rgba(244, 163, 0, 0.3);
+}
+
+/* Visual area */
+.milestone-visual {
+  min-height: 100px !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-6) !important;
+  background: linear-gradient(135deg, rgba(244, 163, 0, 0.04) 0%, rgba(124, 77, 255, 0.04) 100%);
+}
+
+/* Options: 3-column for Yes / Sometimes / Not Yet */
+.milestone-options {
+  grid-template-columns: repeat(3, 1fr) !important;
+  max-width: 420px !important;
+}
+
+.milestone-options .option-card {
+  min-height: 80px !important;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.milestone-options .option-card-emoji {
+  font-size: 2rem !important;
+}
+
+.milestone-options .option-card-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .milestone-options {
+    max-width: 340px !important;
+  }
+
+  .milestone-options .option-card {
+    min-height: 65px !important;
+  }
+
+  .milestone-options .option-card-emoji {
+    font-size: 1.6rem !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MILESTONE FEEDBACK STYLES
+════════════════════════════════════════════════════ */
+
+/* Milestone feedback banner */
+.milestone-feedback {
+  animation: milestoneFeedbackSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border-radius: 14px !important;
+  padding: var(--space-4) var(--space-5) !important;
+  font-weight: 600 !important;
+  line-height: 1.5;
+}
+
+@keyframes milestoneFeedbackSlide {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Yes - green/success */
+.milestone-feedback-yes {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.35) !important;
+  color: #166534 !important;
+}
+
+/* Sometimes - warm amber */
+.milestone-feedback-sometimes {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%) !important;
+  border: 1.5px solid rgba(251, 191, 36, 0.35) !important;
+  color: #92400E !important;
+}
+
+/* Not Yet - supportive purple */
+.milestone-feedback-notyet {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%) !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.35) !important;
+  color: #5B21B6 !important;
+}
+
+/* Milestone option card highlight colors when answered */
+.option-card.milestone-sometimes {
+  border-color: #F59E0B !important;
+  background: rgba(251, 191, 36, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18) !important;
+}
+
+.option-card.milestone-notyet {
+  border-color: #8B5CF6 !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18) !important;
+}

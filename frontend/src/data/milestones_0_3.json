@@ -1,0 +1,4630 @@
+[
+  {
+    "id": "L1_PHY_001",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Head Control",
+    "milestone": "Lifts head briefly during tummy time",
+    "assessment_question": "Does the baby lift their head briefly when placed on their tummy?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Head Control",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_002",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Head Control",
+    "milestone": "Turns head side to side while on stomach",
+    "assessment_question": "Can the baby turn their head to the left and right while lying on their stomach?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Head Control",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_003",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Coordinated Limb Movement",
+    "milestone": "Moves arms and legs in smooth, coordinated movements",
+    "assessment_question": "Does the baby move their arms and legs in smooth, coordinated patterns?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Coordinated Limb Movement",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_004",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Hand Control",
+    "milestone": "Opens and closes hands (less fisting)",
+    "assessment_question": "Is the baby beginning to open and close their hands voluntarily with reduced fisting?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Hand Control",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_005",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Hand-to-Mouth Coordination",
+    "milestone": "Brings hands toward mouth",
+    "assessment_question": "Does the baby intentionally bring their hands toward their mouth?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Hand-to-Mouth Coordination",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_006",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Visual Tracking",
+    "milestone": "Follows object with eyes (head remains still)",
+    "assessment_question": "Can the baby track a slow-moving object with their eyes while keeping their head still?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Visual Tracking",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_007",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Grasp Reflex",
+    "milestone": "Grasps caregiver's finger briefly",
+    "assessment_question": "Does the baby grasp a caregiver's finger briefly when it is placed in their palm?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Grasp Reflex",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_008",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Leg Movement",
+    "milestone": "Kicks more purposefully when lying on back",
+    "assessment_question": "Does the baby kick their legs more purposefully and intentionally when lying on their back?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Leg Movement",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_009",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Rolling",
+    "milestone": "Rolls from side to back",
+    "assessment_question": "Has the baby rolled from their side to their back?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Rolling",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_PHY_010",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Physical Development",
+    "skill": "Hand-to-Hand Transfer",
+    "milestone": "Transfers toy from one hand to the other",
+    "assessment_question": "Can the baby transfer a toy from one hand to the other?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Hand-to-Hand Transfer",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_001",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Eye Contact",
+    "milestone": "Makes eye contact while feeding or being held",
+    "assessment_question": "Does the baby make eye contact with the caregiver during feeding or while being held?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Eye Contact",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_002",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Social Orientation",
+    "milestone": "Turns head toward a smiling face",
+    "assessment_question": "Does the baby turn their head toward a smiling face?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Social Orientation",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_003",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Face Tracking",
+    "milestone": "Begins to focus on and follow a caregiver's face",
+    "assessment_question": "Does the baby focus on and visually follow the caregiver's face as it moves?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Face Tracking",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_004",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Social Smiling",
+    "milestone": "Shows a social smile in response to a caregiver",
+    "assessment_question": "Does the baby smile in response to a caregiver's smile or voice?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Social Smiling",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_005",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Voice Recognition",
+    "milestone": "Responds to familiar voices",
+    "assessment_question": "Does the baby show a response (stillness, turning, vocalizing) when they hear a familiar caregiver's voice?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Voice Recognition",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_006",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Caregiver Soothing",
+    "milestone": "Calms when picked up by caregiver",
+    "assessment_question": "Does the baby calm down when picked up by their caregiver?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Caregiver Soothing",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_SOC_007",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Social Development",
+    "skill": "Familiar Person Preference",
+    "milestone": "Shows preference for familiar people",
+    "assessment_question": "Does the baby show a visible preference (smiling, vocalizing, reaching) for familiar people over strangers?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Familiar Person Preference",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L1_EMO_001",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Emotional Development",
+    "skill": "Social Smiling",
+    "milestone": "Social smiling in response to others",
+    "assessment_question": "Does the baby produce a social smile in response to another person's face or voice?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Social Smiling",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L1_EMO_002",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Emotional Development",
+    "skill": "Contentment Expression",
+    "milestone": "Shows contentment after feeding",
+    "assessment_question": "Does the baby show visible signs of contentment (calm, smiling) after feeding?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Contentment Expression",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L1_EMO_003",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Emotional Development",
+    "skill": "Voice-Based Soothing",
+    "milestone": "Calms when spoken to in a familiar voice",
+    "assessment_question": "Does the baby calm down when spoken to by a familiar caregiver's voice?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Voice-Based Soothing",
+      "Self-Regulation",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L1_EMO_004",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Emotional Development",
+    "skill": "Startle Response",
+    "milestone": "Shows distress at sudden loud sounds",
+    "assessment_question": "Does the baby show a distress response (startling, crying) to sudden loud sounds?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Startle Response",
+      "Attachment & Security",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L1_EMO_005",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Emotional Development",
+    "skill": "Routine Anticipation",
+    "milestone": "Responds with excitement to familiar routines",
+    "assessment_question": "Does the baby show visible excitement (kicking, smiling, vocalizing) in response to familiar routines such as bath or feeding?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Routine Anticipation",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L1_COG_001",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Cognitive Development",
+    "skill": "Name Recognition",
+    "milestone": "Responds to own name",
+    "assessment_question": "Does the baby pause, turn, or vocalize in response to hearing their own name?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Name Recognition",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L1_COG_002",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Cognitive Development",
+    "skill": "Familiar Face & Voice Recognition",
+    "milestone": "Recognizes familiar faces and voices",
+    "assessment_question": "Does the baby show recognition responses (smiling, calming, reaching) to familiar faces and voices?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Familiar Face & Voice Recognition",
+      "Memory & Attention",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L1_COG_003",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Cognitive Development",
+    "skill": "Cause and Effect",
+    "milestone": "Begins to understand cause and effect",
+    "assessment_question": "Does the baby repeat intentional actions (shaking a rattle, kicking a toy) that produce a predictable result?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Cause and Effect",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L1_COG_004",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Cognitive Development",
+    "skill": "Environmental Awareness",
+    "milestone": "Shows awareness of surroundings",
+    "assessment_question": "Does the baby notice and react to new stimuli in their environment (lights, fans, movement)?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Environmental Awareness",
+      "Memory & Attention",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L1_COG_005",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Cognitive Development",
+    "skill": "Visual Tracking",
+    "milestone": "Tracks slow-moving objects",
+    "assessment_question": "Can the baby visually track a slow-moving object across their field of vision?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Visual Tracking",
+      "Memory & Attention",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L1_COG_006",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Cognitive Development",
+    "skill": "Selective Listening",
+    "milestone": "Attends to sounds selectively",
+    "assessment_question": "Does the baby orient toward a familiar or preferred sound when it is presented among neutral sounds?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Selective Listening",
+      "Memory & Attention",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L1_AES_001",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Visual Attention",
+    "milestone": "Responds to high-contrast visual patterns",
+    "assessment_question": "Does the baby show sustained attention or fixation on high-contrast visual patterns?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Visual Attention",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L1_AES_002",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Music Soothing",
+    "milestone": "Calms to soft music and rhythmic sounds",
+    "assessment_question": "Does the baby calm down in response to soft music or rhythmic sounds?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Music Soothing",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L1_AES_003",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Social Game Enjoyment",
+    "milestone": "Shows pleasure at social games (peek-a-boo)",
+    "assessment_question": "Does the baby show visible delight (smiling, laughing) during social games like peek-a-boo?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Social Game Enjoyment",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L1_AES_004",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Social Engagement",
+    "milestone": "Coordinates smile, voice, and eye contact",
+    "assessment_question": "Does the baby simultaneously smile, vocalize, and make eye contact during social interactions?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Social Engagement",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L1_AES_005",
+    "level": 1,
+    "age_group": "0-6 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Routine Recognition",
+    "milestone": "Recognizes familiar routines",
+    "assessment_question": "Does the baby show anticipatory responses when a familiar routine (bath, feed, sleep) begins?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "0-6 Months",
+    "ai_tags": [
+      "Routine Recognition",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_001",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Sitting Balance",
+    "milestone": "Sits without support",
+    "assessment_question": "Can the baby sit upright without any support for a sustained period?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Sitting Balance",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_002",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Crawling",
+    "milestone": "Crawls on hands and knees",
+    "assessment_question": "Does the baby crawl on their hands and knees with cross-lateral movement?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Crawling",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_003",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Pulling to Stand",
+    "milestone": "Pulls to stand using furniture",
+    "assessment_question": "Can the baby pull themselves to a standing position using furniture for support?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Pulling to Stand",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_004",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Cruising",
+    "milestone": "Walks with support (cruising)",
+    "assessment_question": "Does the baby walk sideways while holding onto furniture (cruising)?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Cruising",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_005",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Pincer Grasp",
+    "milestone": "Pincer grasp development",
+    "assessment_question": "Is the baby using a pincer grasp (index finger and thumb) to pick up small objects?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Pincer Grasp",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_006",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Object Banging",
+    "milestone": "Bangs two objects together",
+    "assessment_question": "Can the baby intentionally bang two objects together?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Object Banging",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_PHY_007",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Physical Development",
+    "skill": "Intentional Throwing",
+    "milestone": "Throws objects intentionally",
+    "assessment_question": "Does the baby throw objects intentionally rather than accidentally releasing them?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Intentional Throwing",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L2_SOC_001",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Social Development",
+    "skill": "Interactive Play",
+    "milestone": "Plays interactive games like peek-a-boo and pat-a-cake",
+    "assessment_question": "Does the baby enjoy and join in on interactive games like peek-a-boo or pat-a-cake?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Interactive Play",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L2_SOC_002",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Social Development",
+    "skill": "Social Referencing",
+    "milestone": "Looks to caregiver for reassurance in new situations",
+    "assessment_question": "Does the baby look toward their caregiver for reassurance when faced with something new or unfamiliar?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Social Referencing",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L2_SOC_003",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Social Development",
+    "skill": "Attention-Seeking Behavior",
+    "milestone": "Repeats sounds or actions to get a caregiver's attention",
+    "assessment_question": "Does the baby repeat a sound or action, like babbling or banging a toy, to get a caregiver's attention?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Attention-Seeking Behavior",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L2_SOC_004",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Social Development",
+    "skill": "Caregiver Preference",
+    "milestone": "Shows a clear preference for their main caregiver",
+    "assessment_question": "Does the baby show a clear preference for their main caregiver over unfamiliar people?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Caregiver Preference",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L2_SOC_005",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Social Development",
+    "skill": "Gesture Imitation",
+    "milestone": "Imitates simple social gestures like clapping or waving",
+    "assessment_question": "Does the baby imitate simple social gestures, such as clapping hands or waving?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Gesture Imitation",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L2_EMO_001",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Emotional Development",
+    "skill": "Stranger Anxiety",
+    "milestone": "Shows stranger anxiety",
+    "assessment_question": "Does the baby show distress or wariness in the presence of unfamiliar people?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Stranger Anxiety",
+      "Attachment & Security",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L2_EMO_002",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Emotional Development",
+    "skill": "Frustration Expression",
+    "milestone": "Expresses frustration with sounds/gestures",
+    "assessment_question": "Does the baby express frustration through sounds or gestures such as crying, pushing, or pointing?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Frustration Expression",
+      "Self-Regulation",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L2_EMO_003",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Emotional Development",
+    "skill": "Joy Expression",
+    "milestone": "Laughs and shows delight",
+    "assessment_question": "Does the baby laugh and show clear delight during play or social interactions?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Joy Expression",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L2_EMO_004",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Emotional Development",
+    "skill": "Comfort Seeking",
+    "milestone": "Seeks comfort from caregiver when upset",
+    "assessment_question": "Does the baby seek out a caregiver for comfort when distressed?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Comfort Seeking",
+      "Attachment & Security",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L2_EMO_005",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Emotional Development",
+    "skill": "Name Response",
+    "milestone": "Responds to name with eye contact",
+    "assessment_question": "Does the baby make eye contact within 3 seconds of hearing their name called?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Name Response",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L2_COG_001",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Cognitive Development",
+    "skill": "Object Permanence",
+    "milestone": "Understands object permanence",
+    "assessment_question": "Does the baby search for a toy that has been hidden from view?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Object Permanence",
+      "Memory & Attention",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L2_COG_002",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Cognitive Development",
+    "skill": "Action Imitation",
+    "milestone": "Imitates simple actions",
+    "assessment_question": "Does the baby imitate simple actions such as clapping, waving, or tapping?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Action Imitation",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L2_COG_003",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Cognitive Development",
+    "skill": "Sensory Exploration",
+    "milestone": "Explores objects by mouthing, banging, shaking",
+    "assessment_question": "Does the baby explore new objects by mouthing, banging, shaking, or dropping them?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Sensory Exploration",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L2_COG_004",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Cognitive Development",
+    "skill": "Gesture Communication",
+    "milestone": "Begins to use gestures (pointing, reaching)",
+    "assessment_question": "Does the baby use gestures such as pointing or reaching to communicate wants or draw attention?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Gesture Communication",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L2_COG_005",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Cognitive Development",
+    "skill": "Simple Command Following",
+    "milestone": "Responds to simple commands ('Come here')",
+    "assessment_question": "Does the baby respond correctly to simple verbal commands such as 'Come here' or 'Give me'?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Simple Command Following",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L2_COG_006",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Cognitive Development",
+    "skill": "Babbling",
+    "milestone": "Begins babbling (consonant-vowel combinations)",
+    "assessment_question": "Is the baby producing consonant-vowel babble combinations such as 'ba', 'da', or 'ma'?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Babbling",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L2_AES_001",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Music Response",
+    "milestone": "Responds to music with body movement",
+    "assessment_question": "Does the baby respond to music by bouncing, swaying, or clapping?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Music Response",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L2_AES_002",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Visual Interest",
+    "milestone": "Shows interest in bright colors and patterns",
+    "assessment_question": "Does the baby show prolonged attention to bright colors or visual patterns?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Visual Interest",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L2_AES_003",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Sensory Play",
+    "milestone": "Shows pleasure during sensory play (water, sand, cloth)",
+    "assessment_question": "Does the baby show happy responses during sensory play with materials such as water, sand, or textured cloth?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Sensory Play",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L2_AES_004",
+    "level": 2,
+    "age_group": "6-12 Months",
+    "domain": "Aesthetic Development",
+    "skill": "Picture Book Interest",
+    "milestone": "Enjoys simple picture books",
+    "assessment_question": "Does the baby show interest in picture books by pointing, reaching, or vocalizing?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Easy",
+    "expected_age": "6-12 Months",
+    "ai_tags": [
+      "Picture Book Interest",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L3_PHY_001",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Physical Development",
+    "skill": "Independent Walking",
+    "milestone": "Walks independently (first steps)",
+    "assessment_question": "Has the child taken unaided independent steps?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Independent Walking",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L3_PHY_002",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Physical Development",
+    "skill": "Balance Recovery",
+    "milestone": "Stoops and recovers without falling",
+    "assessment_question": "Can the child stoop to pick up an object and return to standing without falling?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Balance Recovery",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L3_PHY_003",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Physical Development",
+    "skill": "Climbing",
+    "milestone": "Climbs onto low furniture",
+    "assessment_question": "Does the child attempt to climb onto low furniture such as a couch or step?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Climbing",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L3_PHY_004",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Physical Development",
+    "skill": "Scribbling",
+    "milestone": "Scribbles spontaneously",
+    "assessment_question": "Does the child scribble spontaneously with a crayon or marker on paper?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Scribbling",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L3_PHY_005",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Physical Development",
+    "skill": "Block Stacking",
+    "milestone": "Stacks two to three blocks",
+    "assessment_question": "Can the child stack two to three blocks without them falling?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Block Stacking",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L3_PHY_006",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Physical Development",
+    "skill": "Ball Throwing",
+    "milestone": "Throws a ball without falling",
+    "assessment_question": "Can the child throw a ball while maintaining their balance?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Ball Throwing",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L3_SOC_001",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Social Development",
+    "skill": "Greeting",
+    "milestone": "Greets others (e.g., 'Hi!')",
+    "assessment_question": "Does the child greet others, for example by saying or gesturing 'hi'?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Greeting",
+      "Social Communication",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L3_SOC_002",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Social Development",
+    "skill": "Parallel Play",
+    "milestone": "Plays alongside peers (parallel play)",
+    "assessment_question": "Does the child play alongside peers without direct interaction (parallel play)?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Parallel Play",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L3_SOC_003",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Social Development",
+    "skill": "Adult Action Imitation",
+    "milestone": "Imitates adult actions (sweeping, cooking)",
+    "assessment_question": "Does the child imitate everyday adult actions such as sweeping, cooking, or cleaning?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Adult Action Imitation",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L3_SOC_004",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Social Development",
+    "skill": "Waving",
+    "milestone": "Waves bye-bye",
+    "assessment_question": "Does the child wave bye-bye in appropriate social contexts?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Waving",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L3_SOC_005",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Social Development",
+    "skill": "Toy Sharing",
+    "milestone": "Offers toys to others",
+    "assessment_question": "Does the child spontaneously offer toys or objects to a caregiver or peer?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Toy Sharing",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L3_SOC_006",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Social Development",
+    "skill": "Feelings Awareness",
+    "milestone": "Shows awareness of others' feelings",
+    "assessment_question": "Does the child show awareness of other people's emotional states, such as identifying a sad or happy face?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Feelings Awareness",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L3_EMO_001",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Spontaneous Affection",
+    "milestone": "Shows affection spontaneously (hugs, kisses)",
+    "assessment_question": "Does the child spontaneously show affection through hugs or kisses without prompting?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Spontaneous Affection",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L3_EMO_002",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Possession Protest",
+    "milestone": "Protests when objects are taken",
+    "assessment_question": "Does the child protest (verbally or with gestures) when an object is taken from them?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Possession Protest",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L3_EMO_003",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Comfort Object Use",
+    "milestone": "Uses a comfort object",
+    "assessment_question": "Does the child seek out a specific comfort object (blanket, stuffed animal) for self-soothing?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Comfort Object Use",
+      "Attachment & Security",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L3_EMO_004",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Independence",
+    "milestone": "Displays independence (wants to do things self)",
+    "assessment_question": "Does the child assert a desire to do things independently (e.g., resisting help)?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Independence",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L3_EMO_005",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Emotional Expression",
+    "milestone": "Expresses emotions through actions and sounds",
+    "assessment_question": "Does the child express emotions through physical actions and sounds rather than words?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Emotional Expression",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L3_COG_001",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "1-Step Direction Following",
+    "milestone": "Follows simple 1-step directions",
+    "assessment_question": "Does the child correctly follow a simple one-step instruction such as 'Give me the ball'?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "1-Step Direction Following",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_COG_002",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Body Part Identification",
+    "milestone": "Points to body parts",
+    "assessment_question": "Can the child point to named body parts on themselves or a picture when asked?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Body Part Identification",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_COG_003",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Object Identification",
+    "milestone": "Identifies familiar objects",
+    "assessment_question": "Can the child identify familiar objects by pointing when the name is said?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Object Identification",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_COG_004",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Shape Sorting",
+    "milestone": "Solves simple problems (fits shape into sorter)",
+    "assessment_question": "Can the child solve simple problems such as fitting a shape into a shape sorter?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Shape Sorting",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_COG_005",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Object Matching",
+    "milestone": "Matches objects (2-3 items)",
+    "assessment_question": "Can the child match 2 to 3 identical or similar objects together?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Object Matching",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_COG_006",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "2-Step Action Imitation",
+    "milestone": "Imitates 2-step actions",
+    "assessment_question": "Can the child imitate a 2-step action sequence such as clap then jump?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "2-Step Action Imitation",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_COG_007",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Object Search",
+    "milestone": "Finds hidden objects (A-not-B search)",
+    "assessment_question": "Does the child search for a toy in the correct new location after watching it being hidden there, even if they previously found it elsewhere?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Object Search",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L3_AES_001",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Sensory Art Play",
+    "milestone": "Shows interest in finger painting / messy play",
+    "assessment_question": "Does the child engage with and show interest in finger painting or other messy sensory play?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Sensory Art Play",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L3_AES_002",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Dancing",
+    "milestone": "Dances and moves to music",
+    "assessment_question": "Does the child spontaneously dance or move their body in response to music?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Dancing",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L3_AES_003",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Story Interest",
+    "milestone": "Shows interest in simple stories and picture books",
+    "assessment_question": "Does the child show interest in simple picture books by pointing to or vocalizing about the images?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Story Interest",
+      "Sensory Exploration",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L3_AES_004",
+    "level": 3,
+    "age_group": "1-1.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Musical Vocalization",
+    "milestone": "Hums or vocalizes to music",
+    "assessment_question": "Does the child hum or vocalize along when music is playing?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1-1.5 Years",
+    "ai_tags": [
+      "Musical Vocalization",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L4_PHY_001",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Physical Development",
+    "skill": "Running",
+    "milestone": "Runs (though may fall often)",
+    "assessment_question": "Does the child run, even if they fall frequently?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Running",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L4_PHY_002",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Physical Development",
+    "skill": "Ball Kicking",
+    "milestone": "Kicks a stationary ball",
+    "assessment_question": "Can the child kick a stationary ball forward with one foot?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Ball Kicking",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L4_PHY_003",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Physical Development",
+    "skill": "Jumping",
+    "milestone": "Jumps with both feet off ground",
+    "assessment_question": "Can the child jump with both feet leaving the ground simultaneously?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Jumping",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L4_PHY_004",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Physical Development",
+    "skill": "Self-Feeding",
+    "milestone": "Uses spoon/fork to self-feed",
+    "assessment_question": "Does the child attempt to use a spoon or fork to feed themselves?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Self-Feeding",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L4_PHY_005",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Physical Development",
+    "skill": "Page Turning",
+    "milestone": "Turns pages of a book",
+    "assessment_question": "Can the child turn the pages of a board book independently?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Page Turning",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L4_PHY_006",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Physical Development",
+    "skill": "Block Stacking",
+    "milestone": "Stacks 4-6 blocks",
+    "assessment_question": "Can the child stack between 4 and 6 blocks without them toppling?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Block Stacking",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_001",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Turn-Taking (Guided)",
+    "milestone": "Begins to take turns in simple games with adult support",
+    "assessment_question": "With an adult's help, is the child beginning to take turns during simple games, such as rolling a ball back and forth?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Turn-Taking (Guided)",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_002",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Early Empathy",
+    "milestone": "Shows early empathy by reacting when someone else is upset",
+    "assessment_question": "Does the child show early signs of empathy, such as looking concerned or moving closer to someone who is upset or crying?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Early Empathy",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_003",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Simple Pretend Play",
+    "milestone": "Participates in simple pretend scenarios (e.g., feeding a doll)",
+    "assessment_question": "Does the child take part in simple pretend play, such as feeding a doll or talking on a toy phone?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Simple Pretend Play",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_004",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Family Affection",
+    "milestone": "Shows affection to family",
+    "assessment_question": "Does the child show spontaneous affection toward family members?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Family Affection",
+      "Social Communication",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_005",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Emotion Recognition in Stories",
+    "milestone": "Recognizes emotions in stories",
+    "assessment_question": "Can the child identify how a character in an animated story is feeling?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Emotion Recognition in Stories",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_006",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Separation Coping",
+    "milestone": "Manages separation anxiety",
+    "assessment_question": "Is the child able to manage separation from a caregiver with decreasing distress over time?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Separation Coping",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_SOC_007",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Social Development",
+    "skill": "Game Initiation",
+    "milestone": "Initiates simple games",
+    "assessment_question": "Does the child initiate simple play activities on their own without being prompted by a caregiver?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Game Initiation",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L4_EMO_001",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Emotional Development",
+    "skill": "Request Response",
+    "milestone": "Responds to simple requests",
+    "assessment_question": "Does the child respond cooperatively to simple requests made by a caregiver?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Request Response",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L4_EMO_002",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Emotional Development",
+    "skill": "Self-Assertion",
+    "milestone": "Shows independence (asserts 'no')",
+    "assessment_question": "Does the child assert their independence by saying 'no' or refusing requests?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Self-Assertion",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L4_EMO_003",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Emotional Development",
+    "skill": "Verbal Needs Expression",
+    "milestone": "Uses words to express needs",
+    "assessment_question": "Does the child use words (rather than crying or gesturing alone) to express their needs?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Verbal Needs Expression",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L4_EMO_004",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Emotional Development",
+    "skill": "Guided Frustration Regulation",
+    "milestone": "Regulates frustration with some support",
+    "assessment_question": "Can the child calm down from frustration with adult support, such as guided breathing?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Guided Frustration Regulation",
+      "Self-Regulation",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L4_COG_001",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Cognitive Development",
+    "skill": "Object Naming",
+    "milestone": "Names familiar objects and pictures",
+    "assessment_question": "Can the child name familiar objects or pictures in a picture book when asked?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Object Naming",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L4_COG_002",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Cognitive Development",
+    "skill": "2-Word Phrases",
+    "milestone": "Uses 2-word phrases",
+    "assessment_question": "Does the child combine two words to form simple phrases such as 'more juice' or 'big dog'?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "2-Word Phrases",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L4_COG_003",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Cognitive Development",
+    "skill": "Single-Attribute Sorting",
+    "milestone": "Sorts objects by one attribute, either shape or color",
+    "assessment_question": "Can the child sort objects into groups using one feature at a time, either shape or color?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Single-Attribute Sorting",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L4_COG_004",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Cognitive Development",
+    "skill": "Concept Understanding",
+    "milestone": "Understands concepts (big/little, in/out)",
+    "assessment_question": "Does the child demonstrate understanding of basic concepts such as big/little or in/out?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Concept Understanding",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L4_COG_005",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Cognitive Development",
+    "skill": "Rote Counting",
+    "milestone": "Begins to count by rote (1-3)",
+    "assessment_question": "Can the child recite numbers 1 through 3 by rote, with or without understanding quantity?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Rote Counting",
+      "Early Math",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L4_AES_001",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Drawing Lines",
+    "milestone": "Draws circular or vertical lines",
+    "assessment_question": "Can the child draw circular or vertical lines intentionally?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Drawing Lines",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L4_AES_002",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Imaginative Object Play",
+    "milestone": "Engages in imaginative play with objects",
+    "assessment_question": "Does the child use everyday objects in imaginative or symbolic ways during play?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Imaginative Object Play",
+      "Imaginative Play",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L4_AES_003",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Singing",
+    "milestone": "Sings or hums familiar songs",
+    "assessment_question": "Does the child sing or hum along to familiar songs?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Singing",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L4_AES_004",
+    "level": 4,
+    "age_group": "1.5-2 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Playdough Creativity",
+    "milestone": "Creates with playdough or clay",
+    "assessment_question": "Does the child engage in creating shapes or forms with playdough or clay?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "1.5-2 Years",
+    "ai_tags": [
+      "Playdough Creativity",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L5_PHY_001",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Physical Development",
+    "skill": "Stair Walking",
+    "milestone": "Walks up/down steps (alternating feet)",
+    "assessment_question": "Does the child walk up and down steps using alternating feet?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Stair Walking",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L5_PHY_002",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Physical Development",
+    "skill": "Ball Kicking",
+    "milestone": "Kicks a ball forward",
+    "assessment_question": "Can the child kick a ball forward with aim toward a target?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Ball Kicking",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L5_PHY_003",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Physical Development",
+    "skill": "Overhand Throwing",
+    "milestone": "Throws a ball overhand",
+    "assessment_question": "Can the child throw a ball using an overhand motion?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Overhand Throwing",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L5_PHY_004",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Physical Development",
+    "skill": "Steady Running",
+    "milestone": "Runs steadily",
+    "assessment_question": "Does the child run with a steady gait and reduced frequency of falls?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Steady Running",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L5_PHY_005",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Physical Development",
+    "skill": "Jumping",
+    "milestone": "Jumps with both feet",
+    "assessment_question": "Can the child complete a variety of jumping challenges using both feet?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Jumping",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L5_PHY_006",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Physical Development",
+    "skill": "Tiptoe Balance",
+    "milestone": "Stands on tiptoes (5 seconds)",
+    "assessment_question": "Can the child stand on their tiptoes for approximately 5 seconds?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Tiptoe Balance",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_001",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Toy Sharing (Guided)",
+    "milestone": "Shares toys with peers some of the time, especially when encouraged",
+    "assessment_question": "Does the child share toys with other children, at least some of the time, when gently encouraged?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Toy Sharing (Guided)",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_002",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Polite Language",
+    "milestone": "Uses 'please' and 'thank you'",
+    "assessment_question": "Does the child use the words 'please' and 'thank you', even if not every single time?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Polite Language",
+      "Social Communication",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_003",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Prompted Apology",
+    "milestone": "Says 'sorry' when prompted by an adult after upsetting someone",
+    "assessment_question": "When prompted by an adult, does the child say 'sorry' after upsetting or hurting someone?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Prompted Apology",
+      "Social Awareness",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_004",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Guided Group Cooperation",
+    "milestone": "Cooperates in simple group activities with adult support",
+    "assessment_question": "Does the child cooperate during simple group activities, like a group song or game, when an adult guides them?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Guided Group Cooperation",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_005",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Peer Interest",
+    "milestone": "Shows interest in peers' lives",
+    "assessment_question": "Does the child show curiosity about peers by asking them questions or engaging in simple conversation?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Peer Interest",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_006",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Sibling Helping",
+    "milestone": "Helps younger siblings",
+    "assessment_question": "Does the child voluntarily help or assist a younger sibling in simple tasks?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Sibling Helping",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_007",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Voice Volume Control",
+    "milestone": "Uses 'inside voice'",
+    "assessment_question": "Does the child adjust their voice volume appropriately when reminded to use an inside voice?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Voice Volume Control",
+      "Caregiver Bonding",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_008",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Turn-Taking",
+    "milestone": "Shows turn-taking in play",
+    "assessment_question": "Does the child take turns during play, including unprompted turns?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Turn-Taking",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_SOC_009",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Social Development",
+    "skill": "Multi-Step Pretend Play",
+    "milestone": "Participates in pretend scenarios with multiple steps and roles",
+    "assessment_question": "Does the child take part in pretend play that includes multiple steps or roles, such as cooking a meal and then serving it?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Multi-Step Pretend Play",
+      "Social Communication",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L5_EMO_001",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Emotion Labeling",
+    "milestone": "Identifies and labels basic emotions",
+    "assessment_question": "Can the child correctly name the 5 basic emotions (happy, sad, angry, scared, surprised) when shown?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Emotion Labeling",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L5_EMO_002",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Guided Emotional Regulation",
+    "milestone": "Regulates emotions with adult support",
+    "assessment_question": "Can the child use a 3-step calm-down strategy (name it, breathe, ask for help) with adult guidance?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Guided Emotional Regulation",
+      "Self-Regulation",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L5_EMO_003",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Pride Expression",
+    "milestone": "Shows pride in achievements",
+    "assessment_question": "Does the child spontaneously show pride or satisfaction when completing a task successfully?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Pride Expression",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L5_EMO_004",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Jealousy/Competitiveness",
+    "milestone": "Shows jealousy / competitive feelings",
+    "assessment_question": "Does the child show awareness of fairness and express jealousy or competitive feelings in words?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Jealousy/Competitiveness",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L5_EMO_005",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Emotional Development",
+    "skill": "Guided Adaptability",
+    "milestone": "Adjusts to changes with support",
+    "assessment_question": "Can the child adapt to routine changes with caregiver support and without prolonged distress?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Guided Adaptability",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L5_COG_001",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Multi-Step Direction Following",
+    "milestone": "Follows 2-3 step directions",
+    "assessment_question": "Can the child correctly follow a sequence of 2 to 3 instructions given at once?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Multi-Step Direction Following",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L5_COG_002",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Dual-Attribute Sorting",
+    "milestone": "Sorts objects using both shape and color together",
+    "assessment_question": "Can the child sort objects using both shape and color together, not just one feature?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Dual-Attribute Sorting",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L5_COG_003",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Puzzle Solving",
+    "milestone": "Solves 4-6 piece puzzles",
+    "assessment_question": "Can the child complete a 4 to 6 piece puzzle independently?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Puzzle Solving",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L5_COG_004",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Quantity Concepts",
+    "milestone": "Understands 'more' and 'less'",
+    "assessment_question": "Can the child identify which of two groups has more or less when shown?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Quantity Concepts",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L5_COG_005",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Task Completion",
+    "milestone": "Completes simple assigned tasks",
+    "assessment_question": "Can the child complete a simple assigned task (such as tidying a shelf or watering a plant) from start to finish?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Task Completion",
+      "Cognitive Skills",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L5_COG_006",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Cognitive Development",
+    "skill": "Body Part Knowledge",
+    "milestone": "Points to 10+ named body parts",
+    "assessment_question": "Can the child correctly point to 10 or more named body parts?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Body Part Knowledge",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L5_AES_001",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Representational Drawing",
+    "milestone": "Creates recognizable drawings",
+    "assessment_question": "Does the child create drawings that they can describe or name as representing something?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Representational Drawing",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L5_AES_002",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Original Story Creation",
+    "milestone": "Uses imaginative play to create original stories and characters",
+    "assessment_question": "Does the child use imaginative play to invent original stories or characters, beyond copying what they've seen?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Original Story Creation",
+      "Imaginative Play",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L5_AES_003",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Singing Accuracy",
+    "milestone": "Sings songs with increasing accuracy",
+    "assessment_question": "Does the child sing familiar songs with increasing pitch and word accuracy?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Singing Accuracy",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L5_AES_004",
+    "level": 5,
+    "age_group": "2-2.5 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Creative Material Exploration",
+    "milestone": "Explores materials creatively (collage, clay, paint)",
+    "assessment_question": "Does the child explore a variety of art materials such as tissue paper, clay, and sponge printing creatively?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Medium",
+    "expected_age": "2-2.5 Years",
+    "ai_tags": [
+      "Creative Material Exploration",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_001",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "Confident Stair Walking",
+    "milestone": "Walks up/down steps with confidence",
+    "assessment_question": "Does the child walk up and down steps confidently, ideally without holding the handrail?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Confident Stair Walking",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_002",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "Directional Kicking/Throwing",
+    "milestone": "Kicks and throws with direction",
+    "assessment_question": "Can the child kick and throw with aim and direction toward a target?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Directional Kicking/Throwing",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_003",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "Agile Running",
+    "milestone": "Runs and changes direction",
+    "assessment_question": "Can the child run and change direction without losing balance or falling?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Agile Running",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_004",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "Broad Jumping",
+    "milestone": "Jumps forward (broad jump)",
+    "assessment_question": "Can the child jump forward from a standing position, landing with both feet?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Broad Jumping",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_005",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "One-Foot Balance",
+    "milestone": "Balances on one foot briefly",
+    "assessment_question": "Can the child balance on one foot for at least 2 seconds?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "One-Foot Balance",
+      "Gross Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_006",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "Scissor Use",
+    "milestone": "Uses scissors with guidance",
+    "assessment_question": "Can the child use safety scissors to cut along a simple line with adult guidance?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Scissor Use",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_PHY_007",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Physical Development",
+    "skill": "Person Drawing",
+    "milestone": "Draws a person with 2-3 parts",
+    "assessment_question": "Can the child draw a person that includes 2 or more recognizable body parts?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Person Drawing",
+      "Fine Motor",
+      "Physical Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_001",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Independent Turn-Taking",
+    "milestone": "Takes turns with less reminders",
+    "assessment_question": "Does the child take turns during play with fewer prompts from a caregiver?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Independent Turn-Taking",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_002",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Peer Comforting",
+    "milestone": "Shows empathy (comforts peers)",
+    "assessment_question": "Does the child spontaneously comfort a peer who is upset by offering a hug, toy, or getting help?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Peer Comforting",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_003",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Cooperative Pretend Play",
+    "milestone": "Engages in complex pretend play with peers, taking on different roles",
+    "assessment_question": "Does the child engage in complex pretend play with peers, taking turns playing different roles within a shared story?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Cooperative Pretend Play",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_004",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Conversation Initiation",
+    "milestone": "Initiates conversations",
+    "assessment_question": "Does the child initiate conversations with peers or adults on a variety of topics?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Conversation Initiation",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_005",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Group Cooperation",
+    "milestone": "Cooperates in group activities",
+    "assessment_question": "Does the child cooperate with peers in group activities such as relay games, group murals, or cooperative puzzles?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Group Cooperation",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_006",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Family Role Knowledge",
+    "milestone": "Identifies family roles",
+    "assessment_question": "Can the child correctly identify and describe different family roles (parent, sibling, grandparent)?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Family Role Knowledge",
+      "Social Communication",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_007",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Spontaneous Apology",
+    "milestone": "Apologizes spontaneously",
+    "assessment_question": "Does the child apologize spontaneously (without being prompted) after causing upset?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Spontaneous Apology",
+      "Peer Interaction",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_SOC_008",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Social Development",
+    "skill": "Cultural Awareness",
+    "milestone": "Shows cultural awareness",
+    "assessment_question": "Does the child show curiosity and appreciation for cultural traditions, foods, or practices different from their own?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Cultural Awareness",
+      "Social Communication",
+      "Social Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_001",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Transition Management",
+    "milestone": "Manages transitions",
+    "assessment_question": "Does the child manage transitions between activities without significant distress when given a warning?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Transition Management",
+      "Self-Regulation",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_002",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Emotional Self-Regulation",
+    "milestone": "Shows emotional regulation",
+    "assessment_question": "Does the child use one or more emotion regulation strategies (breathing, walking away, using words) independently?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Emotional Self-Regulation",
+      "Self-Regulation",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_003",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Praise Response",
+    "milestone": "Responds to praise",
+    "assessment_question": "Does the child receive praise with a healthy, balanced response (not dismissing it or becoming over-excited)?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Praise Response",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_004",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Self-Recognition",
+    "milestone": "Recognizes self in mirror",
+    "assessment_question": "Does the child recognize their own reflection in a mirror and can name themselves?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Self-Recognition",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_005",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Emotional Ownership",
+    "milestone": "Shows responsibility for feelings",
+    "assessment_question": "Does the child express emotions using 'I feel ___ because ___' statements?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Emotional Ownership",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_006",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Preference Labeling",
+    "milestone": "Labels preferences",
+    "assessment_question": "Can the child identify and articulate personal preferences such as favorite color, food, or toy?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Preference Labeling",
+      "Emotional Expression",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_EMO_007",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Emotional Development",
+    "skill": "Social Initiation",
+    "milestone": "Initiates social interactions",
+    "assessment_question": "Does the child initiate social interactions with peers, teachers, or visitors without prompting?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Social Initiation",
+      "Emotional Awareness",
+      "Emotional Development"
+    ]
+  },
+  {
+    "id": "L6_COG_001",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "3-4 Word Sentences",
+    "milestone": "Uses 3-4 word sentences",
+    "assessment_question": "Does the child regularly use sentences of 3 to 4 words or more in conversation?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "3-4 Word Sentences",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_COG_002",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "Question Asking",
+    "milestone": "Asks 'why' and 'what' questions",
+    "assessment_question": "Does the child ask 'why' and 'what' questions to satisfy their curiosity?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Question Asking",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_COG_003",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "Counting to 5",
+    "milestone": "Counts objects to 5",
+    "assessment_question": "Can the child count up to 5 objects with one-to-one correspondence?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Counting to 5",
+      "Early Math",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_COG_004",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "Verb Tense Use",
+    "milestone": "Understands past and future tense",
+    "assessment_question": "Does the child use past tense ('I went') and future tense ('I will go') correctly in sentences?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Verb Tense Use",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_COG_005",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "Advanced Puzzle Solving",
+    "milestone": "Completes 6-10 piece puzzles",
+    "assessment_question": "Can the child complete a puzzle of 6 to 10 pieces independently?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Advanced Puzzle Solving",
+      "Problem Solving",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_COG_006",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "Pronoun Use",
+    "milestone": "Understands and uses pronouns",
+    "assessment_question": "Does the child correctly use pronouns such as 'he', 'she', 'they', and 'I' in context?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Pronoun Use",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_COG_007",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Cognitive Development",
+    "skill": "Storytelling",
+    "milestone": "Tells simple stories / retells familiar events",
+    "assessment_question": "Can the child retell a recent event or familiar story with at least 3 events in sequence?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Storytelling",
+      "Language Development",
+      "Cognitive Development"
+    ]
+  },
+  {
+    "id": "L6_AES_001",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Detailed Drawing",
+    "milestone": "Creates detailed drawings",
+    "assessment_question": "Does the child create drawings with a planned subject and increasing detail over time?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Detailed Drawing",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L6_AES_002",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Performing for Others",
+    "milestone": "Performs for others (sings, dances, shows work)",
+    "assessment_question": "Does the child voluntarily perform (sing, dance, or show artwork) in front of others?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Performing for Others",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L6_AES_003",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Group Music & Movement",
+    "milestone": "Engages in group music and movement",
+    "assessment_question": "Does the child participate in group music sessions and follow a rhythm leader?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Group Music & Movement",
+      "Music & Movement",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L6_AES_004",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Story Re-enactment",
+    "milestone": "Re-enacts favorite stories",
+    "assessment_question": "Does the child act out scenes or characters from a favorite story using props or dialogue?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Story Re-enactment",
+      "Imaginative Play",
+      "Aesthetic Development"
+    ]
+  },
+  {
+    "id": "L6_AES_005",
+    "level": 6,
+    "age_group": "2.5-3 Years",
+    "domain": "Aesthetic Development",
+    "skill": "Purposeful Creation",
+    "milestone": "Creates with purpose (a 'gift,' a 'picture for Mama')",
+    "assessment_question": "Does the child create artwork with a stated intention or purpose, such as making a gift for someone?",
+    "options": [
+      "Yes",
+      "Sometimes",
+      "Not Yet"
+    ],
+    "scoring": {
+      "Yes": 2,
+      "Sometimes": 1,
+      "Not Yet": 0
+    },
+    "difficulty": "Hard",
+    "expected_age": "2.5-3 Years",
+    "ai_tags": [
+      "Purposeful Creation",
+      "Creative Expression",
+      "Aesthetic Development"
+    ]
+  }
+]
